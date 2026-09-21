@@ -1,0 +1,28 @@
+SBA301 - Slot 03: Component Tree & Responsibility Table
+
+======================================================================
+1. COMPONENT TREE
+======================================================================
+main.jsx
+ |
+ +-- App
+      |
+      +-- AppNavbar
+      +-- HeroSection
+      +-- QuickStats
+      +-- OrchidGallery
+      +-- CareTips
+      +-- LearningAlert
+      +-- AppFooter
+
+======================================================================
+2. COMPONENT RESPONSIBILITY TABLE
+======================================================================
+- App: Top-level composition; assemble sections without holding UI details.
+- AppNavbar: Application header / navigation; branded bar with anchors.
+- HeroSection: Introduction banner with main heading and call-to-action buttons.
+- QuickStats: High-level dashboard statistics (cards showing orchids, care topics, components).
+- OrchidGallery: Grid of 6 featured orchid cards with images and actions.
+- CareTips: 3-column guidance section on orchid care (Light, Water, Airflow).
+- LearningAlert: Instructional architecture check prompt bridging Slot 03 to Props in Slot 04.
+- AppFooter: Common footer with course metadata and slot checkpoint info.
