@@ -6,77 +6,158 @@ export default function ListOfOrchids({ orchids, onView, onEdit, onDelete }) {
       <div className="empty-state">
         <span className="empty-state__icon" aria-hidden="true">🌸</span>
         <h2>Chưa tìm thấy hoa lan</h2>
-        <p>Thử thay đổi từ khóa hoặc thêm một cây lan mới vào bộ sưu tập.</p>
+        <p>Thử thay đổi từ khóa tìm kiếm hoặc thêm một cây lan mới vào cơ sở dữ liệu.</p>
       </div>
     );
   }
 
   return (
-    <div className="orchid-grid">
-      {orchids.map((orchid) => (
-        <article className="orchid-card" key={orchid.orchidId}>
-          <button
-            className="orchid-card__image-button"
-            type="button"
-            onClick={() => onView(orchid)}
-            aria-label={`Xem chi tiết ${orchid.orchidName}`}
-          >
-            <img
-              className="orchid-card__image"
-              src={orchid.orchidURL || orchid.orchidUrl || DEFAULT_IMG}
-              alt={orchid.orchidName}
-              loading="lazy"
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = DEFAULT_IMG;
-              }}
-            />
-            <span className="orchid-card__badge">
-              {orchid.isNatural ? 'Tự nhiên' : 'Lai tạo'}
-              {orchid.isAttractive ? ' ⭐' : ''}
-            </span>
-          </button>
-          <div className="orchid-card__content">
-            <div className="orchid-card__category">{orchid.orchidCategory || 'Chưa phân loại'}</div>
-            <button className="orchid-card__title" type="button" onClick={() => onView(orchid)}>
-              {orchid.orchidName}
-            </button>
-            <p className="orchid-card__description">
-              {orchid.orchidDescription || 'Một vẻ đẹp tinh tế trong bộ sưu tập của bạn.'}
-            </p>
-            <div className="orchid-card__footer">
-              <strong style={{ color: orchid.isAttractive ? '#d97706' : '#526d55' }}>
-                {orchid.isAttractive ? '⭐ Nổi bật' : (orchid.orchidCategory || 'Đặc sắc')}
-              </strong>
-              <div className="icon-actions">
-                <button
-                  className="icon-button"
-                  type="button"
-                  onClick={() => onEdit(orchid)}
-                  aria-label={`Sửa ${orchid.orchidName}`}
-                  title="Chỉnh sửa"
-                >
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="m16.9 4.1 3 3M4 20l4.2-.9L20 7.3a2.1 2.1 0 0 0-3-3L5.2 16.1 4 20Z" />
-                  </svg>
-                </button>
-                <button
-                  className="icon-button icon-button--danger"
-                  type="button"
-                  onClick={() => onDelete(orchid)}
-                  aria-label={`Xóa ${orchid.orchidName}`}
-                  title="Xóa"
-                >
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 7h16M10 11v6m4-6v6M5.5 7l1 13h11l1-13M9 7V4h6v3" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </article>
-      ))}
+    <div className="management-card">
+      <div className="management-table-wrapper">
+        <table className="management-table">
+          <thead>
+            <tr>
+              <th style={{ width: "60px", textAlign: "center" }}>ID</th>
+              <th style={{ width: "80px", textAlign: "center" }}>Hình ảnh</th>
+              <th style={{ minWidth: "160px" }}>Tên hoa lan</th>
+              <th style={{ width: "130px" }}>Danh mục</th>
+              <th style={{ minWidth: "220px" }}>Mô tả chi tiết</th>
+              <th style={{ width: "150px" }}>Đặc tính</th>
+              <th style={{ width: "160px", textAlign: "center" }}>Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orchids.map((orchid) => {
+              const isNatural = orchid.natural !== undefined ? orchid.natural : orchid.isNatural;
+              const isAttractive = orchid.attractive !== undefined ? orchid.attractive : orchid.isAttractive;
+              const imgUrl = orchid.orchidURL || orchid.orchidUrl || DEFAULT_IMG;
+
+              return (
+                <tr key={orchid.orchidId}>
+                  <td style={{ textAlign: "center", fontWeight: "700", color: "#6b7280" }}>
+                    #{orchid.orchidId}
+                  </td>
+                  <td style={{ textAlign: "center" }}>
+                    <img
+                      className="orchid-thumb"
+                      src={imgUrl}
+                      alt={orchid.orchidName}
+                      loading="lazy"
+                      referrerPolicy="no-referrer"
+                      onClick={() => onView(orchid)}
+                      title={`Xem chi tiết ${orchid.orchidName}`}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = DEFAULT_IMG;
+                      }}
+                    />
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      onClick={() => onView(orchid)}
+                      style={{
+                        background: "none",
+                        border: "0",
+                        padding: "0",
+                        color: "#234229",
+                        fontWeight: "600",
+                        fontSize: "14px",
+                        cursor: "pointer",
+                        textAlign: "left",
+                      }}
+                      onMouseEnter={(e) => (e.target.style.color = "#3b82f6")}
+                      onMouseLeave={(e) => (e.target.style.color = "#234229")}
+                    >
+                      {orchid.orchidName}
+                    </button>
+                  </td>
+                  <td>
+                    <span className="badge-tag badge-category">
+                      {orchid.orchidCategory || "Chưa phân loại"}
+                    </span>
+                  </td>
+                  <td>
+                    <span
+                      style={{
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                        color: "#6b7280",
+                        fontSize: "12px",
+                        lineHeight: "1.6",
+                      }}
+                      title={orchid.orchidDescription}
+                    >
+                      {orchid.orchidDescription || "—"}
+                    </span>
+                  </td>
+                  <td>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "4px", alignItems: "flex-start" }}>
+                      <span className={`badge-tag ${isNatural ? "badge-natural" : "badge-hybrid"}`}>
+                        {isNatural ? "🌿 Tự nhiên" : "🔬 Nhân giống"}
+                      </span>
+                      {isAttractive && (
+                        <span className="badge-tag badge-attractive">
+                          ⭐ Nổi bật
+                        </span>
+                      )}
+                    </div>
+                  </td>
+                  <td>
+                    <div className="table-actions" style={{ justifyContent: "center" }}>
+                      <button
+                        type="button"
+                        className="btn-action btn-action-view"
+                        onClick={() => onView(orchid)}
+                        title="Xem chi tiết"
+                      >
+                        👁️ Xem
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-action btn-action-edit"
+                        onClick={() => onEdit(orchid)}
+                        title="Chỉnh sửa thông tin"
+                      >
+                        ✏️ Sửa
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-action btn-action-delete"
+                        onClick={() => onDelete(orchid)}
+                        title="Xóa khỏi hệ thống"
+                      >
+                        🗑️ Xóa
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <div
+        style={{
+          padding: "12px 18px",
+          background: "#fafbf9",
+          borderTop: "1px solid #edf1eb",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          fontSize: "12px",
+          color: "#6b7280",
+        }}
+      >
+        <span>
+          Đang hiển thị <strong>{orchids.length}</strong> giống hoa lan
+        </span>
+        <span style={{ fontSize: "11px", color: "#9ca3af" }}>
+          💡 Click vào tên hoặc ảnh để xem chi tiết
+        </span>
+      </div>
     </div>
   );
 }
