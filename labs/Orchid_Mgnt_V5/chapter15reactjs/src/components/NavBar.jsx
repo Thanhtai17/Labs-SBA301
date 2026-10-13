@@ -8,7 +8,6 @@ export default function NavBar() {
     <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="shadow-sm py-2 mb-2 sticky-top" style={{ backgroundColor: "#141e30" }}>
       <Container>
         <Navbar.Brand as={Link} to="/" className="fw-bold d-flex align-items-center gap-2 text-warning fs-4">
-          <span>🌸</span>
           <span>Orchid Management</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="main-nav" />
@@ -19,7 +18,7 @@ export default function NavBar() {
               to="/"
               className={`px-3 py-2 rounded-3 ${location.pathname === "/" ? "active fw-bold text-white bg-primary bg-opacity-75" : "text-light"}`}
             >
-              🌺 Bộ sưu tập & Quản lý
+              Danh sách quản lý
             </Nav.Link>
             <Nav.Link
               as={Link}

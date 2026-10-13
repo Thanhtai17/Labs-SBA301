@@ -129,7 +129,7 @@ export default function EditOrchid({ orchid, categories = [], onClose, onSave, s
             </label>
             <label className="checkbox-label">
               <input name="isAttractive" type="checkbox" checked={form.isAttractive} onChange={change} />
-              <span>Giống lan nổi bật (Attractive ⭐)</span>
+              <span>Giống lan nổi bật (Attractive)</span>
             </label>
           </div>
           <div className="dialog__actions">

@@ -4,7 +4,6 @@ export default function ListOfOrchids({ orchids, onView, onEdit, onDelete }) {
   if (orchids.length === 0) {
     return (
       <div className="empty-state">
-        <span className="empty-state__icon" aria-hidden="true">🌸</span>
         <h2>Chưa tìm thấy hoa lan</h2>
         <p>Thử thay đổi từ khóa tìm kiếm hoặc thêm một cây lan mới vào cơ sở dữ liệu.</p>
       </div>
@@ -96,11 +95,11 @@ export default function ListOfOrchids({ orchids, onView, onEdit, onDelete }) {
                   <td>
                     <div style={{ display: "flex", flexDirection: "column", gap: "4px", alignItems: "flex-start" }}>
                       <span className={`badge-tag ${isNatural ? "badge-natural" : "badge-hybrid"}`}>
-                        {isNatural ? "🌿 Tự nhiên" : "🔬 Nhân giống"}
+                        {isNatural ? "Tự nhiên" : "Lai tạo"}
                       </span>
                       {isAttractive && (
                         <span className="badge-tag badge-attractive">
-                          ⭐ Nổi bật
+                          Nổi bật
                         </span>
                       )}
                     </div>
@@ -113,7 +112,7 @@ export default function ListOfOrchids({ orchids, onView, onEdit, onDelete }) {
                         onClick={() => onView(orchid)}
                         title="Xem chi tiết"
                       >
-                        👁️ Xem
+                        Xem
                       </button>
                       <button
                         type="button"
@@ -121,7 +120,7 @@ export default function ListOfOrchids({ orchids, onView, onEdit, onDelete }) {
                         onClick={() => onEdit(orchid)}
                         title="Chỉnh sửa thông tin"
                       >
-                        ✏️ Sửa
+                        Sửa
                       </button>
                       <button
                         type="button"
@@ -129,7 +128,7 @@ export default function ListOfOrchids({ orchids, onView, onEdit, onDelete }) {
                         onClick={() => onDelete(orchid)}
                         title="Xóa khỏi hệ thống"
                       >
-                        🗑️ Xóa
+                        Xóa
                       </button>
                     </div>
                   </td>
@@ -155,7 +154,7 @@ export default function ListOfOrchids({ orchids, onView, onEdit, onDelete }) {
           Đang hiển thị <strong>{orchids.length}</strong> giống hoa lan
         </span>
         <span style={{ fontSize: "11px", color: "#9ca3af" }}>
-          💡 Click vào tên hoặc ảnh để xem chi tiết
+          Click vào tên hoặc ảnh để xem chi tiết
         </span>
       </div>
     </div>

@@ -95,8 +95,7 @@ export default function App() {
   return (
     <div className="app-shell">
       <header className="topbar">
-        <a className="brand" href="/" aria-label="Orchid House trang chủ">
-          <span className="brand__mark" aria-hidden="true">🌸</span>
+        <a className="brand" href="/" aria-label="Orchid Management">
           <span>orchid<span className="brand__light">house</span></span>
         </a>
         <div className="topbar__right">
@@ -184,7 +183,6 @@ export default function App() {
 
       <footer className="footer">
         <a className="brand brand--footer" href="/">
-          <span className="brand__mark">🌸</span>
           <span>orchid<span className="brand__light">house</span></span>
         </a>
         <span>Nuôi dưỡng vẻ đẹp, từng cánh hoa một.</span>
@@ -220,12 +218,12 @@ export default function App() {
             <div className="detail-dialog__content">
               <div className="eyebrow">
                 {selectedOrchid.orchidCategory || 'LAN'} • {(selectedOrchid.natural !== undefined ? selectedOrchid.natural : selectedOrchid.isNatural) ? 'TỰ NHIÊN' : 'LAI TẠO'}
-                {(selectedOrchid.attractive !== undefined ? selectedOrchid.attractive : selectedOrchid.isAttractive) ? ' • ⭐ NỔI BẬT' : ''}
+                {(selectedOrchid.attractive !== undefined ? selectedOrchid.attractive : selectedOrchid.isAttractive) ? ' • NỔI BẬT' : ''}
               </div>
               <h2 id="detail-title">{selectedOrchid.orchidName}</h2>
               <p>{selectedOrchid.orchidDescription || 'Một vẻ đẹp tinh tế trong bộ sưu tập của bạn.'}</p>
               <strong style={{ color: '#526d55' }}>
-                {(selectedOrchid.attractive !== undefined ? selectedOrchid.attractive : selectedOrchid.isAttractive) ? 'Giống hoa lan tiêu biểu ⭐' : (selectedOrchid.orchidCategory || 'Phong lan quý')}
+                {(selectedOrchid.attractive !== undefined ? selectedOrchid.attractive : selectedOrchid.isAttractive) ? 'Giống hoa lan tiêu biểu' : (selectedOrchid.orchidCategory || 'Phong lan quý')}
               </strong>
               <button className="button button--primary" onClick={() => { setEditor({ orchid: selectedOrchid }); setSelectedOrchid(null); }}>
                 Chỉnh sửa thông tin
