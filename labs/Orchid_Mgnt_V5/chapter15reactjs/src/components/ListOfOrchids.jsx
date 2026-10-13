@@ -26,6 +26,7 @@ export default function ListOfOrchids({ orchids, onView, onEdit, onDelete }) {
               src={orchid.orchidURL || orchid.orchidUrl || DEFAULT_IMG}
               alt={orchid.orchidName}
               loading="lazy"
+              referrerPolicy="no-referrer"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = DEFAULT_IMG;

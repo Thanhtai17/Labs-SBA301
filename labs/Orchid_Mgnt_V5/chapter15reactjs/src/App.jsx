@@ -211,6 +211,7 @@ export default function App() {
             <img
               src={selectedOrchid.orchidURL || selectedOrchid.orchidUrl || DEFAULT_IMG}
               alt={selectedOrchid.orchidName}
+              referrerPolicy="no-referrer"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = DEFAULT_IMG;
