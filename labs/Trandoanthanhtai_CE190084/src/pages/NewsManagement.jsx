@@ -23,6 +23,9 @@ export const NewsManagement = ({ news, categories, currentUser, onAdd, onUpdate,
   });
   const [formError, setFormError] = useState('');
 
+  // State Modal Xem chi tiết
+  const [viewTarget, setViewTarget] = useState(null);
+
   // State Modal Xác nhận Xóa
   const [deleteTarget, setDeleteTarget] = useState(null);
 
@@ -138,7 +141,7 @@ export const NewsManagement = ({ news, categories, currentUser, onAdd, onUpdate,
             <th style={{ width: '160px' }}>Chuyên mục</th>
             <th style={{ width: '130px' }}>Tác giả</th>
             <th style={{ width: '120px' }}>Trạng thái</th>
-            <th style={{ width: '150px' }}>Thao tác</th>
+            <th style={{ width: '180px' }}>Thao tác</th>
           </tr>
         </thead>
         <tbody>
@@ -152,8 +155,12 @@ export const NewsManagement = ({ news, categories, currentUser, onAdd, onUpdate,
             filteredList.map((item) => (
               <tr key={item.id}>
                 <td>#{item.id}</td>
-                <td>
-                  <strong>{item.title}</strong>
+                <td
+                  className="news-title-cell"
+                  onClick={() => setViewTarget(item)}
+                  title="Nhấn để xem chi tiết bài viết"
+                >
+                  <strong className="news-title-link">{item.title}</strong>
                   {item.content && (
                     <div className="table-subtext">{item.content.slice(0, 75)}...</div>
                   )}
@@ -168,6 +175,14 @@ export const NewsManagement = ({ news, categories, currentUser, onAdd, onUpdate,
                   </span>
                 </td>
                 <td>
+                  <button
+                    type="button"
+                    className="btn-action btn-view"
+                    onClick={() => setViewTarget(item)}
+                    title="Xem chi tiết nội dung"
+                  >
+                    Xem
+                  </button>
                   <button
                     type="button"
                     className="btn-action btn-edit"
@@ -289,6 +304,60 @@ export const NewsManagement = ({ news, categories, currentUser, onAdd, onUpdate,
             Xác nhận xóa
           </button>
         </div>
+      </Modal>
+
+      {/* Modal Xem chi tiết Tin bài */}
+      <Modal
+        isOpen={!!viewTarget}
+        title="Chi tiết bài viết"
+        onClose={() => setViewTarget(null)}
+      >
+        {viewTarget && (
+          <div className="news-detail-container">
+            <div className="news-detail-badges">
+              <span className="badge-category">{getCategoryName(viewTarget.categoryId)}</span>
+              <span className={`status-badge ${Number(viewTarget.status) === 1 ? 'status-active' : 'status-inactive'}`}>
+                {Number(viewTarget.status) === 1 ? 'Hoạt động' : 'Tạm ẩn'}
+              </span>
+              <span className="news-detail-meta-text">
+                Mã: <strong>#{viewTarget.id}</strong> &bull; Tác giả: <strong>{viewTarget.createdBy || 'Admin'}</strong>
+              </span>
+            </div>
+
+            <h3 className="news-detail-title">{viewTarget.title}</h3>
+
+            <div className="news-detail-content-box">
+              {viewTarget.content ? (
+                <p>{viewTarget.content}</p>
+              ) : (
+                <p style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>
+                  (Bài viết chưa có nội dung chi tiết)
+                </p>
+              )}
+            </div>
+
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="btn-secondary"
+                onClick={() => setViewTarget(null)}
+              >
+                Đóng
+              </button>
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={() => {
+                  const target = viewTarget;
+                  setViewTarget(null);
+                  openEditModal(target);
+                }}
+              >
+                Chỉnh sửa bài viết
+              </button>
+            </div>
+          </div>
+        )}
       </Modal>
     </div>
   );

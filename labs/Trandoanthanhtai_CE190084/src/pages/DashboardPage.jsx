@@ -65,7 +65,13 @@ export const DashboardPage = ({ categories, news, users, onSelectTab }) => {
             {news.slice(0, 4).map((item) => (
               <tr key={item.id}>
                 <td>#{item.id}</td>
-                <td><strong>{item.title}</strong></td>
+                <td
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => onSelectTab('news')}
+                  title="Nhấn để xem trong Quản lý Tin bài"
+                >
+                  <strong className="news-title-link">{item.title}</strong>
+                </td>
                 <td>{item.createdBy}</td>
                 <td>
                   <span className={`status-badge ${Number(item.status) === 1 ? 'status-active' : 'status-inactive'}`}>

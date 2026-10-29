@@ -467,6 +467,15 @@ body {
   margin-right: 6px;
 }
 
+.btn-view {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.btn-view:hover {
+  background: #bae6fd;
+}
+
 .btn-edit {
   background: #fef08a;
   color: #854d0e;
@@ -483,6 +492,63 @@ body {
 
 .btn-delete:hover {
   background: #fca5a5;
+}
+
+.news-title-cell {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.news-title-cell:hover .news-title-link {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.news-title-link {
+  display: block;
+  font-size: 14px;
+  color: var(--text-main);
+  transition: color 0.15s ease;
+}
+
+.news-detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.news-detail-badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.news-detail-meta-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
+.news-detail-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.news-detail-content-box {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  max-height: 320px;
+  overflow-y: auto;
+  line-height: 1.65;
+  font-size: 14px;
+  color: #334155;
+  white-space: pre-wrap;
 }
 
 .btn-link {
