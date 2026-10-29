@@ -36,8 +36,15 @@ out/
 ### VS Code ###
 .vscode/
 
+### Maven / Build ###
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
 ### Node / React / Vite ###
 node_modules/
 dist/
+.vite/
 .env
 .env.*
