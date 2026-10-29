@@ -1,4 +1,10 @@
-// SettingsPage.jsx - Cài đặt hệ thống & Thông tin phiên làm việc
+/**
+ * @author Thanhtai17
+ * Author: Thanhtai17 (nhantai0317@gmail.com)
+ * Student ID: CE190084 - Trần Đoàn Thanh Tài
+ * Project: FUNews Management System
+ * File: SettingsPage.jsx - Cài đặt hệ thống & Thông tin phiên làm việc
+ */
 import React, { useState } from 'react';
 
 export const SettingsPage = ({ currentUser, counts, onResetData }) => {

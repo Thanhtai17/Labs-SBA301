@@ -1,4 +1,10 @@
-// CategoryManagement.jsx - Quản lý Danh mục (CRUD + Tìm kiếm + Modal Popup)
+/**
+ * @author Thanhtai17
+ * Author: Thanhtai17 (nhantai0317@gmail.com)
+ * Student ID: CE190084 - Trần Đoàn Thanh Tài
+ * Project: FUNews Management System
+ * File: CategoryManagement.jsx - Quản lý Danh mục (CRUD + Tìm kiếm + Modal Popup)
+ */
 import React, { useState } from 'react';
 import { Modal } from '../components/Modal';
 

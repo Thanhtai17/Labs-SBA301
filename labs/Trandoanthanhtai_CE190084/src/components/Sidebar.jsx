@@ -1,4 +1,10 @@
-// Sidebar.jsx - Menu điều hướng 5 khu vực quản lý
+/**
+ * @author Thanhtai17
+ * Author: Thanhtai17 (nhantai0317@gmail.com)
+ * Student ID: CE190084 - Trần Đoàn Thanh Tài
+ * Project: FUNews Management System
+ * File: Sidebar.jsx - Menu điều hướng các khu vực quản lý
+ */
 import React from 'react';
 
 export const Sidebar = ({ activeTab, onSelectTab, counts }) => {

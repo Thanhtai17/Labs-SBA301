@@ -1,4 +1,10 @@
-// Header.jsx - Thanh điều hướng đầu trang
+/**
+ * @author Thanhtai17
+ * Author: Thanhtai17 (nhantai0317@gmail.com)
+ * Student ID: CE190084 - Trần Đoàn Thanh Tài
+ * Project: FUNews Management System
+ * File: Header.jsx - Thanh điều hướng đầu trang
+ */
 import React from 'react';
 import logoImg from '../assets/logo.jpg';
 

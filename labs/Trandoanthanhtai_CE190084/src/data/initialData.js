@@ -1,5 +1,10 @@
-// FUNewsManagementSystem - Mock Data & LocalStorage Helper
-// Quản lý dữ liệu mẫu ban đầu và đọc/ghi LocalStorage đơn giản
+/**
+ * @author Thanhtai17
+ * Author: Thanhtai17 (nhantai0317@gmail.com)
+ * Student ID: CE190084 - Trần Đoàn Thanh Tài
+ * Project: FUNews Management System
+ * File: initialData.js - Dữ liệu mẫu ban đầu và LocalStorage helper
+ */
 
 export const DEFAULT_CATEGORIES = [
   { id: 1, name: 'Công nghệ', description: 'Tin tức công nghệ, AI và đổi mới số', status: 1 },

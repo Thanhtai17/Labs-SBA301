@@ -1,4 +1,10 @@
-// DashboardPage.jsx - Màn hình tổng quan thống kê
+/**
+ * @author Thanhtai17
+ * Author: Thanhtai17 (nhantai0317@gmail.com)
+ * Student ID: CE190084 - Trần Đoàn Thanh Tài
+ * Project: FUNews Management System
+ * File: DashboardPage.jsx - Màn hình tổng quan thống kê
+ */
 import React from 'react';
 
 export const DashboardPage = ({ categories, news, users, onSelectTab }) => {

@@ -1,4 +1,10 @@
-// Modal.jsx - Hộp thoại Popup đơn giản tái sử dụng cho Thêm, Sửa và Xác nhận xóa
+/**
+ * @author Thanhtai17
+ * Author: Thanhtai17 (nhantai0317@gmail.com)
+ * Student ID: CE190084 - Trần Đoàn Thanh Tài
+ * Project: FUNews Management System
+ * File: Modal.jsx - Hộp thoại Popup đơn giản tái sử dụng cho Thêm, Sửa và Xác nhận xóa
+ */
 import React from 'react';
 
 export const Modal = ({ isOpen, title, onClose, children }) => {

@@ -1,5 +1,10 @@
-// FUNewsManagementSystem - App.jsx
-// Root Component điều khiển Auth, Navigation và Dữ liệu chung
+/**
+ * @author Thanhtai17
+ * Author: Thanhtai17 (nhantai0317@gmail.com)
+ * Student ID: CE190084 - Trần Đoàn Thanh Tài
+ * Project: FUNews Management System
+ * File: App.jsx - Root Component điều khiển Auth, Navigation và Dữ liệu chung
+ */
 import React, { useState, useEffect } from 'react';
 import {
   DEFAULT_CATEGORIES,

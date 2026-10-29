@@ -1,4 +1,10 @@
-// NewsManagement.jsx - Quản lý Tin bài (CRUD + Tìm kiếm + Liên kết Category)
+/**
+ * @author Thanhtai17
+ * Author: Thanhtai17 (nhantai0317@gmail.com)
+ * Student ID: CE190084 - Trần Đoàn Thanh Tài
+ * Project: FUNews Management System
+ * File: NewsManagement.jsx - Quản lý Tin bài (CRUD + Tìm kiếm + Liên kết Category)
+ */
 import React, { useState } from 'react';
 import { Modal } from '../components/Modal';
 

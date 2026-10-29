@@ -1,4 +1,10 @@
-// LoginPage.jsx - Màn hình đăng nhập tài khoản
+/**
+ * @author Thanhtai17
+ * Author: Thanhtai17 (nhantai0317@gmail.com)
+ * Student ID: CE190084 - Trần Đoàn Thanh Tài
+ * Project: FUNews Management System
+ * File: LoginPage.jsx - Màn hình đăng nhập tài khoản
+ */
 import React, { useState } from 'react';
 import logoImg from '../assets/logo.jpg';
 
