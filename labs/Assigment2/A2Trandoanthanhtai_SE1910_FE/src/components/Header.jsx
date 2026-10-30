@@ -40,17 +40,16 @@ export default function Header({ currentUser, onLogout, onNavigate }) {
             </div>
             <button className="btn btn-outline-danger btn-sm" onClick={onLogout}>
               <LogOut size={16} />
-              <span>ÄÄƒng xuáº¥t</span>
+              <span>Đăng xuất</span>
             </button>
           </div>
         ) : (
           <button className="btn btn-primary btn-sm" onClick={() => onNavigate('login')}>
             <LogIn size={16} />
-            <span>ÄÄƒng nháº­p há»‡ thá»‘ng</span>
+            <span>Đăng nhập hệ thống</span>
           </button>
         )}
       </div>
     </header>
   );
 }
-

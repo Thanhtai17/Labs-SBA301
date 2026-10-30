@@ -17,37 +17,37 @@ export default function Sidebar({ currentTab, onSelectTab, currentUser }) {
   return (
     <aside className="app-sidebar">
       <nav className="sidebar-nav">
-        <div className="nav-group-title">KhÃ¡m phÃ¡</div>
+        <div className="nav-group-title">Khám phá</div>
         <button
           className={`nav-item ${currentTab === 'public-news' ? 'active' : ''}`}
           onClick={() => onSelectTab('public-news')}
         >
           <Eye size={18} />
-          <span>Báº£n tin cÃ´ng khai</span>
+          <span>Bản tin công khai</span>
         </button>
 
         {isAdmin && (
           <>
-            <div className="nav-group-title">Quáº£n trá»‹ viÃªn (Admin)</div>
+            <div className="nav-group-title">Quản trị viên (Admin)</div>
             <button
               className={`nav-item ${currentTab === 'accounts' ? 'active' : ''}`}
               onClick={() => onSelectTab('accounts')}
             >
               <Users size={18} />
-              <span>Quáº£n lÃ½ tÃ i khoáº£n</span>
+              <span>Quản lý tài khoản</span>
             </button>
           </>
         )}
 
         {isStaff && (
           <>
-            <div className="nav-group-title">BiÃªn táº­p viÃªn (Staff)</div>
+            <div className="nav-group-title">Biên tập viên (Staff)</div>
             <button
               className={`nav-item ${currentTab === 'categories' ? 'active' : ''}`}
               onClick={() => onSelectTab('categories')}
             >
               <FolderTree size={18} />
-              <span>Quáº£n lÃ½ chuyÃªn má»¥c</span>
+              <span>Quản lý chuyên mục</span>
             </button>
 
             <button
@@ -55,7 +55,7 @@ export default function Sidebar({ currentTab, onSelectTab, currentUser }) {
               onClick={() => onSelectTab('news-mgmt')}
             >
               <Newspaper size={18} />
-              <span>Quáº£n lÃ½ tin bÃ i (News)</span>
+              <span>Quản lý tin bài (News)</span>
             </button>
 
             <button
@@ -63,7 +63,7 @@ export default function Sidebar({ currentTab, onSelectTab, currentUser }) {
               onClick={() => onSelectTab('my-history')}
             >
               <History size={18} />
-              <span>Lá»‹ch sá»­ tin Ä‘Ã£ Ä‘Äƒng</span>
+              <span>Lịch sử tin đã đăng</span>
             </button>
 
             <button
@@ -71,7 +71,7 @@ export default function Sidebar({ currentTab, onSelectTab, currentUser }) {
               onClick={() => onSelectTab('my-profile')}
             >
               <UserCheck size={18} />
-              <span>Há»“ sÆ¡ cÃ¡ nhÃ¢n</span>
+              <span>Hồ sơ cá nhân</span>
             </button>
           </>
         )}
@@ -79,4 +79,3 @@ export default function Sidebar({ currentTab, onSelectTab, currentUser }) {
     </aside>
   );
 }
-

@@ -36,7 +36,7 @@ export default function ProfilePage({ currentUser, onProfileUpdated }) {
       const data = await profileService.getById(id);
       setProfile(data);
     } catch (err) {
-      setFeedback({ type: 'danger', message: err.message || 'KhÃ´ng thá»ƒ táº£i thÃ´ng tin há»“ sÆ¡' });
+      setFeedback({ type: 'danger', message: err.message || 'Không thể tải thông tin hồ sơ' });
     } finally {
       setLoading(false);
     }
@@ -45,15 +45,15 @@ export default function ProfilePage({ currentUser, onProfileUpdated }) {
   const validate = () => {
     const errs = {};
     if (!profile.accountName.trim()) {
-      errs.accountName = 'Há» vÃ  tÃªn khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng';
+      errs.accountName = 'Họ và tên không được để trống';
     }
     if (!profile.accountEmail.trim()) {
-      errs.accountEmail = 'Email khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng';
+      errs.accountEmail = 'Email không được để trống';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profile.accountEmail.trim())) {
-      errs.accountEmail = 'Email khÃ´ng há»£p lá»‡';
+      errs.accountEmail = 'Email không hợp lệ';
     }
     if (!profile.accountPassword.trim()) {
-      errs.accountPassword = 'Máº­t kháº©u khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng';
+      errs.accountPassword = 'Mật khẩu không được để trống';
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -71,7 +71,7 @@ export default function ProfilePage({ currentUser, onProfileUpdated }) {
         accountRole: profile.accountRole,
         accountPassword: profile.accountPassword.trim()
       });
-      setFeedback({ type: 'success', message: 'Cáº­p nháº­t há»“ sÆ¡ cÃ¡ nhÃ¢n thÃ nh cÃ´ng!' });
+      setFeedback({ type: 'success', message: 'Cập nhật hồ sơ cá nhân thành công!' });
       setProfile(updated);
       if (onProfileUpdated) {
         onProfileUpdated(updated);
@@ -84,15 +84,15 @@ export default function ProfilePage({ currentUser, onProfileUpdated }) {
   };
 
   if (loading) {
-    return <div className="page-container"><div className="loading-state">Äang táº£i há»“ sÆ¡...</div></div>;
+    return <div className="page-container"><div className="loading-state">Đang tải hồ sơ...</div></div>;
   }
 
   return (
     <div className="page-container" style={{ maxWidth: '680px', margin: '0 auto' }}>
       <div className="page-header">
         <div>
-          <h2 className="page-title">Há»“ sÆ¡ cÃ¡ nhÃ¢n (My Profile)</h2>
-          <p className="page-desc">Xem vÃ  cáº­p nháº­t thÃ´ng tin tÃ i khoáº£n BiÃªn táº­p viÃªn</p>
+          <h2 className="page-title">Hồ sơ cá nhân (My Profile)</h2>
+          <p className="page-desc">Xem và cập nhật thông tin tài khoản Biên tập viên</p>
         </div>
       </div>
 
@@ -100,14 +100,14 @@ export default function ProfilePage({ currentUser, onProfileUpdated }) {
         <div className={`alert alert-${feedback.type}`}>
           {feedback.type === 'danger' ? <AlertCircle size={18} /> : <CheckCircle size={18} />}
           <span>{feedback.message}</span>
-          <button type="button" className="close-alert-btn" onClick={() => setFeedback({ type: '', message: '' })}>Ã—</button>
+          <button type="button" className="close-alert-btn" onClick={() => setFeedback({ type: '', message: '' })}>×</button>
         </div>
       )}
 
       <div className="card" style={{ padding: '28px' }}>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="form-label">MÃ£ tÃ i khoáº£n (Account ID)</label>
+            <label className="form-label">Mã tài khoản (Account ID)</label>
             <input
               type="text"
               className="form-control"
@@ -118,19 +118,19 @@ export default function ProfilePage({ currentUser, onProfileUpdated }) {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Vai trÃ² trong há»‡ thá»‘ng</label>
+            <label className="form-label">Vai trò trong hệ thống</label>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
               <span className={`role-badge ${profile.accountRole === 1 ? 'badge-admin' : 'badge-staff'}`}>
-                {profile.accountRole === 1 ? 'Quáº£n trá»‹ viÃªn (Admin)' : 'BiÃªn táº­p viÃªn (Staff)'}
+                {profile.accountRole === 1 ? 'Quản trị viên (Admin)' : 'Biên tập viên (Staff)'}
               </span>
-              <span className="text-muted" style={{ fontSize: '12px' }}>(ÄÆ°á»£c cáº¥p bá»Ÿi Ban quáº£n trá»‹)</span>
+              <span className="text-muted" style={{ fontSize: '12px' }}>(Được cấp bởi Ban quản trị)</span>
             </div>
           </div>
 
           <div className="form-group" style={{ marginTop: '16px' }}>
             <label className="form-label required">
               <User size={15} style={{ display: 'inline', marginRight: '4px' }} />
-              Há» vÃ  tÃªn hiá»ƒn thá»‹
+              Họ và tên hiển thị
             </label>
             <input
               type="text"
@@ -144,7 +144,7 @@ export default function ProfilePage({ currentUser, onProfileUpdated }) {
           <div className="form-group">
             <label className="form-label required">
               <Mail size={15} style={{ display: 'inline', marginRight: '4px' }} />
-              Äá»‹a chá»‰ Email
+              Địa chỉ Email
             </label>
             <input
               type="email"
@@ -158,7 +158,7 @@ export default function ProfilePage({ currentUser, onProfileUpdated }) {
           <div className="form-group">
             <label className="form-label required">
               <Key size={15} style={{ display: 'inline', marginRight: '4px' }} />
-              Máº­t kháº©u Ä‘Äƒng nháº­p
+              Mật khẩu đăng nhập
             </label>
             <input
               type="text"
@@ -172,7 +172,7 @@ export default function ProfilePage({ currentUser, onProfileUpdated }) {
           <div className="modal-actions-right" style={{ marginTop: '24px' }}>
             <button type="submit" className="btn btn-primary" disabled={saving}>
               <Save size={16} />
-              <span>{saving ? 'Äang lÆ°u...' : 'LÆ°u cáº­p nháº­t'}</span>
+              <span>{saving ? 'Đang lưu...' : 'Lưu cập nhật'}</span>
             </button>
           </div>
         </form>
@@ -180,4 +180,3 @@ export default function ProfilePage({ currentUser, onProfileUpdated }) {
     </div>
   );
 }
-

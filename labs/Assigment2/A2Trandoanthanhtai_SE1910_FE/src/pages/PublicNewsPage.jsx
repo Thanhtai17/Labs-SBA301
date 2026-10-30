@@ -59,7 +59,7 @@ export default function PublicNewsPage() {
       const data = await newsService.getAll(params);
       setArticles(data);
     } catch (err) {
-      setError(err.message || 'KhÃ´ng thá»ƒ táº£i danh sÃ¡ch tin tá»©c');
+      setError(err.message || 'Không thể tải danh sách tin tức');
     } finally {
       setLoading(false);
     }
@@ -83,8 +83,8 @@ export default function PublicNewsPage() {
     <div className="page-container">
       <div className="page-header">
         <div>
-          <h2 className="page-title">Cá»•ng thÃ´ng tin & Tin tá»©c FU News</h2>
-          <p className="page-desc">KhÃ¡m phÃ¡ cÃ¡c tin tá»©c há»c thuáº­t, hoáº¡t Ä‘á»™ng sinh viÃªn vÃ  sá»± kiá»‡n má»›i nháº¥t (CÃ´ng khai - KhÃ´ng cáº§n Ä‘Äƒng nháº­p)</p>
+          <h2 className="page-title">Cổng thông tin & Tin tức FU News</h2>
+          <p className="page-desc">Khám phá các tin tức học thuật, hoạt động sinh viên và sự kiện mới nhất (Công khai - Không cần đăng nhập)</p>
         </div>
       </div>
 
@@ -95,7 +95,7 @@ export default function PublicNewsPage() {
           <input
             type="text"
             className="form-control search-field"
-            placeholder="TÃ¬m theo tiÃªu Ä‘á», tÃ³m táº¯t hoáº·c ná»™i dung tin tá»©c..."
+            placeholder="Tìm theo tiêu đề, tóm tắt hoặc nội dung tin tức..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -107,7 +107,7 @@ export default function PublicNewsPage() {
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
-            <option value="">-- Táº¥t cáº£ ChuyÃªn má»¥c --</option>
+            <option value="">-- Tất cả Chuyên mục --</option>
             {categories.map((c) => (
               <option key={c.categoryId} value={c.categoryId}>
                 {c.categoryName}
@@ -120,7 +120,7 @@ export default function PublicNewsPage() {
             value={selectedTag}
             onChange={(e) => setSelectedTag(e.target.value)}
           >
-            <option value="">-- Táº¥t cáº£ Tháº» (Tag) --</option>
+            <option value="">-- Tất cả Thẻ (Tag) --</option>
             {tags.map((t) => (
               <option key={t.tagId} value={t.tagId}>
                 #{t.tagName}
@@ -129,10 +129,10 @@ export default function PublicNewsPage() {
           </select>
 
           <button type="submit" className="btn btn-primary">
-            <Filter size={16} /> Lá»c tin
+            <Filter size={16} /> Lọc tin
           </button>
           <button type="button" className="btn btn-outline-secondary" onClick={handleResetFilters}>
-            Äáº·t láº¡i
+            Đặt lại
           </button>
         </div>
       </form>
@@ -145,21 +145,21 @@ export default function PublicNewsPage() {
       )}
 
       {loading ? (
-        <div className="loading-state">Äang táº£i tin tá»©c tá»« mÃ¡y chá»§...</div>
+        <div className="loading-state">Đang tải tin tức từ máy chủ...</div>
       ) : articles.length === 0 ? (
         <div className="empty-state">
           <BookOpen size={48} />
-          <p>Hiá»‡n khÃ´ng tÃ¬m tháº¥y bÃ i viáº¿t nÃ o phÃ¹ há»£p.</p>
+          <p>Hiện không tìm thấy bài viết nào phù hợp.</p>
         </div>
       ) : (
         <div className="news-grid">
           {articles.map((item) => (
             <div key={item.newsArticleId} className="news-card" onClick={() => setViewingArticle(item)}>
               <div className="news-card-header">
-                <span className="category-pill">{item.categoryName || 'Tin tá»©c'}</span>
+                <span className="category-pill">{item.categoryName || 'Tin tức'}</span>
                 <span className="news-date">
                   <Calendar size={14} />
-                  {item.createdDate ? new Date(item.createdDate).toLocaleDateString('vi-VN') : 'Má»›i cáº­p nháº­t'}
+                  {item.createdDate ? new Date(item.createdDate).toLocaleDateString('vi-VN') : 'Mới cập nhật'}
                 </span>
               </div>
 
@@ -168,7 +168,7 @@ export default function PublicNewsPage() {
 
               <div className="news-card-footer">
                 <span className="author-info">
-                  <User size={14} /> {item.createdByName || 'BiÃªn táº­p viÃªn'}
+                  <User size={14} /> {item.createdByName || 'Biên tập viên'}
                 </span>
                 <div className="tags-list">
                   {item.tags && item.tags.slice(0, 3).map((t) => (
@@ -197,9 +197,9 @@ export default function PublicNewsPage() {
           <div className="article-detail-content">
             <div className="detail-meta">
               <span className="category-pill">{viewingArticle.categoryName}</span>
-              <span>â€¢ NgÆ°á»i Ä‘Äƒng: <strong>{viewingArticle.createdByName || 'N/A'}</strong></span>
-              <span>â€¢ NgÃ y Ä‘Äƒng: {new Date(viewingArticle.createdDate).toLocaleString('vi-VN')}</span>
-              {viewingArticle.newsSource && <span>â€¢ Nguá»“n: {viewingArticle.newsSource}</span>}
+              <span>• Người đăng: <strong>{viewingArticle.createdByName || 'N/A'}</strong></span>
+              <span>• Ngày đăng: {new Date(viewingArticle.createdDate).toLocaleString('vi-VN')}</span>
+              {viewingArticle.newsSource && <span>• Nguồn: {viewingArticle.newsSource}</span>}
             </div>
 
             <h4 className="detail-headline">{viewingArticle.headline}</h4>
@@ -210,13 +210,13 @@ export default function PublicNewsPage() {
                   <p key={idx}>{paragraph}</p>
                 ))
               ) : (
-                <p>Ná»™i dung chi tiáº¿t chÆ°a Ä‘Æ°á»£c cáº­p nháº­t.</p>
+                <p>Nội dung chi tiết chưa được cập nhật.</p>
               )}
             </div>
 
             {viewingArticle.tags && viewingArticle.tags.length > 0 && (
               <div className="detail-tags">
-                <strong>Tháº» gáº¯n kÃ¨m: </strong>
+                <strong>Thẻ gắn kèm: </strong>
                 {viewingArticle.tags.map((t) => (
                   <span key={t.tagId} className="tag-pill">
                     <Tag size={12} /> {t.tagName}
@@ -227,7 +227,7 @@ export default function PublicNewsPage() {
 
             <div className="modal-actions-right" style={{ marginTop: '20px' }}>
               <button className="btn btn-secondary" onClick={() => setViewingArticle(null)}>
-                ÄÃ³ng
+                Đóng
               </button>
             </div>
           </div>
@@ -236,4 +236,3 @@ export default function PublicNewsPage() {
     </div>
   );
 }
-

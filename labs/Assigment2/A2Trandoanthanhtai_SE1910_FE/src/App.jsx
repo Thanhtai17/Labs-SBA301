@@ -112,8 +112,8 @@ export default function App() {
               <AccountManagementPage />
             ) : (
               <div className="unauthorized-card">
-                <h3>KhÃ´ng cÃ³ quyá»n truy cáº­p</h3>
-                <p>Khu vá»±c nÃ y yÃªu cáº§u quyá»n Quáº£n trá»‹ viÃªn (Admin - Role 1).</p>
+                <h3>Không có quyền truy cập</h3>
+                <p>Khu vực này yêu cầu quyền Quản trị viên (Admin - Role 1).</p>
               </div>
             )
           )}
@@ -123,8 +123,8 @@ export default function App() {
               <CategoryManagementPage />
             ) : (
               <div className="unauthorized-card">
-                <h3>KhÃ´ng cÃ³ quyá»n truy cáº­p</h3>
-                <p>Khu vá»±c nÃ y yÃªu cáº§u quyá»n BiÃªn táº­p viÃªn (Staff - Role 2).</p>
+                <h3>Không có quyền truy cập</h3>
+                <p>Khu vực này yêu cầu quyền Biên tập viên (Staff - Role 2).</p>
               </div>
             )
           )}
@@ -134,8 +134,8 @@ export default function App() {
               <NewsManagementPage currentUser={currentUser} />
             ) : (
               <div className="unauthorized-card">
-                <h3>KhÃ´ng cÃ³ quyá»n truy cáº­p</h3>
-                <p>Khu vá»±c nÃ y yÃªu cáº§u quyá»n BiÃªn táº­p viÃªn (Staff - Role 2).</p>
+                <h3>Không có quyền truy cập</h3>
+                <p>Khu vực này yêu cầu quyền Biên tập viên (Staff - Role 2).</p>
               </div>
             )
           )}
@@ -145,8 +145,8 @@ export default function App() {
               <NewsHistoryPage currentUser={currentUser} />
             ) : (
               <div className="unauthorized-card">
-                <h3>KhÃ´ng cÃ³ quyá»n truy cáº­p</h3>
-                <p>Khu vá»±c nÃ y yÃªu cáº§u quyá»n BiÃªn táº­p viÃªn (Staff - Role 2).</p>
+                <h3>Không có quyền truy cập</h3>
+                <p>Khu vực này yêu cầu quyền Biên tập viên (Staff - Role 2).</p>
               </div>
             )
           )}
@@ -159,8 +159,8 @@ export default function App() {
               />
             ) : (
               <div className="unauthorized-card">
-                <h3>KhÃ´ng cÃ³ quyá»n truy cáº­p</h3>
-                <p>Khu vá»±c nÃ y yÃªu cáº§u quyá»n BiÃªn táº­p viÃªn (Staff - Role 2).</p>
+                <h3>Không có quyền truy cập</h3>
+                <p>Khu vực này yêu cầu quyền Biên tập viên (Staff - Role 2).</p>
               </div>
             )
           )}
@@ -169,4 +169,3 @@ export default function App() {
     </div>
   );
 }
-

@@ -22,11 +22,11 @@ export default function LoginPage({ onLoginSuccess, onCancel }) {
     setError('');
 
     if (!email.trim()) {
-      setError('Vui lÃ²ng nháº­p Ä‘á»‹a chá»‰ Email');
+      setError('Vui lòng nhập địa chỉ Email');
       return;
     }
     if (!password.trim()) {
-      setError('Vui lÃ²ng nháº­p Máº­t kháº©u');
+      setError('Vui lòng nhập Mật khẩu');
       return;
     }
 
@@ -35,7 +35,7 @@ export default function LoginPage({ onLoginSuccess, onCancel }) {
       const user = await authService.login(email.trim(), password.trim());
       onLoginSuccess(user);
     } catch (err) {
-      setError(err.message || 'ÄÄƒng nháº­p tháº¥t báº¡i. Vui lÃ²ng kiá»ƒm tra láº¡i Email vÃ  Máº­t kháº©u.');
+      setError(err.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại Email và Mật khẩu.');
     } finally {
       setLoading(false);
     }
@@ -54,8 +54,8 @@ export default function LoginPage({ onLoginSuccess, onCancel }) {
           <div className="login-icon-box">
             <LogIn size={28} />
           </div>
-          <h2 className="login-title">ÄÄƒng nháº­p há»‡ thá»‘ng</h2>
-          <p className="login-desc">Há»‡ thá»‘ng Quáº£n lÃ½ Tin tá»©c FUNews Management System</p>
+          <h2 className="login-title">Đăng nhập hệ thống</h2>
+          <p className="login-desc">Hệ thống Quản lý Tin tức FUNews Management System</p>
         </div>
 
         {error && (
@@ -68,7 +68,7 @@ export default function LoginPage({ onLoginSuccess, onCancel }) {
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
             <label className="form-label">
-              <Mail size={16} /> Äá»‹a chá»‰ Email
+              <Mail size={16} /> Địa chỉ Email
             </label>
             <input
               type="email"
@@ -83,12 +83,12 @@ export default function LoginPage({ onLoginSuccess, onCancel }) {
 
           <div className="form-group">
             <label className="form-label">
-              <Key size={16} /> Máº­t kháº©u
+              <Key size={16} /> Mật khẩu
             </label>
             <input
               type="password"
               className="form-control"
-              placeholder="Nháº­p máº­t kháº©u"
+              placeholder="Nhập mật khẩu"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={loading}
@@ -96,37 +96,36 @@ export default function LoginPage({ onLoginSuccess, onCancel }) {
           </div>
 
           <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
-            {loading ? 'Äang xÃ¡c thá»±c...' : 'ÄÄƒng nháº­p'}
+            {loading ? 'Đang xác thực...' : 'Đăng nhập'}
           </button>
         </form>
 
         <div className="quick-test-section">
-          <div className="quick-test-title">TÃ i khoáº£n kiá»ƒm thá»­ nhanh (Demo)</div>
+          <div className="quick-test-title">Tài khoản kiểm thử nhanh (Demo)</div>
           <div className="quick-test-buttons">
             <button
               type="button"
               className="btn btn-outline-primary btn-sm"
               onClick={() => handleQuickFill('SteveParis@FUNewsManagement.org', '@1')}
             >
-              <Shield size={14} /> Äiá»n nhanh Admin (Role 1)
+              <Shield size={14} /> Điền nhanh Admin (Role 1)
             </button>
             <button
               type="button"
               className="btn btn-outline-secondary btn-sm"
               onClick={() => handleQuickFill('EmmaWilliam@FUNewsManagement.org', '@1')}
             >
-              <User size={14} /> Äiá»n nhanh Staff (Role 2)
+              <User size={14} /> Điền nhanh Staff (Role 2)
             </button>
           </div>
         </div>
 
         <div className="login-footer">
           <button type="button" className="btn btn-link btn-sm" onClick={onCancel}>
-            <ArrowLeft size={16} /> Quay láº¡i xem tin cÃ´ng khai (KhÃ¡ch)
+            <ArrowLeft size={16} /> Quay lại xem tin công khai (Khách)
           </button>
         </div>
       </div>
     </div>
   );
 }
-

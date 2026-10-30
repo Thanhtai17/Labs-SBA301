@@ -31,7 +31,7 @@ export default function NewsHistoryPage({ currentUser }) {
       const data = await newsService.getAll({ createdById: currentUser.accountId });
       setHistoryArticles(data);
     } catch (err) {
-      setError(err.message || 'KhÃ´ng thá»ƒ táº£i lá»‹ch sá»­ tin bÃ i cá»§a báº¡n');
+      setError(err.message || 'Không thể tải lịch sử tin bài của bạn');
     } finally {
       setLoading(false);
     }
@@ -41,9 +41,9 @@ export default function NewsHistoryPage({ currentUser }) {
     <div className="page-container">
       <div className="page-header">
         <div>
-          <h2 className="page-title">Lá»‹ch sá»­ Tin bÃ i Ä‘Ã£ Ä‘Äƒng (My News History)</h2>
+          <h2 className="page-title">Lịch sử Tin bài đã đăng (My News History)</h2>
           <p className="page-desc">
-            Theo dÃµi táº¥t cáº£ bÃ i viáº¿t do tÃ i khoáº£n <strong>{currentUser?.accountName}</strong> (ID #{currentUser?.accountId}) khá»Ÿi táº¡o
+            Theo dõi tất cả bài viết do tài khoản <strong>{currentUser?.accountName}</strong> (ID #{currentUser?.accountId}) khởi tạo
           </p>
         </div>
       </div>
@@ -57,22 +57,22 @@ export default function NewsHistoryPage({ currentUser }) {
 
       <div className="card table-card">
         {loading ? (
-          <div className="loading-state">Äang táº£i lá»‹ch sá»­ bÃ i viáº¿t cá»§a báº¡n...</div>
+          <div className="loading-state">Đang tải lịch sử bài viết của bạn...</div>
         ) : historyArticles.length === 0 ? (
           <div className="empty-state">
             <BookOpen size={48} />
-            <p>Báº¡n chÆ°a khá»Ÿi táº¡o bÃ i viáº¿t tin tá»©c nÃ o trong há»‡ thá»‘ng.</p>
+            <p>Bạn chưa khởi tạo bài viết tin tức nào trong hệ thống.</p>
           </div>
         ) : (
           <div className="table-responsive">
             <table className="custom-table">
               <thead>
                 <tr>
-                  <th style={{ width: '70px' }}>MÃ£ tin</th>
-                  <th>TiÃªu Ä‘á» & TÃ³m táº¯t</th>
-                  <th style={{ width: '150px' }}>ChuyÃªn má»¥c</th>
-                  <th style={{ width: '160px' }}>NgÃ y táº¡o</th>
-                  <th style={{ width: '120px', textAlign: 'center' }}>Tráº¡ng thÃ¡i</th>
+                  <th style={{ width: '70px' }}>Mã tin</th>
+                  <th>Tiêu đề & Tóm tắt</th>
+                  <th style={{ width: '150px' }}>Chuyên mục</th>
+                  <th style={{ width: '160px' }}>Ngày tạo</th>
+                  <th style={{ width: '120px', textAlign: 'center' }}>Trạng thái</th>
                   <th style={{ width: '100px', textAlign: 'center' }}>Xem</th>
                 </tr>
               </thead>
@@ -106,7 +106,7 @@ export default function NewsHistoryPage({ currentUser }) {
                       <button
                         type="button"
                         className="btn-action"
-                        title="Xem chi tiáº¿t bÃ i viáº¿t"
+                        title="Xem chi tiết bài viết"
                         onClick={() => setViewingArticle(item)}
                       >
                         <Eye size={16} />
@@ -131,9 +131,9 @@ export default function NewsHistoryPage({ currentUser }) {
           <div className="article-detail-content">
             <div className="detail-meta">
               <span className="category-pill">{viewingArticle.categoryName}</span>
-              <span>â€¢ MÃ£ tin: #{viewingArticle.newsArticleId}</span>
-              <span>â€¢ NgÃ y táº¡o: {new Date(viewingArticle.createdDate).toLocaleString('vi-VN')}</span>
-              {viewingArticle.newsSource && <span>â€¢ Nguá»“n: {viewingArticle.newsSource}</span>}
+              <span>• Mã tin: #{viewingArticle.newsArticleId}</span>
+              <span>• Ngày tạo: {new Date(viewingArticle.createdDate).toLocaleString('vi-VN')}</span>
+              {viewingArticle.newsSource && <span>• Nguồn: {viewingArticle.newsSource}</span>}
             </div>
 
             <h4 className="detail-headline">{viewingArticle.headline}</h4>
@@ -144,13 +144,13 @@ export default function NewsHistoryPage({ currentUser }) {
                   <p key={idx}>{p}</p>
                 ))
               ) : (
-                <p>Ná»™i dung chi tiáº¿t chÆ°a Ä‘Æ°á»£c cáº­p nháº­t.</p>
+                <p>Nội dung chi tiết chưa được cập nhật.</p>
               )}
             </div>
 
             {viewingArticle.tags && viewingArticle.tags.length > 0 && (
               <div className="detail-tags">
-                <strong>Tháº» gáº¯n kÃ¨m: </strong>
+                <strong>Thẻ gắn kèm: </strong>
                 {viewingArticle.tags.map((t) => (
                   <span key={t.tagId} className="tag-pill">
                     <Tag size={12} /> {t.tagName}
@@ -161,7 +161,7 @@ export default function NewsHistoryPage({ currentUser }) {
 
             <div className="modal-actions-right" style={{ marginTop: '20px' }}>
               <button className="btn btn-secondary" onClick={() => setViewingArticle(null)}>
-                ÄÃ³ng
+                Đóng
               </button>
             </div>
           </div>
@@ -170,4 +170,3 @@ export default function NewsHistoryPage({ currentUser }) {
     </div>
   );
 }
-

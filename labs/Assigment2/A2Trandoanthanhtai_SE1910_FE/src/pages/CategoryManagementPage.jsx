@@ -43,7 +43,7 @@ export default function CategoryManagementPage() {
       const data = await categoryService.getAll(keyword || undefined);
       setCategories(data);
     } catch (err) {
-      setFeedback({ type: 'danger', message: err.message || 'KhÃ´ng thá»ƒ táº£i danh sÃ¡ch chuyÃªn má»¥c' });
+      setFeedback({ type: 'danger', message: err.message || 'Không thể tải danh sách chuyên mục' });
     } finally {
       setLoading(false);
     }
@@ -83,15 +83,15 @@ export default function CategoryManagementPage() {
   const validateForm = () => {
     const errors = {};
     if (!formData.categoryName.trim()) {
-      errors.categoryName = 'TÃªn chuyÃªn má»¥c khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng';
+      errors.categoryName = 'Tên chuyên mục không được để trống';
     } else if (formData.categoryName.length > 100) {
-      errors.categoryName = 'TÃªn chuyÃªn má»¥c khÃ´ng Ä‘Æ°á»£c vÆ°á»£t quÃ¡ 100 kÃ½ tá»±';
+      errors.categoryName = 'Tên chuyên mục không được vượt quá 100 ký tự';
     }
 
     if (!formData.categoryDescription.trim()) {
-      errors.categoryDescription = 'MÃ´ táº£ chuyÃªn má»¥c khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng';
+      errors.categoryDescription = 'Mô tả chuyên mục không được để trống';
     } else if (formData.categoryDescription.length > 250) {
-      errors.categoryDescription = 'MÃ´ táº£ khÃ´ng Ä‘Æ°á»£c vÆ°á»£t quÃ¡ 250 kÃ½ tá»±';
+      errors.categoryDescription = 'Mô tả không được vượt quá 250 ký tự';
     }
 
     setFormErrors(errors);
@@ -112,10 +112,10 @@ export default function CategoryManagementPage() {
 
       if (isEditing) {
         await categoryService.update(formData.categoryId, payload);
-        setFeedback({ type: 'success', message: `Cáº­p nháº­t chuyÃªn má»¥c #${formData.categoryId} thÃ nh cÃ´ng!` });
+        setFeedback({ type: 'success', message: `Cập nhật chuyên mục #${formData.categoryId} thành công!` });
       } else {
         await categoryService.create(payload);
-        setFeedback({ type: 'success', message: 'Táº¡o chuyÃªn má»¥c má»›i thÃ nh cÃ´ng!' });
+        setFeedback({ type: 'success', message: 'Tạo chuyên mục mới thành công!' });
       }
       setIsFormOpen(false);
       fetchCategories();
@@ -128,7 +128,7 @@ export default function CategoryManagementPage() {
     if (!deletingCategory) return;
     try {
       await categoryService.delete(deletingCategory.categoryId);
-      setFeedback({ type: 'success', message: `ÄÃ£ xÃ³a chuyÃªn má»¥c #${deletingCategory.categoryId} thÃ nh cÃ´ng.` });
+      setFeedback({ type: 'success', message: `Đã xóa chuyên mục #${deletingCategory.categoryId} thành công.` });
       setDeletingCategory(null);
       fetchCategories();
     } catch (err) {
@@ -141,11 +141,11 @@ export default function CategoryManagementPage() {
     <div className="page-container">
       <div className="page-header">
         <div>
-          <h2 className="page-title">Quáº£n lÃ½ ChuyÃªn má»¥c (Category Management)</h2>
-          <p className="page-desc">PhÃ¢n loáº¡i danh má»¥c tin bÃ i há»‡ thá»‘ng dÃ nh cho BiÃªn táº­p viÃªn (Staff - Role 2)</p>
+          <h2 className="page-title">Quản lý Chuyên mục (Category Management)</h2>
+          <p className="page-desc">Phân loại danh mục tin bài hệ thống dành cho Biên tập viên (Staff - Role 2)</p>
         </div>
         <button className="btn btn-primary" onClick={handleOpenCreateModal}>
-          <Plus size={16} /> ThÃªm chuyÃªn má»¥c má»›i
+          <Plus size={16} /> Thêm chuyên mục mới
         </button>
       </div>
 
@@ -153,7 +153,7 @@ export default function CategoryManagementPage() {
         <div className={`alert alert-${feedback.type}`}>
           {feedback.type === 'danger' ? <AlertCircle size={18} /> : <CheckCircle size={18} />}
           <span>{feedback.message}</span>
-          <button type="button" className="close-alert-btn" onClick={() => setFeedback({ type: '', message: '' })}>Ã—</button>
+          <button type="button" className="close-alert-btn" onClick={() => setFeedback({ type: '', message: '' })}>×</button>
         </div>
       )}
 
@@ -164,17 +164,17 @@ export default function CategoryManagementPage() {
           <input
             type="text"
             className="form-control"
-            placeholder="TÃ¬m theo TÃªn chuyÃªn má»¥c..."
+            placeholder="Tìm theo Tên chuyên mục..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         <button type="submit" className="btn btn-secondary">
-          TÃ¬m kiáº¿m
+          Tìm kiếm
         </button>
         {searchTerm && (
           <button type="button" className="btn btn-outline-secondary" onClick={() => { setSearchTerm(''); fetchCategories(''); }}>
-            Bá» lá»c
+            Bỏ lọc
           </button>
         )}
       </form>
@@ -182,11 +182,11 @@ export default function CategoryManagementPage() {
       {/* Table */}
       <div className="card table-card">
         {loading ? (
-          <div className="loading-state">Äang táº£i danh sÃ¡ch chuyÃªn má»¥c...</div>
+          <div className="loading-state">Đang tải danh sách chuyên mục...</div>
         ) : categories.length === 0 ? (
           <div className="empty-state">
             <FolderTree size={48} />
-            <p>KhÃ´ng tÃ¬m tháº¥y chuyÃªn má»¥c nÃ o.</p>
+            <p>Không tìm thấy chuyên mục nào.</p>
           </div>
         ) : (
           <div className="table-responsive">
@@ -194,11 +194,11 @@ export default function CategoryManagementPage() {
               <thead>
                 <tr>
                   <th style={{ width: '80px' }}>ID</th>
-                  <th style={{ width: '220px' }}>TÃªn chuyÃªn má»¥c</th>
-                  <th>MÃ´ táº£ chuyÃªn má»¥c</th>
-                  <th style={{ width: '120px' }}>ChuyÃªn má»¥c cha</th>
-                  <th style={{ width: '130px', textAlign: 'center' }}>Tráº¡ng thÃ¡i</th>
-                  <th style={{ width: '140px', textAlign: 'center' }}>Thao tÃ¡c</th>
+                  <th style={{ width: '220px' }}>Tên chuyên mục</th>
+                  <th>Mô tả chuyên mục</th>
+                  <th style={{ width: '120px' }}>Chuyên mục cha</th>
+                  <th style={{ width: '130px', textAlign: 'center' }}>Trạng thái</th>
+                  <th style={{ width: '140px', textAlign: 'center' }}>Thao tác</th>
                 </tr>
               </thead>
               <tbody>
@@ -207,7 +207,7 @@ export default function CategoryManagementPage() {
                     <td className="font-semibold">#{cat.categoryId}</td>
                     <td><strong>{cat.categoryName}</strong></td>
                     <td className="text-muted">{cat.categoryDescription}</td>
-                    <td>{cat.parentCategoryId ? `#${cat.parentCategoryId}` : 'â€”'}</td>
+                    <td>{cat.parentCategoryId ? `#${cat.parentCategoryId}` : '—'}</td>
                     <td style={{ textAlign: 'center' }}>
                       <span className={`status-badge ${cat.active ? 'status-active' : 'status-inactive'}`}>
                         {cat.active ? (
@@ -222,7 +222,7 @@ export default function CategoryManagementPage() {
                         <button
                           type="button"
                           className="btn-action btn-edit"
-                          title="Sá»­a chuyÃªn má»¥c"
+                          title="Sửa chuyên mục"
                           onClick={() => handleOpenEditModal(cat)}
                         >
                           <Edit2 size={16} />
@@ -230,7 +230,7 @@ export default function CategoryManagementPage() {
                         <button
                           type="button"
                           className="btn-action btn-delete"
-                          title="XÃ³a chuyÃªn má»¥c"
+                          title="Xóa chuyên mục"
                           onClick={() => setDeletingCategory(cat)}
                         >
                           <Trash2 size={16} />
@@ -249,12 +249,12 @@ export default function CategoryManagementPage() {
       <Modal
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
-        title={isEditing ? `Chá»‰nh sá»­a ChuyÃªn má»¥c #${formData.categoryId}` : 'ThÃªm má»›i ChuyÃªn má»¥c'}
+        title={isEditing ? `Chỉnh sửa Chuyên mục #${formData.categoryId}` : 'Thêm mới Chuyên mục'}
         maxWidth="540px"
       >
         <form onSubmit={handleSaveCategory}>
           <div className="form-group">
-            <label className="form-label required">TÃªn chuyÃªn má»¥c</label>
+            <label className="form-label required">Tên chuyên mục</label>
             <input
               type="text"
               className={`form-control ${formErrors.categoryName ? 'is-invalid' : ''}`}
@@ -266,11 +266,11 @@ export default function CategoryManagementPage() {
           </div>
 
           <div className="form-group">
-            <label className="form-label required">MÃ´ táº£ chuyÃªn má»¥c</label>
+            <label className="form-label required">Mô tả chuyên mục</label>
             <textarea
               className={`form-control ${formErrors.categoryDescription ? 'is-invalid' : ''}`}
               rows={3}
-              placeholder="Nháº­p mÃ´ táº£ chuyÃªn má»¥c (tá»‘i Ä‘a 250 kÃ½ tá»±)"
+              placeholder="Nhập mô tả chuyên mục (tối đa 250 ký tự)"
               value={formData.categoryDescription}
               onChange={(e) => setFormData({ ...formData, categoryDescription: e.target.value })}
             />
@@ -279,13 +279,13 @@ export default function CategoryManagementPage() {
 
           <div className="form-row">
             <div className="form-group" style={{ flex: 1 }}>
-              <label className="form-label">ChuyÃªn má»¥c cha (Parent ID)</label>
+              <label className="form-label">Chuyên mục cha (Parent ID)</label>
               <select
                 className="form-control"
                 value={formData.parentCategoryId}
                 onChange={(e) => setFormData({ ...formData, parentCategoryId: e.target.value })}
               >
-                <option value="">-- KhÃ´ng cÃ³ chuyÃªn má»¥c cha --</option>
+                <option value="">-- Không có chuyên mục cha --</option>
                 {categories
                   .filter((c) => !isEditing || c.categoryId !== formData.categoryId)
                   .map((c) => (
@@ -297,24 +297,24 @@ export default function CategoryManagementPage() {
             </div>
 
             <div className="form-group" style={{ flex: 1 }}>
-              <label className="form-label">Tráº¡ng thÃ¡i (IsActive)</label>
+              <label className="form-label">Trạng thái (IsActive)</label>
               <select
                 className="form-control"
                 value={formData.active ? '1' : '0'}
                 onChange={(e) => setFormData({ ...formData, active: e.target.value === '1' })}
               >
-                <option value="1">Active (KÃ­ch hoáº¡t - 1)</option>
-                <option value="0">Inactive (Táº¯t - 0)</option>
+                <option value="1">Active (Kích hoạt - 1)</option>
+                <option value="0">Inactive (Tắt - 0)</option>
               </select>
             </div>
           </div>
 
           <div className="modal-actions-right">
             <button type="button" className="btn btn-secondary" onClick={() => setIsFormOpen(false)}>
-              Há»§y bá»
+              Hủy bỏ
             </button>
             <button type="submit" className="btn btn-primary">
-              {isEditing ? 'LÆ°u thay Ä‘á»•i' : 'Táº¡o chuyÃªn má»¥c'}
+              {isEditing ? 'Lưu thay đổi' : 'Tạo chuyên mục'}
             </button>
           </div>
         </form>
@@ -324,23 +324,23 @@ export default function CategoryManagementPage() {
       <Modal
         isOpen={!!deletingCategory}
         onClose={() => setDeletingCategory(null)}
-        title="XÃ¡c nháº­n xÃ³a chuyÃªn má»¥c"
+        title="Xác nhận xóa chuyên mục"
         maxWidth="460px"
       >
         {deletingCategory && (
           <div>
             <p style={{ marginBottom: '16px', lineHeight: '1.5' }}>
-              Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a chuyÃªn má»¥c <strong>"{deletingCategory.categoryName}"</strong> (ID: #{deletingCategory.categoryId}) khÃ´ng?
+              Bạn có chắc chắn muốn xóa chuyên mục <strong>"{deletingCategory.categoryName}"</strong> (ID: #{deletingCategory.categoryId}) không?
             </p>
             <div className="alert alert-warning" style={{ fontSize: '13px' }}>
-              <strong>Quy Ä‘á»‹nh nghiá»‡p vá»¥:</strong> Náº¿u chuyÃªn má»¥c nÃ y Ä‘ang chá»©a cÃ¡c bÃ i viáº¿t tin tá»©c trong há»‡ thá»‘ng, thao tÃ¡c xÃ³a sáº½ bá»‹ tá»« chá»‘i.
+              <strong>Quy định nghiệp vụ:</strong> Nếu chuyên mục này đang chứa các bài viết tin tức trong hệ thống, thao tác xóa sẽ bị từ chối.
             </div>
             <div className="modal-actions-right" style={{ marginTop: '20px' }}>
               <button type="button" className="btn btn-secondary" onClick={() => setDeletingCategory(null)}>
-                Há»§y bá»
+                Hủy bỏ
               </button>
               <button type="button" className="btn btn-danger" onClick={handleDeleteConfirm}>
-                XÃ¡c nháº­n XÃ³a
+                Xác nhận Xóa
               </button>
             </div>
           </div>
@@ -349,4 +349,3 @@ export default function CategoryManagementPage() {
     </div>
   );
 }
-

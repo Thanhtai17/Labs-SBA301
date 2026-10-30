@@ -76,7 +76,7 @@ export default function NewsManagementPage({ currentUser }) {
       const data = await newsService.getAll(params);
       setArticles(data);
     } catch (err) {
-      setFeedback({ type: 'danger', message: err.message || 'KhÃ´ng thá»ƒ táº£i danh sÃ¡ch tin tá»©c' });
+      setFeedback({ type: 'danger', message: err.message || 'Không thể tải danh sách tin tức' });
     } finally {
       setLoading(false);
     }
@@ -141,19 +141,19 @@ export default function NewsManagementPage({ currentUser }) {
   const validateForm = () => {
     const errors = {};
     if (!formData.newsTitle.trim()) {
-      errors.newsTitle = 'TiÃªu Ä‘á» tin bÃ i khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng';
+      errors.newsTitle = 'Tiêu đề tin bài không được để trống';
     } else if (formData.newsTitle.length > 400) {
-      errors.newsTitle = 'TiÃªu Ä‘á» khÃ´ng Ä‘Æ°á»£c vÆ°á»£t quÃ¡ 400 kÃ½ tá»±';
+      errors.newsTitle = 'Tiêu đề không được vượt quá 400 ký tự';
     }
 
     if (!formData.headline.trim()) {
-      errors.headline = 'DÃ²ng tÃ³m táº¯t (Headline) khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng';
+      errors.headline = 'Dòng tóm tắt (Headline) không được để trống';
     } else if (formData.headline.length > 150) {
-      errors.headline = 'Headline khÃ´ng Ä‘Æ°á»£c vÆ°á»£t quÃ¡ 150 kÃ½ tá»±';
+      errors.headline = 'Headline không được vượt quá 150 ký tự';
     }
 
     if (!formData.categoryId) {
-      errors.categoryId = 'Vui lÃ²ng chá»n chuyÃªn má»¥c';
+      errors.categoryId = 'Vui lòng chọn chuyên mục';
     }
 
     setFormErrors(errors);
@@ -179,10 +179,10 @@ export default function NewsManagementPage({ currentUser }) {
 
       if (isEditing) {
         await newsService.update(formData.newsArticleId, payload);
-        setFeedback({ type: 'success', message: `Cáº­p nháº­t tin bÃ i #${formData.newsArticleId} thÃ nh cÃ´ng!` });
+        setFeedback({ type: 'success', message: `Cập nhật tin bài #${formData.newsArticleId} thành công!` });
       } else {
         await newsService.create(payload);
-        setFeedback({ type: 'success', message: 'Táº¡o bÃ i viáº¿t tin tá»©c má»›i thÃ nh cÃ´ng!' });
+        setFeedback({ type: 'success', message: 'Tạo bài viết tin tức mới thành công!' });
       }
       setIsFormOpen(false);
       fetchNews();
@@ -195,7 +195,7 @@ export default function NewsManagementPage({ currentUser }) {
     if (!deletingArticle) return;
     try {
       await newsService.delete(deletingArticle.newsArticleId);
-      setFeedback({ type: 'success', message: `ÄÃ£ xÃ³a bÃ i viáº¿t #${deletingArticle.newsArticleId} thÃ nh cÃ´ng.` });
+      setFeedback({ type: 'success', message: `Đã xóa bài viết #${deletingArticle.newsArticleId} thành công.` });
       setDeletingArticle(null);
       fetchNews();
     } catch (err) {
@@ -208,11 +208,11 @@ export default function NewsManagementPage({ currentUser }) {
     <div className="page-container">
       <div className="page-header">
         <div>
-          <h2 className="page-title">Quáº£n lÃ½ Tin bÃ i (News Article Management)</h2>
-          <p className="page-desc">Táº¡o má»›i, biÃªn táº­p, gÃ¡n tháº» vÃ  phÃ¢n phá»‘i tin bÃ i dÃ nh cho BiÃªn táº­p viÃªn (Staff - Role 2)</p>
+          <h2 className="page-title">Quản lý Tin bài (News Article Management)</h2>
+          <p className="page-desc">Tạo mới, biên tập, gán thẻ và phân phối tin bài dành cho Biên tập viên (Staff - Role 2)</p>
         </div>
         <button className="btn btn-primary" onClick={handleOpenCreateModal}>
-          <Plus size={16} /> Viáº¿t tin bÃ i má»›i
+          <Plus size={16} /> Viết tin bài mới
         </button>
       </div>
 
@@ -220,7 +220,7 @@ export default function NewsManagementPage({ currentUser }) {
         <div className={`alert alert-${feedback.type}`}>
           {feedback.type === 'danger' ? <AlertCircle size={18} /> : <CheckCircle size={18} />}
           <span>{feedback.message}</span>
-          <button type="button" className="close-alert-btn" onClick={() => setFeedback({ type: '', message: '' })}>Ã—</button>
+          <button type="button" className="close-alert-btn" onClick={() => setFeedback({ type: '', message: '' })}>×</button>
         </div>
       )}
 
@@ -231,7 +231,7 @@ export default function NewsManagementPage({ currentUser }) {
           <input
             type="text"
             className="form-control search-field"
-            placeholder="TÃ¬m theo tiÃªu Ä‘á», headline hoáº·c ná»™i dung..."
+            placeholder="Tìm theo tiêu đề, headline hoặc nội dung..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -243,7 +243,7 @@ export default function NewsManagementPage({ currentUser }) {
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
-            <option value="">-- Táº¥t cáº£ ChuyÃªn má»¥c --</option>
+            <option value="">-- Tất cả Chuyên mục --</option>
             {categories.map((c) => (
               <option key={c.categoryId} value={c.categoryId}>
                 {c.categoryName}
@@ -256,7 +256,7 @@ export default function NewsManagementPage({ currentUser }) {
             value={selectedTag}
             onChange={(e) => setSelectedTag(e.target.value)}
           >
-            <option value="">-- Táº¥t cáº£ Tháº» --</option>
+            <option value="">-- Tất cả Thẻ --</option>
             {tags.map((t) => (
               <option key={t.tagId} value={t.tagId}>
                 #{t.tagName}
@@ -269,16 +269,16 @@ export default function NewsManagementPage({ currentUser }) {
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
           >
-            <option value="">-- Táº¥t cáº£ Tráº¡ng thÃ¡i --</option>
-            <option value="1">Active (KÃ­ch hoáº¡t)</option>
-            <option value="0">Inactive (Báº£n nhÃ¡p)</option>
+            <option value="">-- Tất cả Trạng thái --</option>
+            <option value="1">Active (Kích hoạt)</option>
+            <option value="0">Inactive (Bản nháp)</option>
           </select>
 
           <button type="submit" className="btn btn-primary">
-            Lá»c tin
+            Lọc tin
           </button>
           <button type="button" className="btn btn-outline-secondary" onClick={handleResetFilters}>
-            Äáº·t láº¡i
+            Đặt lại
           </button>
         </div>
       </form>
@@ -286,11 +286,11 @@ export default function NewsManagementPage({ currentUser }) {
       {/* Table */}
       <div className="card table-card">
         {loading ? (
-          <div className="loading-state">Äang táº£i danh sÃ¡ch tin bÃ i...</div>
+          <div className="loading-state">Đang tải danh sách tin bài...</div>
         ) : articles.length === 0 ? (
           <div className="empty-state">
             <Newspaper size={48} />
-            <p>KhÃ´ng cÃ³ bÃ i viáº¿t nÃ o phÃ¹ há»£p vá»›i bá»™ lá»c hiá»‡n táº¡i.</p>
+            <p>Không có bài viết nào phù hợp với bộ lọc hiện tại.</p>
           </div>
         ) : (
           <div className="table-responsive">
@@ -298,12 +298,12 @@ export default function NewsManagementPage({ currentUser }) {
               <thead>
                 <tr>
                   <th style={{ width: '60px' }}>ID</th>
-                  <th style={{ width: '280px' }}>TiÃªu Ä‘á» & TÃ³m táº¯t</th>
-                  <th style={{ width: '140px' }}>ChuyÃªn má»¥c</th>
-                  <th style={{ width: '180px' }}>Tháº» (Tags)</th>
-                  <th style={{ width: '120px' }}>TÃ¡c giáº£</th>
-                  <th style={{ width: '110px', textAlign: 'center' }}>Tráº¡ng thÃ¡i</th>
-                  <th style={{ width: '130px', textAlign: 'center' }}>Thao tÃ¡c</th>
+                  <th style={{ width: '280px' }}>Tiêu đề & Tóm tắt</th>
+                  <th style={{ width: '140px' }}>Chuyên mục</th>
+                  <th style={{ width: '180px' }}>Thẻ (Tags)</th>
+                  <th style={{ width: '120px' }}>Tác giả</th>
+                  <th style={{ width: '110px', textAlign: 'center' }}>Trạng thái</th>
+                  <th style={{ width: '130px', textAlign: 'center' }}>Thao tác</th>
                 </tr>
               </thead>
               <tbody>
@@ -328,7 +328,7 @@ export default function NewsManagementPage({ currentUser }) {
                             </span>
                           ))
                         ) : (
-                          <span className="text-muted" style={{ fontSize: '12px' }}>KhÃ´ng cÃ³ tháº»</span>
+                          <span className="text-muted" style={{ fontSize: '12px' }}>Không có thẻ</span>
                         )}
                       </div>
                     </td>
@@ -349,7 +349,7 @@ export default function NewsManagementPage({ currentUser }) {
                         <button
                           type="button"
                           className="btn-action"
-                          title="Xem chi tiáº¿t"
+                          title="Xem chi tiết"
                           onClick={() => setViewingArticle(item)}
                         >
                           <Eye size={16} />
@@ -357,7 +357,7 @@ export default function NewsManagementPage({ currentUser }) {
                         <button
                           type="button"
                           className="btn-action btn-edit"
-                          title="Sá»­a tin bÃ i"
+                          title="Sửa tin bài"
                           onClick={() => handleOpenEditModal(item)}
                         >
                           <Edit2 size={16} />
@@ -365,7 +365,7 @@ export default function NewsManagementPage({ currentUser }) {
                         <button
                           type="button"
                           className="btn-action btn-delete"
-                          title="XÃ³a tin bÃ i"
+                          title="Xóa tin bài"
                           onClick={() => setDeletingArticle(item)}
                         >
                           <Trash2 size={16} />
@@ -384,16 +384,16 @@ export default function NewsManagementPage({ currentUser }) {
       <Modal
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
-        title={isEditing ? `Chá»‰nh sá»­a Tin bÃ i #${formData.newsArticleId}` : 'Soáº¡n tháº£o Tin bÃ i má»›i'}
+        title={isEditing ? `Chỉnh sửa Tin bài #${formData.newsArticleId}` : 'Soạn thảo Tin bài mới'}
         maxWidth="720px"
       >
         <form onSubmit={handleSaveArticle}>
           <div className="form-group">
-            <label className="form-label required">TiÃªu Ä‘á» bÃ i viáº¿t (News Title)</label>
+            <label className="form-label required">Tiêu đề bài viết (News Title)</label>
             <input
               type="text"
               className={`form-control ${formErrors.newsTitle ? 'is-invalid' : ''}`}
-              placeholder="VD: Há»™i tháº£o TrÃ­ tuá»‡ nhÃ¢n táº¡o vÃ  CÆ¡ há»™i nghá» nghiá»‡p 2026"
+              placeholder="VD: Hội thảo Trí tuệ nhân tạo và Cơ hội nghề nghiệp 2026"
               value={formData.newsTitle}
               onChange={(e) => setFormData({ ...formData, newsTitle: e.target.value })}
             />
@@ -401,11 +401,11 @@ export default function NewsManagementPage({ currentUser }) {
           </div>
 
           <div className="form-group">
-            <label className="form-label required">DÃ²ng tÃ³m táº¯t (Headline)</label>
+            <label className="form-label required">Dòng tóm tắt (Headline)</label>
             <input
               type="text"
               className={`form-control ${formErrors.headline ? 'is-invalid' : ''}`}
-              placeholder="TÃ³m táº¯t ngáº¯n gá»n trong 1-2 cÃ¢u Ä‘á»ƒ thu hÃºt ngÆ°á»i Ä‘á»c"
+              placeholder="Tóm tắt ngắn gọn trong 1-2 câu để thu hút người đọc"
               value={formData.headline}
               onChange={(e) => setFormData({ ...formData, headline: e.target.value })}
             />
@@ -414,13 +414,13 @@ export default function NewsManagementPage({ currentUser }) {
 
           <div className="form-row">
             <div className="form-group" style={{ flex: 1 }}>
-              <label className="form-label required">ChuyÃªn má»¥c</label>
+              <label className="form-label required">Chuyên mục</label>
               <select
                 className={`form-control ${formErrors.categoryId ? 'is-invalid' : ''}`}
                 value={formData.categoryId}
                 onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
               >
-                <option value="">-- Chá»n chuyÃªn má»¥c --</option>
+                <option value="">-- Chọn chuyên mục --</option>
                 {categories.map((c) => (
                   <option key={c.categoryId} value={c.categoryId}>
                     {c.categoryName}
@@ -431,31 +431,31 @@ export default function NewsManagementPage({ currentUser }) {
             </div>
 
             <div className="form-group" style={{ flex: 1 }}>
-              <label className="form-label">Tráº¡ng thÃ¡i phÃ¡t hÃ nh</label>
+              <label className="form-label">Trạng thái phát hành</label>
               <select
                 className="form-control"
                 value={formData.newsStatus ? '1' : '0'}
                 onChange={(e) => setFormData({ ...formData, newsStatus: e.target.value === '1' })}
               >
-                <option value="1">Active (CÃ´ng khai cho ngÆ°á»i xem - 1)</option>
-                <option value="0">Inactive (Báº£n nhÃ¡p / LÆ°u trá»¯ - 0)</option>
+                <option value="1">Active (Công khai cho người xem - 1)</option>
+                <option value="0">Inactive (Bản nháp / Lưu trữ - 0)</option>
               </select>
             </div>
           </div>
 
           <div className="form-group">
-            <label className="form-label">Nguá»“n tin tá»©c (News Source)</label>
+            <label className="form-label">Nguồn tin tức (News Source)</label>
             <input
               type="text"
               className="form-control"
-              placeholder="VD: Ban Truyá»n thÃ´ng FU, VnExpress..."
+              placeholder="VD: Ban Truyền thông FU, VnExpress..."
               value={formData.newsSource}
               onChange={(e) => setFormData({ ...formData, newsSource: e.target.value })}
             />
           </div>
 
           <div className="form-group">
-            <label className="form-label">Chá»n cÃ¡c Tháº» gáº¯n kÃ¨m (Tags)</label>
+            <label className="form-label">Chọn các Thẻ gắn kèm (Tags)</label>
             <div className="tag-checkbox-grid">
               {tags.map((t) => {
                 const isSelected = formData.tagIds.includes(t.tagId);
@@ -479,11 +479,11 @@ export default function NewsManagementPage({ currentUser }) {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Ná»™i dung chi tiáº¿t (News Content)</label>
+            <label className="form-label">Nội dung chi tiết (News Content)</label>
             <textarea
               className="form-control"
               rows={6}
-              placeholder="Nháº­p ná»™i dung Ä‘áº§y Ä‘á»§ cá»§a bÃ i viáº¿t táº¡i Ä‘Ã¢y..."
+              placeholder="Nhập nội dung đầy đủ của bài viết tại đây..."
               value={formData.newsContent}
               onChange={(e) => setFormData({ ...formData, newsContent: e.target.value })}
             />
@@ -491,10 +491,10 @@ export default function NewsManagementPage({ currentUser }) {
 
           <div className="modal-actions-right">
             <button type="button" className="btn btn-secondary" onClick={() => setIsFormOpen(false)}>
-              Há»§y bá»
+              Hủy bỏ
             </button>
             <button type="submit" className="btn btn-primary">
-              {isEditing ? 'LÆ°u thay Ä‘á»•i' : 'ÄÄƒng bÃ i viáº¿t'}
+              {isEditing ? 'Lưu thay đổi' : 'Đăng bài viết'}
             </button>
           </div>
         </form>
@@ -511,9 +511,9 @@ export default function NewsManagementPage({ currentUser }) {
           <div className="article-detail-content">
             <div className="detail-meta">
               <span className="category-pill">{viewingArticle.categoryName}</span>
-              <span>â€¢ NgÆ°á»i táº¡o: <strong>{viewingArticle.createdByName || 'N/A'}</strong></span>
-              <span>â€¢ NgÃ y táº¡o: {new Date(viewingArticle.createdDate).toLocaleString('vi-VN')}</span>
-              {viewingArticle.newsSource && <span>â€¢ Nguá»“n: {viewingArticle.newsSource}</span>}
+              <span>• Người tạo: <strong>{viewingArticle.createdByName || 'N/A'}</strong></span>
+              <span>• Ngày tạo: {new Date(viewingArticle.createdDate).toLocaleString('vi-VN')}</span>
+              {viewingArticle.newsSource && <span>• Nguồn: {viewingArticle.newsSource}</span>}
             </div>
 
             <h4 className="detail-headline">{viewingArticle.headline}</h4>
@@ -524,13 +524,13 @@ export default function NewsManagementPage({ currentUser }) {
                   <p key={idx}>{p}</p>
                 ))
               ) : (
-                <p>Ná»™i dung chi tiáº¿t chÆ°a Ä‘Æ°á»£c cáº­p nháº­t.</p>
+                <p>Nội dung chi tiết chưa được cập nhật.</p>
               )}
             </div>
 
             {viewingArticle.tags && viewingArticle.tags.length > 0 && (
               <div className="detail-tags">
-                <strong>Tháº» gáº¯n kÃ¨m: </strong>
+                <strong>Thẻ gắn kèm: </strong>
                 {viewingArticle.tags.map((t) => (
                   <span key={t.tagId} className="tag-pill">
                     <Tag size={12} /> {t.tagName}
@@ -541,7 +541,7 @@ export default function NewsManagementPage({ currentUser }) {
 
             <div className="modal-actions-right" style={{ marginTop: '20px' }}>
               <button className="btn btn-secondary" onClick={() => setViewingArticle(null)}>
-                ÄÃ³ng
+                Đóng
               </button>
             </div>
           </div>
@@ -552,23 +552,23 @@ export default function NewsManagementPage({ currentUser }) {
       <Modal
         isOpen={!!deletingArticle}
         onClose={() => setDeletingArticle(null)}
-        title="XÃ¡c nháº­n xÃ³a bÃ i viáº¿t tin tá»©c"
+        title="Xác nhận xóa bài viết tin tức"
         maxWidth="460px"
       >
         {deletingArticle && (
           <div>
             <p style={{ marginBottom: '16px', lineHeight: '1.5' }}>
-              Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a bÃ i viáº¿t <strong>"{deletingArticle.newsTitle}"</strong> (MÃ£ tin: #{deletingArticle.newsArticleId}) khÃ´ng?
+              Bạn có chắc chắn muốn xóa bài viết <strong>"{deletingArticle.newsTitle}"</strong> (Mã tin: #{deletingArticle.newsArticleId}) không?
             </p>
             <p className="text-muted" style={{ fontSize: '13px' }}>
-              Thao tÃ¡c nÃ y sáº½ gá»¡ bá» bÃ i viáº¿t khá»i há»‡ thá»‘ng cÃ¹ng toÃ n bá»™ liÃªn káº¿t tháº» gáº¯n kÃ¨m.
+              Thao tác này sẽ gỡ bỏ bài viết khỏi hệ thống cùng toàn bộ liên kết thẻ gắn kèm.
             </p>
             <div className="modal-actions-right" style={{ marginTop: '20px' }}>
               <button type="button" className="btn btn-secondary" onClick={() => setDeletingArticle(null)}>
-                Há»§y bá»
+                Hủy bỏ
               </button>
               <button type="button" className="btn btn-danger" onClick={handleDeleteConfirm}>
-                XÃ¡c nháº­n XÃ³a
+                Xác nhận Xóa
               </button>
             </div>
           </div>
@@ -577,4 +577,3 @@ export default function NewsManagementPage({ currentUser }) {
     </div>
   );
 }
-

@@ -43,7 +43,7 @@ export default function AccountManagementPage() {
       const data = await accountService.getAll(keyword || undefined);
       setAccounts(data);
     } catch (err) {
-      setFeedback({ type: 'danger', message: err.message || 'KhÃ´ng thá»ƒ táº£i danh sÃ¡ch tÃ i khoáº£n' });
+      setFeedback({ type: 'danger', message: err.message || 'Không thể tải danh sách tài khoản' });
     } finally {
       setLoading(false);
     }
@@ -83,19 +83,19 @@ export default function AccountManagementPage() {
   const validateForm = () => {
     const errors = {};
     if (!formData.accountName.trim()) {
-      errors.accountName = 'TÃªn tÃ i khoáº£n khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng';
+      errors.accountName = 'Tên tài khoản không được để trống';
     } else if (formData.accountName.length > 100) {
-      errors.accountName = 'TÃªn khÃ´ng Ä‘Æ°á»£c quÃ¡ 100 kÃ½ tá»±';
+      errors.accountName = 'Tên không được quá 100 ký tự';
     }
 
     if (!formData.accountEmail.trim()) {
-      errors.accountEmail = 'Email khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng';
+      errors.accountEmail = 'Email không được để trống';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.accountEmail.trim())) {
-      errors.accountEmail = 'Äá»‹nh dáº¡ng email khÃ´ng há»£p lá»‡';
+      errors.accountEmail = 'Định dạng email không hợp lệ';
     }
 
     if (!formData.accountPassword.trim()) {
-      errors.accountPassword = 'Máº­t kháº©u khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng';
+      errors.accountPassword = 'Mật khẩu không được để trống';
     }
 
     setFormErrors(errors);
@@ -109,7 +109,7 @@ export default function AccountManagementPage() {
     try {
       if (isEditing) {
         await accountService.update(formData.accountId, formData);
-        setFeedback({ type: 'success', message: `Cáº­p nháº­t tÃ i khoáº£n #${formData.accountId} thÃ nh cÃ´ng!` });
+        setFeedback({ type: 'success', message: `Cập nhật tài khoản #${formData.accountId} thành công!` });
       } else {
         await accountService.create({
           accountId: formData.accountId ? Number(formData.accountId) : undefined,
@@ -118,7 +118,7 @@ export default function AccountManagementPage() {
           accountRole: Number(formData.accountRole),
           accountPassword: formData.accountPassword
         });
-        setFeedback({ type: 'success', message: 'Táº¡o tÃ i khoáº£n má»›i thÃ nh cÃ´ng!' });
+        setFeedback({ type: 'success', message: 'Tạo tài khoản mới thành công!' });
       }
       setIsFormOpen(false);
       fetchAccounts();
@@ -131,7 +131,7 @@ export default function AccountManagementPage() {
     if (!deletingAccount) return;
     try {
       await accountService.delete(deletingAccount.accountId);
-      setFeedback({ type: 'success', message: `ÄÃ£ xÃ³a tÃ i khoáº£n #${deletingAccount.accountId} thÃ nh cÃ´ng.` });
+      setFeedback({ type: 'success', message: `Đã xóa tài khoản #${deletingAccount.accountId} thành công.` });
       setDeletingAccount(null);
       fetchAccounts();
     } catch (err) {
@@ -144,11 +144,11 @@ export default function AccountManagementPage() {
     <div className="page-container">
       <div className="page-header">
         <div>
-          <h2 className="page-title">Quáº£n lÃ½ TÃ i khoáº£n (Account Management)</h2>
-          <p className="page-desc">Chá»©c nÄƒng Ä‘á»™c quyá»n dÃ nh cho Quáº£n trá»‹ viÃªn (Admin - Role 1)</p>
+          <h2 className="page-title">Quản lý Tài khoản (Account Management)</h2>
+          <p className="page-desc">Chức năng đặc quyền dành cho Quản trị viên (Admin - Role 1)</p>
         </div>
         <button className="btn btn-primary" onClick={handleOpenCreateModal}>
-          <Plus size={16} /> ThÃªm tÃ i khoáº£n má»›i
+          <Plus size={16} /> Thêm tài khoản mới
         </button>
       </div>
 
@@ -156,7 +156,7 @@ export default function AccountManagementPage() {
         <div className={`alert alert-${feedback.type}`}>
           {feedback.type === 'danger' ? <AlertCircle size={18} /> : <CheckCircle size={18} />}
           <span>{feedback.message}</span>
-          <button type="button" className="close-alert-btn" onClick={() => setFeedback({ type: '', message: '' })}>Ã—</button>
+          <button type="button" className="close-alert-btn" onClick={() => setFeedback({ type: '', message: '' })}>×</button>
         </div>
       )}
 
@@ -167,17 +167,17 @@ export default function AccountManagementPage() {
           <input
             type="text"
             className="form-control"
-            placeholder="TÃ¬m theo TÃªn tÃ i khoáº£n hoáº·c Email..."
+            placeholder="Tìm theo Tên tài khoản hoặc Email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         <button type="submit" className="btn btn-secondary">
-          TÃ¬m kiáº¿m
+          Tìm kiếm
         </button>
         {searchTerm && (
           <button type="button" className="btn btn-outline-secondary" onClick={() => { setSearchTerm(''); fetchAccounts(''); }}>
-            Bá» lá»c
+            Bỏ lọc
           </button>
         )}
       </form>
@@ -185,11 +185,11 @@ export default function AccountManagementPage() {
       {/* Table */}
       <div className="card table-card">
         {loading ? (
-          <div className="loading-state">Äang táº£i dá»¯ liá»‡u tÃ i khoáº£n...</div>
+          <div className="loading-state">Đang tải dữ liệu tài khoản...</div>
         ) : accounts.length === 0 ? (
           <div className="empty-state">
             <Users size={48} />
-            <p>KhÃ´ng cÃ³ tÃ i khoáº£n nÃ o Ä‘Æ°á»£c tÃ¬m tháº¥y.</p>
+            <p>Không có tài khoản nào được tìm thấy.</p>
           </div>
         ) : (
           <div className="table-responsive">
@@ -197,11 +197,11 @@ export default function AccountManagementPage() {
               <thead>
                 <tr>
                   <th style={{ width: '80px' }}>ID</th>
-                  <th>Há» vÃ  tÃªn</th>
-                  <th>Email Ä‘Äƒng nháº­p</th>
-                  <th style={{ width: '130px' }}>Vai trÃ² (Role)</th>
-                  <th style={{ width: '120px' }}>Máº­t kháº©u</th>
-                  <th style={{ width: '140px', textAlign: 'center' }}>Thao tÃ¡c</th>
+                  <th>Họ và tên</th>
+                  <th>Email đăng nhập</th>
+                  <th style={{ width: '130px' }}>Vai trò (Role)</th>
+                  <th style={{ width: '120px' }}>Mật khẩu</th>
+                  <th style={{ width: '140px', textAlign: 'center' }}>Thao tác</th>
                 </tr>
               </thead>
               <tbody>
@@ -225,7 +225,7 @@ export default function AccountManagementPage() {
                         <button
                           type="button"
                           className="btn-action btn-edit"
-                          title="Sá»­a tÃ i khoáº£n"
+                          title="Sửa tài khoản"
                           onClick={() => handleOpenEditModal(acc)}
                         >
                           <Edit2 size={16} />
@@ -233,7 +233,7 @@ export default function AccountManagementPage() {
                         <button
                           type="button"
                           className="btn-action btn-delete"
-                          title="XÃ³a tÃ i khoáº£n"
+                          title="Xóa tài khoản"
                           onClick={() => setDeletingAccount(acc)}
                         >
                           <Trash2 size={16} />
@@ -252,17 +252,17 @@ export default function AccountManagementPage() {
       <Modal
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
-        title={isEditing ? `Chá»‰nh sá»­a TÃ i khoáº£n #${formData.accountId}` : 'ThÃªm má»›i TÃ i khoáº£n'}
+        title={isEditing ? `Chỉnh sửa Tài khoản #${formData.accountId}` : 'Thêm mới Tài khoản'}
         maxWidth="520px"
       >
         <form onSubmit={handleSaveAccount}>
           {!isEditing && (
             <div className="form-group">
-              <label className="form-label">MÃ£ tÃ i khoáº£n (Account ID - Ä‘á»ƒ trá»‘ng Ä‘á»ƒ tá»± sinh)</label>
+              <label className="form-label">Mã tài khoản (Account ID - để trống để tự sinh)</label>
               <input
                 type="number"
                 className="form-control"
-                placeholder="Tá»± Ä‘á»™ng sinh sá»‘ tiáº¿p theo náº¿u bá» trá»‘ng"
+                placeholder="Tự động sinh số tiếp theo nếu bỏ trống"
                 value={formData.accountId}
                 onChange={(e) => setFormData({ ...formData, accountId: e.target.value })}
               />
@@ -270,7 +270,7 @@ export default function AccountManagementPage() {
           )}
 
           <div className="form-group">
-            <label className="form-label required">Há» vÃ  tÃªn</label>
+            <label className="form-label required">Họ và tên</label>
             <input
               type="text"
               className={`form-control ${formErrors.accountName ? 'is-invalid' : ''}`}
@@ -294,19 +294,19 @@ export default function AccountManagementPage() {
           </div>
 
           <div className="form-group">
-            <label className="form-label required">Vai trÃ² (Role)</label>
+            <label className="form-label required">Vai trò (Role)</label>
             <select
               className="form-control"
               value={formData.accountRole}
               onChange={(e) => setFormData({ ...formData, accountRole: Number(e.target.value) })}
             >
-              <option value={1}>Admin (Quáº£n trá»‹ viÃªn - Role 1)</option>
-              <option value={2}>Staff (BiÃªn táº­p viÃªn - Role 2)</option>
+              <option value={1}>Admin (Quản trị viên - Role 1)</option>
+              <option value={2}>Staff (Biên tập viên - Role 2)</option>
             </select>
           </div>
 
           <div className="form-group">
-            <label className="form-label required">Máº­t kháº©u</label>
+            <label className="form-label required">Mật khẩu</label>
             <input
               type="text"
               className={`form-control ${formErrors.accountPassword ? 'is-invalid' : ''}`}
@@ -319,10 +319,10 @@ export default function AccountManagementPage() {
 
           <div className="modal-actions-right">
             <button type="button" className="btn btn-secondary" onClick={() => setIsFormOpen(false)}>
-              Há»§y bá»
+              Hủy bỏ
             </button>
             <button type="submit" className="btn btn-primary">
-              {isEditing ? 'LÆ°u thay Ä‘á»•i' : 'Táº¡o tÃ i khoáº£n'}
+              {isEditing ? 'Lưu thay đổi' : 'Tạo tài khoản'}
             </button>
           </div>
         </form>
@@ -332,23 +332,23 @@ export default function AccountManagementPage() {
       <Modal
         isOpen={!!deletingAccount}
         onClose={() => setDeletingAccount(null)}
-        title="XÃ¡c nháº­n xÃ³a tÃ i khoáº£n"
+        title="Xác nhận xóa tài khoản"
         maxWidth="460px"
       >
         {deletingAccount && (
           <div>
             <p style={{ marginBottom: '16px', lineHeight: '1.5' }}>
-              Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a tÃ i khoáº£n <strong>"{deletingAccount.accountName}"</strong> (ID: #{deletingAccount.accountId}) khÃ´ng?
+              Bạn có chắc chắn muốn xóa tài khoản <strong>"{deletingAccount.accountName}"</strong> (ID: #{deletingAccount.accountId}) không?
             </p>
             <div className="alert alert-warning" style={{ fontSize: '13px' }}>
-              <strong>LÆ°u Ã½ nghiá»‡p vá»¥:</strong> Náº¿u tÃ i khoáº£n nÃ y Ä‘Ã£ tá»«ng táº¡o báº¥t ká»³ bÃ i viáº¿t tin tá»©c nÃ o, há»‡ thá»‘ng sáº½ ngÄƒn cháº·n viá»‡c xÃ³a theo quy Ä‘á»‹nh Ä‘á» bÃ i.
+              <strong>Lưu ý nghiệp vụ:</strong> Nếu tài khoản này đã từng tạo bất kỳ bài viết tin tức nào, hệ thống sẽ ngăn chặn việc xóa theo quy định đề bài.
             </div>
             <div className="modal-actions-right" style={{ marginTop: '20px' }}>
               <button type="button" className="btn btn-secondary" onClick={() => setDeletingAccount(null)}>
-                Há»§y bá»
+                Hủy bỏ
               </button>
               <button type="button" className="btn btn-danger" onClick={handleDeleteConfirm}>
-                XÃ¡c nháº­n XÃ³a
+                Xác nhận Xóa
               </button>
             </div>
           </div>
@@ -357,4 +357,3 @@ export default function AccountManagementPage() {
     </div>
   );
 }
-
