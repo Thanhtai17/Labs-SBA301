@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Project: FUNewsManagementSystem - Assignment 02 (Frontend)
  * Course: SBA301 - Integrate Single Page Application with Spring Boot
  * 
