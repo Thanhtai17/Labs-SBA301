@@ -36,7 +36,7 @@ export default function App() {
         const u = JSON.parse(savedUser);
         return u.accountRole === 1 ? 'accounts' : 'news-mgmt';
       }
-    } catch {}
+    } catch { }
     return 'public-news';
   });
 
