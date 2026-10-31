@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
  * Course: SBA301 - Integrate Single Page Application with Spring Boot
  * 
@@ -24,7 +24,7 @@ const BookingHistoryPage = () => {
       const res = await bookingApi.getMyBookingHistory();
       setBookings(res.data);
     } catch (err) {
-      setError(err.response?.data?.message || 'KhÃ´ng thá»ƒ táº£i lá»‹ch sá»­ Ä‘áº·t phÃ²ng.');
+      setError(err.response?.data?.message || 'Không thể tải lịch sử đặt phòng.');
     } finally {
       setLoading(false);
     }
@@ -41,13 +41,13 @@ const BookingHistoryPage = () => {
   const getStatusBadge = (status) => {
     switch (status) {
       case 1:
-        return <span className="badge badge-success">ÄÃ£ xÃ¡c nháº­n</span>;
+        return <span className="badge badge-success">Đã xác nhận</span>;
       case 2:
-        return <span className="badge badge-primary">ÄÃ£ hoÃ n thÃ nh</span>;
+        return <span className="badge badge-primary">Đã hoàn thành</span>;
       case 0:
-        return <span className="badge badge-danger">ÄÃ£ há»§y</span>;
+        return <span className="badge badge-danger">Đã hủy</span>;
       default:
-        return <span className="badge badge-neutral">Chá» duyá»‡t</span>;
+        return <span className="badge badge-neutral">Chờ duyệt</span>;
     }
   };
 
@@ -55,10 +55,10 @@ const BookingHistoryPage = () => {
     <div>
       <div style={{ marginBottom: '2rem' }}>
         <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0f172a' }}>
-          Lá»‹ch sá»­ Ä‘áº·t phÃ²ng (Booking History)
+          Lịch sử đặt phòng (Booking History)
         </h1>
         <p style={{ color: '#64748b' }}>
-          Theo dÃµi danh sÃ¡ch cÃ¡c Ä‘Æ¡n Ä‘áº·t phÃ²ng vÃ  chi tiáº¿t phÃ²ng Ä‘Ã£ Ä‘áº·t
+          Theo dõi danh sách các đơn đặt phòng và chi tiết phòng đã đặt
         </p>
       </div>
 
@@ -81,14 +81,14 @@ const BookingHistoryPage = () => {
 
       {loading ? (
         <div style={{ textAlign: 'center', padding: '3rem', color: '#64748b' }}>
-          Äang táº£i dá»¯ liá»‡u lá»‹ch sá»­ Ä‘áº·t phÃ²ng...
+          Đang tải dữ liệu lịch sử đặt phòng...
         </div>
       ) : bookings.length === 0 ? (
         <div className="card" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
           <History size={48} style={{ color: '#cbd5e1', margin: '0 auto 1rem' }} />
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#334155' }}>Báº¡n chÆ°a cÃ³ Ä‘Æ¡n Ä‘áº·t phÃ²ng nÃ o</h3>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#334155' }}>Bạn chưa có đơn đặt phòng nào</h3>
           <p style={{ color: '#64748b', marginTop: '0.5rem' }}>
-            HÃ£y vÃ o má»¥c "Äáº·t phÃ²ng trá»±c tuyáº¿n" Ä‘á»ƒ báº¯t Ä‘áº§u tráº£i nghiá»‡m dá»‹ch vá»¥ cá»§a khÃ¡ch sáº¡n!
+            Hãy vào mục "Đặt phòng trực tuyến" để bắt đầu trải nghiệm dịch vụ của khách sạn!
           </p>
         </div>
       ) : (
@@ -96,13 +96,13 @@ const BookingHistoryPage = () => {
           <table className="data-table">
             <thead>
               <tr>
-                <th>MÃ£ Ä‘Æ¡n</th>
-                <th>NgÃ y Ä‘áº·t</th>
-                <th>Sá»‘ lÆ°á»£ng phÃ²ng</th>
-                <th>Danh sÃ¡ch phÃ²ng</th>
-                <th>Tá»•ng thanh toÃ¡n</th>
-                <th>Tráº¡ng thÃ¡i</th>
-                <th style={{ textAlign: 'center' }}>Thao tÃ¡c</th>
+                <th>Mã đơn</th>
+                <th>Ngày đặt</th>
+                <th>Số lượng phòng</th>
+                <th>Danh sách phòng</th>
+                <th>Tổng thanh toán</th>
+                <th>Trạng thái</th>
+                <th style={{ textAlign: 'center' }}>Thao tác</th>
               </tr>
             </thead>
             <tbody>
@@ -110,7 +110,7 @@ const BookingHistoryPage = () => {
                 <tr key={b.bookingReservationId}>
                   <td style={{ fontWeight: 700 }}>#{b.bookingReservationId}</td>
                   <td>{b.bookingDate}</td>
-                  <td>{b.details?.length || 0} phÃ²ng</td>
+                  <td>{b.details?.length || 0} phòng</td>
                   <td>
                     <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
                       {b.details?.map((d, idx) => (
@@ -129,7 +129,7 @@ const BookingHistoryPage = () => {
                       onClick={() => setSelectedBooking(b)}
                       className="btn btn-secondary btn-sm"
                     >
-                      <Eye size={14} /> Chi tiáº¿t
+                      <Eye size={14} /> Chi tiết
                     </button>
                   </td>
                 </tr>
@@ -143,22 +143,22 @@ const BookingHistoryPage = () => {
       <Modal
         isOpen={!!selectedBooking}
         onClose={() => setSelectedBooking(null)}
-        title={`Chi tiáº¿t Ä‘Æ¡n Ä‘áº·t phÃ²ng #${selectedBooking?.bookingReservationId}`}
+        title={`Chi tiết đơn đặt phòng #${selectedBooking?.bookingReservationId}`}
         maxWidth={650}
       >
         {selectedBooking && (
           <div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem', background: '#f8fafc', padding: '1rem', borderRadius: 8 }}>
               <div>
-                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>NgÃ y Ä‘áº·t:</span>
+                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Ngày đặt:</span>
                 <div style={{ fontWeight: 600 }}>{selectedBooking.bookingDate}</div>
               </div>
               <div>
-                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Tráº¡ng thÃ¡i:</span>
+                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Trạng thái:</span>
                 <div>{getStatusBadge(selectedBooking.bookingStatus)}</div>
               </div>
               <div>
-                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>KhÃ¡ch hÃ ng:</span>
+                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Khách hàng:</span>
                 <div style={{ fontWeight: 600 }}>{selectedBooking.customerFullName}</div>
               </div>
               <div>
@@ -168,17 +168,17 @@ const BookingHistoryPage = () => {
             </div>
 
             <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.75rem' }}>
-              Danh sÃ¡ch phÃ²ng Ä‘áº·t:
+              Danh sách phòng đặt:
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
               {selectedBooking.details?.map((d, index) => (
                 <div key={index} style={{ border: '1px solid #e2e8f0', borderRadius: 8, padding: '0.85rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
                     <div style={{ fontWeight: 700, color: '#0f172a' }}>
-                      PhÃ²ng {d.roomNumber} - {d.roomTypeName}
+                      Phòng {d.roomNumber} - {d.roomTypeName}
                     </div>
                     <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '0.2rem' }}>
-                      Tá»« ngÃ y: <strong>{d.startDate}</strong> Ä‘áº¿n <strong>{d.endDate}</strong>
+                      Từ ngày: <strong>{d.startDate}</strong> đến <strong>{d.endDate}</strong>
                     </div>
                   </div>
                   <div style={{ fontWeight: 700, color: '#2563eb' }}>
@@ -189,7 +189,7 @@ const BookingHistoryPage = () => {
             </div>
 
             <div style={{ borderTop: '2px dashed #e2e8f0', paddingTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Tá»•ng thanh toÃ¡n:</span>
+              <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Tổng thanh toán:</span>
               <span style={{ fontWeight: 800, fontSize: '1.35rem', color: '#2563eb' }}>
                 {formatPrice(selectedBooking.totalPrice)}
               </span>

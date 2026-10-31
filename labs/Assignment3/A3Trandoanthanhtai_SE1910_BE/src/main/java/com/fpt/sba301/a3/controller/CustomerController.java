@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Project: FUMiniHotelSystem - Assignment 03 (Backend)
  * Course: SBA301 - Integrate Single Page Application with Spring Boot
  * 
@@ -96,7 +96,7 @@ public class CustomerController {
     public ResponseEntity<?> deleteCustomer(@PathVariable Integer id) {
         try {
             customerService.deleteCustomer(id);
-            return ResponseEntity.ok(Map.of("message", "KhÃ¡ch hÃ ng Ä‘Ã£ Ä‘Æ°á»£c chuyá»ƒn tráº¡ng thÃ¡i ngÆ°ng hoáº¡t Ä‘á»™ng (Status = 0)."));
+            return ResponseEntity.ok(Map.of("message", "Khách hàng đã được chuyển trạng thái ngưng hoạt động (Status = 0)."));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         }

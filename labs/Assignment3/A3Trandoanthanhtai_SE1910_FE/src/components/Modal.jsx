@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
  * Course: SBA301 - Integrate Single Page Application with Spring Boot
  * 

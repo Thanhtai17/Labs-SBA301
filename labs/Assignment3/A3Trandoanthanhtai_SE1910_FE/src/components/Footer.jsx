@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
  * Course: SBA301 - Integrate Single Page Application with Spring Boot
  * 
@@ -36,7 +36,7 @@ const Footer = () => {
         </div>
 
         <div style={{ textAlign: 'right' }}>
-          <div><strong>Sinh viÃªn thá»±c hiá»‡n:</strong> Tran Doan Thanh Tai (SE1910)</div>
+          <div><strong>Sinh viên thực hiện:</strong> Tran Doan Thanh Tai (SE1910)</div>
           <div><strong>Database:</strong> A3Trandoanthanhtai_SE1910 (MS SQL Server)</div>
         </div>
       </div>

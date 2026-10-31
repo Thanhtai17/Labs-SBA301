@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
  * Course: SBA301 - Integrate Single Page Application with Spring Boot
  * 
@@ -15,10 +15,10 @@ const ConfirmDialog = ({
   isOpen,
   onClose,
   onConfirm,
-  title = "XÃ¡c nháº­n hÃ nh Ä‘á»™ng",
+  title = "Xác nhận hành động",
   message,
-  confirmText = "XÃ¡c nháº­n",
-  cancelText = "Há»§y bá»",
+  confirmText = "Xác nhận",
+  cancelText = "Hủy bỏ",
   isDanger = false,
   loading = false,
 }) => {
@@ -61,7 +61,7 @@ const ConfirmDialog = ({
           className={`btn ${isDanger ? 'btn-danger' : 'btn-primary'} btn-sm`}
           disabled={loading}
         >
-          {loading ? 'Äang xá»­ lÃ½...' : confirmText}
+          {loading ? 'Đang xử lý...' : confirmText}
         </button>
       </div>
     </Modal>

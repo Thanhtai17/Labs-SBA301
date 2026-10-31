@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
  * Course: SBA301 - Integrate Single Page Application with Spring Boot
  * 
@@ -71,7 +71,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
               FU Mini Hotel
             </div>
             <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 500 }}>
-              FUMiniHotelSystem â€¢ SBA301
+              FUMiniHotelSystem • SBA301
             </div>
           </div>
         </div>
@@ -236,7 +236,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
               <button
                 onClick={logout}
                 className="btn btn-secondary btn-sm"
-                title="ÄÄƒng xuáº¥t"
+                title="Đăng xuất"
                 style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: '#ef4444' }}
               >
                 <LogOut size={15} />

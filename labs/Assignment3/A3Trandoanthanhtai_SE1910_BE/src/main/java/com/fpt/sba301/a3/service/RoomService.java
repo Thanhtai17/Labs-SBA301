@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Project: FUMiniHotelSystem - Assignment 03 (Backend)
  * Course: SBA301 - Integrate Single Page Application with Spring Boot
  * 
@@ -114,12 +114,12 @@ public class RoomService {
             room.setRoomStatus((byte) 0);
             roomRepository.save(room);
             result.put("action", "STATUS_DEACTIVATED");
-            result.put("message", "PhÃ²ng [" + room.getRoomNumber() + "] Ä‘Ã£ tá»«ng cÃ³ giao dá»‹ch Ä‘áº·t phÃ²ng nÃªn há»‡ thá»‘ng chá»‰ chuyá»ƒn tráº¡ng thÃ¡i sang ngÆ°ng hoáº¡t Ä‘á»™ng (RoomStatus = 0) theo Ä‘Ãºng yÃªu cáº§u Ä‘á» bÃ i.");
+            result.put("message", "Phòng [" + room.getRoomNumber() + "] đã từng có giao dịch đặt phòng nên hệ thống chỉ chuyển trạng thái sang ngưng hoạt động (RoomStatus = 0) theo đúng yêu cầu đề bài.");
         } else {
             // Hard delete: Not in any renting transaction
             roomRepository.delete(room);
             result.put("action", "HARD_DELETED");
-            result.put("message", "PhÃ²ng [" + room.getRoomNumber() + "] chÆ°a tá»«ng cÃ³ giao dá»‹ch Ä‘áº·t phÃ²ng nÃ o nÃªn Ä‘Ã£ Ä‘Æ°á»£c xÃ³a hoÃ n toÃ n khá»i cÆ¡ sá»Ÿ dá»¯ liá»‡u.");
+            result.put("message", "Phòng [" + room.getRoomNumber() + "] chưa từng có giao dịch đặt phòng nào nên đã được xóa hoàn toàn khỏi cơ sở dữ liệu.");
         }
         return result;
     }
