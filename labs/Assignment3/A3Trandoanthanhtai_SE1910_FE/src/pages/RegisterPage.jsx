@@ -1,3 +1,12 @@
+﻿/**
+ * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
+ * Course: SBA301 - Integrate Single Page Application with Spring Boot
+ * 
+ * Author: Tran Doan Thanh Tai (Student ID: CE190084)
+ * Class: SE1910
+ * GitHub: Thanhtai17 (nhantai0317@gmail.com)
+ * Date: October 31, 2026
+ */
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { UserPlus, User, Mail, Phone, Calendar, KeyRound, AlertCircle } from 'lucide-react';
@@ -24,7 +33,7 @@ const RegisterPage = ({ setActiveTab }) => {
     setError('');
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Mật khẩu xác nhận không khớp!');
+      setError('Máº­t kháº©u xÃ¡c nháº­n khÃ´ng khá»›p!');
       return;
     }
 
@@ -39,7 +48,7 @@ const RegisterPage = ({ setActiveTab }) => {
       });
       setActiveTab('customer-booking');
     } catch (err) {
-      setError(err.response?.data?.message || 'Đăng ký thất bại. Email có thể đã tồn tại.');
+      setError(err.response?.data?.message || 'ÄÄƒng kÃ½ tháº¥t báº¡i. Email cÃ³ thá»ƒ Ä‘Ã£ tá»“n táº¡i.');
     } finally {
       setLoading(false);
     }
@@ -62,9 +71,9 @@ const RegisterPage = ({ setActiveTab }) => {
           }}>
             <UserPlus size={24} />
           </div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0f172a' }}>Đăng ký tài khoản</h2>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0f172a' }}>ÄÄƒng kÃ½ tÃ i khoáº£n</h2>
           <p style={{ color: '#64748b', fontSize: '0.875rem', marginTop: '0.25rem' }}>
-            Tạo tài khoản khách hàng để đặt phòng trực tuyến
+            Táº¡o tÃ i khoáº£n khÃ¡ch hÃ ng Ä‘á»ƒ Ä‘áº·t phÃ²ng trá»±c tuyáº¿n
           </p>
         </div>
 
@@ -88,7 +97,7 @@ const RegisterPage = ({ setActiveTab }) => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="form-label">Họ và tên *</label>
+            <label className="form-label">Há» vÃ  tÃªn *</label>
             <div style={{ position: 'relative' }}>
               <User size={18} style={{ position: 'absolute', left: 12, top: 12, color: '#94a3b8' }} />
               <input
@@ -96,7 +105,7 @@ const RegisterPage = ({ setActiveTab }) => {
                 name="customerFullName"
                 required
                 className="form-input"
-                placeholder="Nguyễn Văn A"
+                placeholder="Nguyá»…n VÄƒn A"
                 value={formData.customerFullName}
                 onChange={handleChange}
                 style={{ paddingLeft: '2.4rem' }}
@@ -105,7 +114,7 @@ const RegisterPage = ({ setActiveTab }) => {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Email đăng nhập *</label>
+            <label className="form-label">Email Ä‘Äƒng nháº­p *</label>
             <div style={{ position: 'relative' }}>
               <Mail size={18} style={{ position: 'absolute', left: 12, top: 12, color: '#94a3b8' }} />
               <input
@@ -123,7 +132,7 @@ const RegisterPage = ({ setActiveTab }) => {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div className="form-group">
-              <label className="form-label">Số điện thoại</label>
+              <label className="form-label">Sá»‘ Ä‘iá»‡n thoáº¡i</label>
               <div style={{ position: 'relative' }}>
                 <Phone size={18} style={{ position: 'absolute', left: 12, top: 12, color: '#94a3b8' }} />
                 <input
@@ -139,7 +148,7 @@ const RegisterPage = ({ setActiveTab }) => {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Ngày sinh</label>
+              <label className="form-label">NgÃ y sinh</label>
               <div style={{ position: 'relative' }}>
                 <Calendar size={18} style={{ position: 'absolute', left: 12, top: 12, color: '#94a3b8' }} />
                 <input
@@ -155,7 +164,7 @@ const RegisterPage = ({ setActiveTab }) => {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Mật khẩu *</label>
+            <label className="form-label">Máº­t kháº©u *</label>
             <div style={{ position: 'relative' }}>
               <KeyRound size={18} style={{ position: 'absolute', left: 12, top: 12, color: '#94a3b8' }} />
               <input
@@ -163,7 +172,7 @@ const RegisterPage = ({ setActiveTab }) => {
                 name="password"
                 required
                 className="form-input"
-                placeholder="Tối thiểu 6 ký tự"
+                placeholder="Tá»‘i thiá»ƒu 6 kÃ½ tá»±"
                 value={formData.password}
                 onChange={handleChange}
                 style={{ paddingLeft: '2.4rem' }}
@@ -172,7 +181,7 @@ const RegisterPage = ({ setActiveTab }) => {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Xác nhận mật khẩu *</label>
+            <label className="form-label">XÃ¡c nháº­n máº­t kháº©u *</label>
             <div style={{ position: 'relative' }}>
               <KeyRound size={18} style={{ position: 'absolute', left: 12, top: 12, color: '#94a3b8' }} />
               <input
@@ -180,7 +189,7 @@ const RegisterPage = ({ setActiveTab }) => {
                 name="confirmPassword"
                 required
                 className="form-input"
-                placeholder="Nhập lại mật khẩu"
+                placeholder="Nháº­p láº¡i máº­t kháº©u"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 style={{ paddingLeft: '2.4rem' }}
@@ -194,17 +203,17 @@ const RegisterPage = ({ setActiveTab }) => {
             className="btn btn-primary"
             style={{ width: '100%', marginTop: '0.5rem', height: 44 }}
           >
-            {loading ? 'Đang đăng ký...' : 'Hoàn tất Đăng ký'}
+            {loading ? 'Äang Ä‘Äƒng kÃ½...' : 'HoÃ n táº¥t ÄÄƒng kÃ½'}
           </button>
         </form>
 
         <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.875rem', color: '#64748b' }}>
-          Đã có tài khoản?{' '}
+          ÄÃ£ cÃ³ tÃ i khoáº£n?{' '}
           <span
             onClick={() => setActiveTab('login')}
             style={{ color: '#2563eb', fontWeight: 600, cursor: 'pointer' }}
           >
-            Đăng nhập
+            ÄÄƒng nháº­p
           </span>
         </div>
       </div>

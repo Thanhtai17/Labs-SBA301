@@ -1,3 +1,12 @@
+﻿/**
+ * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
+ * Course: SBA301 - Integrate Single Page Application with Spring Boot
+ * 
+ * Author: Tran Doan Thanh Tai (Student ID: CE190084)
+ * Class: SE1910
+ * GitHub: Thanhtai17 (nhantai0317@gmail.com)
+ * Date: October 31, 2026
+ */
 import React, { useState, useEffect } from 'react';
 import { roomApi } from '../api/roomApi';
 import { useAuth } from '../context/AuthContext';
@@ -42,7 +51,7 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
   };
 
   const formatPrice = (price) => {
-    if (!price) return '0 ₫';
+    if (!price) return '0 â‚«';
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
   };
 
@@ -86,13 +95,13 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
             marginBottom: '1rem'
           }}>
             <Sparkles size={14} color="#fef08a" />
-            Trải nghiệm nghỉ dưỡng tuyệt vời tại FU Mini Hotel
+            Tráº£i nghiá»‡m nghá»‰ dÆ°á»¡ng tuyá»‡t vá»i táº¡i FU Mini Hotel
           </div>
           <h1 style={{ fontSize: '2.4rem', fontWeight: 800, lineHeight: 1.2, marginBottom: '1rem' }}>
-            Khám phá phòng nghỉ & Dịch vụ chuẩn mực
+            KhÃ¡m phÃ¡ phÃ²ng nghá»‰ & Dá»‹ch vá»¥ chuáº©n má»±c
           </h1>
           <p style={{ fontSize: '1.05rem', opacity: 0.9, lineHeight: 1.6, marginBottom: '1.5rem' }}>
-            Hệ thống hiển thị phòng thời gian thực, không cần đăng nhập vẫn có thể tra cứu thông tin giá, loại phòng và tiện nghi đầy đủ.
+            Há»‡ thá»‘ng hiá»ƒn thá»‹ phÃ²ng thá»i gian thá»±c, khÃ´ng cáº§n Ä‘Äƒng nháº­p váº«n cÃ³ thá»ƒ tra cá»©u thÃ´ng tin giÃ¡, loáº¡i phÃ²ng vÃ  tiá»‡n nghi Ä‘áº§y Ä‘á»§.
           </p>
         </div>
       </div>
@@ -105,7 +114,7 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
             <input
               type="text"
               className="form-input"
-              placeholder="Tìm theo số phòng, mô tả phòng..."
+              placeholder="TÃ¬m theo sá»‘ phÃ²ng, mÃ´ táº£ phÃ²ng..."
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               style={{ paddingLeft: '2.4rem' }}
@@ -118,7 +127,7 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
             >
-              <option value="">Tất cả loại phòng</option>
+              <option value="">Táº¥t cáº£ loáº¡i phÃ²ng</option>
               {roomTypes.map((type) => (
                 <option key={type.roomTypeId} value={type.roomTypeId}>
                   {type.roomTypeName}
@@ -129,7 +138,7 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
 
           <button type="submit" className="btn btn-primary" style={{ height: 42 }}>
             <Search size={16} />
-            Tìm kiếm
+            TÃ¬m kiáº¿m
           </button>
 
           {(keyword || selectedType) && (
@@ -139,7 +148,7 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
               onClick={() => { setKeyword(''); setSelectedType(''); }}
               style={{ height: 42 }}
             >
-              Đặt lại
+              Äáº·t láº¡i
             </button>
           )}
         </form>
@@ -148,14 +157,14 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
       {/* Rooms Grid */}
       {loading ? (
         <div style={{ textAlign: 'center', padding: '4rem 1rem', color: '#64748b' }}>
-          Đang tải danh sách phòng...
+          Äang táº£i danh sÃ¡ch phÃ²ng...
         </div>
       ) : rooms.length === 0 ? (
         <div className="card" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
           <BedDouble size={48} style={{ color: '#cbd5e1', margin: '0 auto 1rem' }} />
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#334155' }}>Không tìm thấy phòng phù hợp</h3>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#334155' }}>KhÃ´ng tÃ¬m tháº¥y phÃ²ng phÃ¹ há»£p</h3>
           <p style={{ color: '#64748b', marginTop: '0.5rem' }}>
-            Vui lòng thử tìm kiếm với từ khóa hoặc loại phòng khác.
+            Vui lÃ²ng thá»­ tÃ¬m kiáº¿m vá»›i tá»« khÃ³a hoáº·c loáº¡i phÃ²ng khÃ¡c.
           </p>
         </div>
       ) : (
@@ -191,11 +200,11 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
                       {room.roomTypeName || 'Standard'}
                     </span>
                     <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0f172a' }}>
-                      Phòng {room.roomNumber}
+                      PhÃ²ng {room.roomNumber}
                     </h3>
                   </div>
                   <span className="badge badge-success">
-                    <CheckCircle size={12} /> Sẵn sàng
+                    <CheckCircle size={12} /> Sáºµn sÃ ng
                   </span>
                 </div>
 
@@ -206,7 +215,7 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
                   marginBottom: '1rem',
                   minHeight: '2.8rem'
                 }}>
-                  {room.roomDetailDescription || 'Phòng nghỉ tiện nghi đầy đủ máy lạnh, wifi, tivi màn hình phẳng.'}
+                  {room.roomDetailDescription || 'PhÃ²ng nghá»‰ tiá»‡n nghi Ä‘áº§y Ä‘á»§ mÃ¡y láº¡nh, wifi, tivi mÃ n hÃ¬nh pháº³ng.'}
                 </p>
 
                 <div style={{
@@ -220,7 +229,7 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.85rem', color: '#475569' }}>
                     <Users size={16} color="#64748b" />
-                    <span>Sức chứa: <strong>{room.roomMaxCapacity || 2} người</strong></span>
+                    <span>Sá»©c chá»©a: <strong>{room.roomMaxCapacity || 2} ngÆ°á»i</strong></span>
                   </div>
                 </div>
               </div>
@@ -233,7 +242,7 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
                 paddingTop: '1rem'
               }}>
                 <div>
-                  <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', fontWeight: 600 }}>Giá mỗi đêm</div>
+                  <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', fontWeight: 600 }}>GiÃ¡ má»—i Ä‘Ãªm</div>
                   <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#2563eb' }}>
                     {formatPrice(room.roomPricePerDay)}
                   </div>
@@ -243,7 +252,7 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
                   onClick={() => handleBookNow(room)}
                   className="btn btn-primary btn-sm"
                 >
-                  Đặt phòng ngay
+                  Äáº·t phÃ²ng ngay
                 </button>
               </div>
             </div>

@@ -1,3 +1,12 @@
+﻿/**
+ * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
+ * Course: SBA301 - Integrate Single Page Application with Spring Boot
+ * 
+ * Author: Tran Doan Thanh Tai (Student ID: CE190084)
+ * Class: SE1910
+ * GitHub: Thanhtai17 (nhantai0317@gmail.com)
+ * Date: October 31, 2026
+ */
 import React, { useState, useEffect } from 'react';
 import { customerApi } from '../../api/customerApi';
 import { useAuth } from '../../context/AuthContext';
@@ -32,7 +41,7 @@ const CustomerProfilePage = () => {
           password: ''
         });
       } catch (err) {
-        setError(err.response?.data?.message || 'Không thể tải thông tin hồ sơ.');
+        setError(err.response?.data?.message || 'KhÃ´ng thá»ƒ táº£i thÃ´ng tin há»“ sÆ¡.');
       } finally {
         setLoading(false);
       }
@@ -55,27 +64,27 @@ const CustomerProfilePage = () => {
       };
 
       await updateProfileData(payload);
-      setMessage('Cập nhật hồ sơ cá nhân thành công!');
+      setMessage('Cáº­p nháº­t há»“ sÆ¡ cÃ¡ nhÃ¢n thÃ nh cÃ´ng!');
       setNewPassword('');
     } catch (err) {
-      setError(err.response?.data?.message || 'Cập nhật thất bại.');
+      setError(err.response?.data?.message || 'Cáº­p nháº­t tháº¥t báº¡i.');
     } finally {
       setSaving(false);
     }
   };
 
   if (loading) {
-    return <div style={{ textAlign: 'center', padding: '3rem' }}>Đang tải hồ sơ cá nhân...</div>;
+    return <div style={{ textAlign: 'center', padding: '3rem' }}>Äang táº£i há»“ sÆ¡ cÃ¡ nhÃ¢n...</div>;
   }
 
   return (
     <div style={{ maxWidth: 600, margin: '1rem auto' }}>
       <div style={{ marginBottom: '1.5rem' }}>
         <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0f172a' }}>
-          Hồ sơ cá nhân (Manage Profile)
+          Há»“ sÆ¡ cÃ¡ nhÃ¢n (Manage Profile)
         </h1>
         <p style={{ color: '#64748b' }}>
-          Cập nhật thông tin tài khoản và mật khẩu của bạn
+          Cáº­p nháº­t thÃ´ng tin tÃ i khoáº£n vÃ  máº­t kháº©u cá»§a báº¡n
         </p>
       </div>
 
@@ -116,7 +125,7 @@ const CustomerProfilePage = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="form-label">Email tài khoản</label>
+            <label className="form-label">Email tÃ i khoáº£n</label>
             <div style={{ position: 'relative' }}>
               <Mail size={18} style={{ position: 'absolute', left: 12, top: 12, color: '#94a3b8' }} />
               <input
@@ -127,11 +136,11 @@ const CustomerProfilePage = () => {
                 style={{ paddingLeft: '2.4rem', backgroundColor: '#f8fafc', color: '#64748b' }}
               />
             </div>
-            <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Email đăng nhập không thể thay đổi</span>
+            <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Email Ä‘Äƒng nháº­p khÃ´ng thá»ƒ thay Ä‘á»•i</span>
           </div>
 
           <div className="form-group">
-            <label className="form-label">Họ và tên *</label>
+            <label className="form-label">Há» vÃ  tÃªn *</label>
             <div style={{ position: 'relative' }}>
               <User size={18} style={{ position: 'absolute', left: 12, top: 12, color: '#94a3b8' }} />
               <input
@@ -147,7 +156,7 @@ const CustomerProfilePage = () => {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div className="form-group">
-              <label className="form-label">Số điện thoại</label>
+              <label className="form-label">Sá»‘ Ä‘iá»‡n thoáº¡i</label>
               <div style={{ position: 'relative' }}>
                 <Phone size={18} style={{ position: 'absolute', left: 12, top: 12, color: '#94a3b8' }} />
                 <input
@@ -161,7 +170,7 @@ const CustomerProfilePage = () => {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Ngày sinh</label>
+              <label className="form-label">NgÃ y sinh</label>
               <div style={{ position: 'relative' }}>
                 <Calendar size={18} style={{ position: 'absolute', left: 12, top: 12, color: '#94a3b8' }} />
                 <input
@@ -176,13 +185,13 @@ const CustomerProfilePage = () => {
           </div>
 
           <div className="form-group" style={{ marginTop: '1rem', borderTop: '1px solid #f1f5f9', paddingTop: '1.25rem' }}>
-            <label className="form-label">Đổi mật khẩu mới (Bỏ trống nếu không đổi)</label>
+            <label className="form-label">Äá»•i máº­t kháº©u má»›i (Bá» trá»‘ng náº¿u khÃ´ng Ä‘á»•i)</label>
             <div style={{ position: 'relative' }}>
               <KeyRound size={18} style={{ position: 'absolute', left: 12, top: 12, color: '#94a3b8' }} />
               <input
                 type="password"
                 className="form-input"
-                placeholder="Nhập mật khẩu mới nếu muốn thay đổi"
+                placeholder="Nháº­p máº­t kháº©u má»›i náº¿u muá»‘n thay Ä‘á»•i"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 style={{ paddingLeft: '2.4rem' }}
@@ -196,7 +205,7 @@ const CustomerProfilePage = () => {
             className="btn btn-primary"
             style={{ width: '100%', marginTop: '1rem', height: 44 }}
           >
-            {saving ? 'Đang lưu thay đổi...' : 'Lưu thông tin hồ sơ'}
+            {saving ? 'Äang lÆ°u thay Ä‘á»•i...' : 'LÆ°u thÃ´ng tin há»“ sÆ¡'}
           </button>
         </form>
       </div>

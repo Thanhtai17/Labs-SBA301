@@ -1,3 +1,12 @@
+﻿/**
+ * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
+ * Course: SBA301 - Integrate Single Page Application with Spring Boot
+ * 
+ * Author: Tran Doan Thanh Tai (Student ID: CE190084)
+ * Class: SE1910
+ * GitHub: Thanhtai17 (nhantai0317@gmail.com)
+ * Date: October 31, 2026
+ */
 import React, { useState, useEffect } from 'react';
 import { bookingApi } from '../../api/bookingApi';
 import { CalendarCheck, Eye, CheckCircle2, XCircle, Clock, AlertCircle } from 'lucide-react';
@@ -30,14 +39,14 @@ const StaffBookingManagement = () => {
       await bookingApi.updateBookingStatus(id, newStatus);
       setAlertMsg({
         type: 'success',
-        text: `Cập nhật trạng thái đơn #${id} thành công!`
+        text: `Cáº­p nháº­t tráº¡ng thÃ¡i Ä‘Æ¡n #${id} thÃ nh cÃ´ng!`
       });
       fetchBookings();
       if (selectedBooking && selectedBooking.bookingReservationId === id) {
         setSelectedBooking((prev) => ({ ...prev, bookingStatus: newStatus }));
       }
     } catch (err) {
-      alert(err.response?.data?.message || 'Có lỗi xảy ra khi cập nhật trạng thái.');
+      alert(err.response?.data?.message || 'CÃ³ lá»—i xáº£y ra khi cáº­p nháº­t tráº¡ng thÃ¡i.');
     }
   };
 
@@ -48,13 +57,13 @@ const StaffBookingManagement = () => {
   const getStatusBadge = (status) => {
     switch (status) {
       case 1:
-        return <span className="badge badge-success">1 - Đã xác nhận</span>;
+        return <span className="badge badge-success">1 - ÄÃ£ xÃ¡c nháº­n</span>;
       case 2:
-        return <span className="badge badge-primary">2 - Đã hoàn thành</span>;
+        return <span className="badge badge-primary">2 - ÄÃ£ hoÃ n thÃ nh</span>;
       case 0:
-        return <span className="badge badge-danger">0 - Đã hủy</span>;
+        return <span className="badge badge-danger">0 - ÄÃ£ há»§y</span>;
       default:
-        return <span className="badge badge-neutral">Chờ duyệt</span>;
+        return <span className="badge badge-neutral">Chá» duyá»‡t</span>;
     }
   };
 
@@ -62,10 +71,10 @@ const StaffBookingManagement = () => {
     <div>
       <div style={{ marginBottom: '1.5rem' }}>
         <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0f172a' }}>
-          Quản lý đơn đặt phòng (Staff - Booking Management)
+          Quáº£n lÃ½ Ä‘Æ¡n Ä‘áº·t phÃ²ng (Staff - Booking Management)
         </h1>
         <p style={{ color: '#64748b' }}>
-          Quản lý toàn bộ giao dịch đặt phòng, xem chi tiết phòng thuê và cập nhật trạng thái đơn
+          Quáº£n lÃ½ toÃ n bá»™ giao dá»‹ch Ä‘áº·t phÃ²ng, xem chi tiáº¿t phÃ²ng thuÃª vÃ  cáº­p nháº­t tráº¡ng thÃ¡i Ä‘Æ¡n
         </p>
       </div>
 
@@ -85,7 +94,7 @@ const StaffBookingManagement = () => {
             <CheckCircle2 size={18} />
             <span>{alertMsg.text}</span>
           </div>
-          <button onClick={() => setAlertMsg(null)} className="btn btn-secondary btn-sm">Đóng</button>
+          <button onClick={() => setAlertMsg(null)} className="btn btn-secondary btn-sm">ÄÃ³ng</button>
         </div>
       )}
 
@@ -94,24 +103,24 @@ const StaffBookingManagement = () => {
         <table className="data-table">
           <thead>
             <tr>
-              <th>Mã đơn</th>
-              <th>Ngày tạo đơn</th>
-              <th>Khách hàng</th>
-              <th>Email liên hệ</th>
-              <th>Số lượng phòng</th>
-              <th>Tổng tiền</th>
-              <th>Trạng thái</th>
-              <th style={{ textAlign: 'center' }}>Hành động</th>
+              <th>MÃ£ Ä‘Æ¡n</th>
+              <th>NgÃ y táº¡o Ä‘Æ¡n</th>
+              <th>KhÃ¡ch hÃ ng</th>
+              <th>Email liÃªn há»‡</th>
+              <th>Sá»‘ lÆ°á»£ng phÃ²ng</th>
+              <th>Tá»•ng tiá»n</th>
+              <th>Tráº¡ng thÃ¡i</th>
+              <th style={{ textAlign: 'center' }}>HÃ nh Ä‘á»™ng</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan="8" style={{ textAlign: 'center', padding: '2rem' }}>Đang tải danh sách đặt phòng...</td>
+                <td colSpan="8" style={{ textAlign: 'center', padding: '2rem' }}>Äang táº£i danh sÃ¡ch Ä‘áº·t phÃ²ng...</td>
               </tr>
             ) : bookings.length === 0 ? (
               <tr>
-                <td colSpan="8" style={{ textAlign: 'center', padding: '2rem' }}>Chưa có giao dịch đặt phòng nào.</td>
+                <td colSpan="8" style={{ textAlign: 'center', padding: '2rem' }}>ChÆ°a cÃ³ giao dá»‹ch Ä‘áº·t phÃ²ng nÃ o.</td>
               </tr>
             ) : (
               bookings.map((b) => (
@@ -121,7 +130,7 @@ const StaffBookingManagement = () => {
                   <td style={{ fontWeight: 600, color: '#0f172a' }}>{b.customerFullName}</td>
                   <td>{b.customerEmail}</td>
                   <td>
-                    <span className="badge badge-primary">{b.details?.length || 0} phòng</span>
+                    <span className="badge badge-primary">{b.details?.length || 0} phÃ²ng</span>
                   </td>
                   <td style={{ fontWeight: 800, color: '#2563eb' }}>
                     {formatPrice(b.totalPrice)}
@@ -132,18 +141,18 @@ const StaffBookingManagement = () => {
                       <button
                         onClick={() => setSelectedBooking(b)}
                         className="btn btn-secondary btn-sm"
-                        title="Xem chi tiết"
+                        title="Xem chi tiáº¿t"
                       >
-                        <Eye size={14} /> Chi tiết
+                        <Eye size={14} /> Chi tiáº¿t
                       </button>
 
                       {b.bookingStatus !== 2 && (
                         <button
                           onClick={() => handleUpdateStatus(b.bookingReservationId, 2)}
                           className="btn btn-success btn-sm"
-                          title="Đánh dấu hoàn thành"
+                          title="ÄÃ¡nh dáº¥u hoÃ n thÃ nh"
                         >
-                          Hoàn tất
+                          HoÃ n táº¥t
                         </button>
                       )}
 
@@ -151,9 +160,9 @@ const StaffBookingManagement = () => {
                         <button
                           onClick={() => handleUpdateStatus(b.bookingReservationId, 0)}
                           className="btn btn-danger btn-sm"
-                          title="Hủy đơn"
+                          title="Há»§y Ä‘Æ¡n"
                         >
-                          Hủy đơn
+                          Há»§y Ä‘Æ¡n
                         </button>
                       )}
                     </div>
@@ -169,7 +178,7 @@ const StaffBookingManagement = () => {
       <Modal
         isOpen={!!selectedBooking}
         onClose={() => setSelectedBooking(null)}
-        title={`Chi tiết đơn đặt phòng #${selectedBooking?.bookingReservationId}`}
+        title={`Chi tiáº¿t Ä‘Æ¡n Ä‘áº·t phÃ²ng #${selectedBooking?.bookingReservationId}`}
         maxWidth={680}
       >
         {selectedBooking && (
@@ -184,7 +193,7 @@ const StaffBookingManagement = () => {
               borderRadius: 8
             }}>
               <div>
-                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Khách hàng:</span>
+                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>KhÃ¡ch hÃ ng:</span>
                 <div style={{ fontWeight: 700 }}>{selectedBooking.customerFullName}</div>
               </div>
               <div>
@@ -192,17 +201,17 @@ const StaffBookingManagement = () => {
                 <div style={{ fontWeight: 600 }}>{selectedBooking.customerEmail}</div>
               </div>
               <div>
-                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Ngày đặt phòng:</span>
+                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>NgÃ y Ä‘áº·t phÃ²ng:</span>
                 <div style={{ fontWeight: 600 }}>{selectedBooking.bookingDate}</div>
               </div>
               <div>
-                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Trạng thái hiện tại:</span>
+                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Tráº¡ng thÃ¡i hiá»‡n táº¡i:</span>
                 <div>{getStatusBadge(selectedBooking.bookingStatus)}</div>
               </div>
             </div>
 
             <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.75rem' }}>
-              Chi tiết các phòng được thuê trong đơn này:
+              Chi tiáº¿t cÃ¡c phÃ²ng Ä‘Æ°á»£c thuÃª trong Ä‘Æ¡n nÃ y:
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
               {selectedBooking.details?.map((d, index) => (
@@ -216,10 +225,10 @@ const StaffBookingManagement = () => {
                 }}>
                   <div>
                     <div style={{ fontWeight: 700, color: '#0f172a' }}>
-                      Phòng {d.roomNumber} - {d.roomTypeName}
+                      PhÃ²ng {d.roomNumber} - {d.roomTypeName}
                     </div>
                     <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '0.2rem' }}>
-                      Từ ngày: <strong>{d.startDate}</strong> đến <strong>{d.endDate}</strong>
+                      Tá»« ngÃ y: <strong>{d.startDate}</strong> Ä‘áº¿n <strong>{d.endDate}</strong>
                     </div>
                   </div>
                   <div style={{ fontWeight: 700, color: '#2563eb' }}>
@@ -236,7 +245,7 @@ const StaffBookingManagement = () => {
               justifyContent: 'space-between',
               alignItems: 'center'
             }}>
-              <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Tổng cộng thanh toán:</span>
+              <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Tá»•ng cá»™ng thanh toÃ¡n:</span>
               <span style={{ fontWeight: 800, fontSize: '1.35rem', color: '#2563eb' }}>
                 {formatPrice(selectedBooking.totalPrice)}
               </span>

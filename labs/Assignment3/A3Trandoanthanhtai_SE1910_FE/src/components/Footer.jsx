@@ -1,3 +1,12 @@
+﻿/**
+ * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
+ * Course: SBA301 - Integrate Single Page Application with Spring Boot
+ * 
+ * Author: Tran Doan Thanh Tai (Student ID: CE190084)
+ * Class: SE1910
+ * GitHub: Thanhtai17 (nhantai0317@gmail.com)
+ * Date: October 31, 2026
+ */
 import React from 'react';
 
 const Footer = () => {
@@ -27,7 +36,7 @@ const Footer = () => {
         </div>
 
         <div style={{ textAlign: 'right' }}>
-          <div><strong>Sinh viên thực hiện:</strong> Tran Doan Thanh Tai (SE1910)</div>
+          <div><strong>Sinh viÃªn thá»±c hiá»‡n:</strong> Tran Doan Thanh Tai (SE1910)</div>
           <div><strong>Database:</strong> A3Trandoanthanhtai_SE1910 (MS SQL Server)</div>
         </div>
       </div>

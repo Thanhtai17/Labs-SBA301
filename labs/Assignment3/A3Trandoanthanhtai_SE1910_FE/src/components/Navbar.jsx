@@ -1,3 +1,12 @@
+﻿/**
+ * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
+ * Course: SBA301 - Integrate Single Page Application with Spring Boot
+ * 
+ * Author: Tran Doan Thanh Tai (Student ID: CE190084)
+ * Class: SE1910
+ * GitHub: Thanhtai17 (nhantai0317@gmail.com)
+ * Date: October 31, 2026
+ */
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import {
@@ -62,7 +71,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
               FU Mini Hotel
             </div>
             <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 500 }}>
-              FUMiniHotelSystem • SBA301
+              FUMiniHotelSystem â€¢ SBA301
             </div>
           </div>
         </div>
@@ -227,7 +236,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
               <button
                 onClick={logout}
                 className="btn btn-secondary btn-sm"
-                title="Đăng xuất"
+                title="ÄÄƒng xuáº¥t"
                 style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: '#ef4444' }}
               >
                 <LogOut size={15} />

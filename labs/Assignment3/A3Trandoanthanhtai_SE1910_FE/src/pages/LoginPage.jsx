@@ -1,3 +1,12 @@
+﻿/**
+ * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
+ * Course: SBA301 - Integrate Single Page Application with Spring Boot
+ * 
+ * Author: Tran Doan Thanh Tai (Student ID: CE190084)
+ * Class: SE1910
+ * GitHub: Thanhtai17 (nhantai0317@gmail.com)
+ * Date: October 31, 2026
+ */
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { LogIn, KeyRound, Mail, AlertCircle, ShieldCheck, UserCheck } from 'lucide-react';
@@ -21,7 +30,7 @@ const LoginPage = ({ setActiveTab }) => {
         setActiveTab('customer-booking');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.');
+      setError(err.response?.data?.message || 'ÄÄƒng nháº­p tháº¥t báº¡i. Vui lÃ²ng kiá»ƒm tra láº¡i email vÃ  máº­t kháº©u.');
     } finally {
       setLoading(false);
     }
@@ -50,9 +59,9 @@ const LoginPage = ({ setActiveTab }) => {
           }}>
             <LogIn size={24} />
           </div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0f172a' }}>Đăng nhập hệ thống</h2>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0f172a' }}>ÄÄƒng nháº­p há»‡ thá»‘ng</h2>
           <p style={{ color: '#64748b', fontSize: '0.875rem', marginTop: '0.25rem' }}>
-            Hệ thống hỗ trợ tài khoản Staff (properties) và Customer (database)
+            Há»‡ thá»‘ng há»— trá»£ tÃ i khoáº£n Staff (properties) vÃ  Customer (database)
           </p>
         </div>
 
@@ -76,7 +85,7 @@ const LoginPage = ({ setActiveTab }) => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="form-label">Email đăng nhập</label>
+            <label className="form-label">Email Ä‘Äƒng nháº­p</label>
             <div style={{ position: 'relative' }}>
               <Mail size={18} style={{ position: 'absolute', left: 12, top: 12, color: '#94a3b8' }} />
               <input
@@ -92,14 +101,14 @@ const LoginPage = ({ setActiveTab }) => {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Mật khẩu</label>
+            <label className="form-label">Máº­t kháº©u</label>
             <div style={{ position: 'relative' }}>
               <KeyRound size={18} style={{ position: 'absolute', left: 12, top: 12, color: '#94a3b8' }} />
               <input
                 type="password"
                 required
                 className="form-input"
-                placeholder="Nhập mật khẩu"
+                placeholder="Nháº­p máº­t kháº©u"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 style={{ paddingLeft: '2.4rem' }}
@@ -113,24 +122,24 @@ const LoginPage = ({ setActiveTab }) => {
             className="btn btn-primary"
             style={{ width: '100%', marginTop: '0.5rem', height: 44 }}
           >
-            {loading ? 'Đang xác thực...' : 'Đăng nhập ngay'}
+            {loading ? 'Äang xÃ¡c thá»±c...' : 'ÄÄƒng nháº­p ngay'}
           </button>
         </form>
 
         <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.875rem', color: '#64748b' }}>
-          Chưa có tài khoản?{' '}
+          ChÆ°a cÃ³ tÃ i khoáº£n?{' '}
           <span
             onClick={() => setActiveTab('register')}
             style={{ color: '#2563eb', fontWeight: 600, cursor: 'pointer' }}
           >
-            Đăng ký ngay
+            ÄÄƒng kÃ½ ngay
           </span>
         </div>
 
         {/* Demo Fast Logins */}
         <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid #f1f5f9' }}>
           <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: '0.75rem', letterSpacing: '0.05em' }}>
-            Tài khoản mẫu kiểm thử nhanh
+            TÃ i khoáº£n máº«u kiá»ƒm thá»­ nhanh
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <button

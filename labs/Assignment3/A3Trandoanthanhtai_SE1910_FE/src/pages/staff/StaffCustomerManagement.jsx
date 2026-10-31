@@ -1,3 +1,12 @@
+﻿/**
+ * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
+ * Course: SBA301 - Integrate Single Page Application with Spring Boot
+ * 
+ * Author: Tran Doan Thanh Tai (Student ID: CE190084)
+ * Class: SE1910
+ * GitHub: Thanhtai17 (nhantai0317@gmail.com)
+ * Date: October 31, 2026
+ */
 import React, { useState, useEffect } from 'react';
 import { customerApi } from '../../api/customerApi';
 import { Plus, Edit2, UserX, Search, Users, AlertCircle, CheckCircle2 } from 'lucide-react';
@@ -78,15 +87,15 @@ const StaffCustomerManagement = () => {
     try {
       if (editingCustomer) {
         await customerApi.updateCustomer(editingCustomer.customerId, formData);
-        setAlertMsg({ type: 'success', text: `Cập nhật khách hàng [${formData.customerFullName}] thành công!` });
+        setAlertMsg({ type: 'success', text: `Cáº­p nháº­t khÃ¡ch hÃ ng [${formData.customerFullName}] thÃ nh cÃ´ng!` });
       } else {
         await customerApi.createCustomer(formData);
-        setAlertMsg({ type: 'success', text: `Tạo mới khách hàng [${formData.customerFullName}] thành công!` });
+        setAlertMsg({ type: 'success', text: `Táº¡o má»›i khÃ¡ch hÃ ng [${formData.customerFullName}] thÃ nh cÃ´ng!` });
       }
       setIsModalOpen(false);
       fetchCustomers();
     } catch (err) {
-      alert(err.response?.data?.message || 'Có lỗi xảy ra khi lưu khách hàng.');
+      alert(err.response?.data?.message || 'CÃ³ lá»—i xáº£y ra khi lÆ°u khÃ¡ch hÃ ng.');
     }
   };
 
@@ -101,12 +110,12 @@ const StaffCustomerManagement = () => {
       await customerApi.deleteCustomer(customerToDeactivate.customerId);
       setAlertMsg({
         type: 'success',
-        text: `Đã chuyển tài khoản khách hàng [${customerToDeactivate.customerFullName}] sang ngưng hoạt động.`
+        text: `ÄÃ£ chuyá»ƒn tÃ i khoáº£n khÃ¡ch hÃ ng [${customerToDeactivate.customerFullName}] sang ngÆ°ng hoáº¡t Ä‘á»™ng.`
       });
       setCustomerToDeactivate(null);
       fetchCustomers();
     } catch (err) {
-      alert(err.response?.data?.message || 'Lỗi khi ngưng kích hoạt tài khoản.');
+      alert(err.response?.data?.message || 'Lá»—i khi ngÆ°ng kÃ­ch hoáº¡t tÃ i khoáº£n.');
     } finally {
       setActionLoading(false);
     }
@@ -117,15 +126,15 @@ const StaffCustomerManagement = () => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0f172a' }}>
-            Quản lý khách hàng (Staff - Customer Management)
+            Quáº£n lÃ½ khÃ¡ch hÃ ng (Staff - Customer Management)
           </h1>
           <p style={{ color: '#64748b' }}>
-            Xem danh sách khách hàng, cập nhật thông tin và kiểm soát trạng thái tài khoản
+            Xem danh sÃ¡ch khÃ¡ch hÃ ng, cáº­p nháº­t thÃ´ng tin vÃ  kiá»ƒm soÃ¡t tráº¡ng thÃ¡i tÃ i khoáº£n
           </p>
         </div>
 
         <button onClick={openAddModal} className="btn btn-primary">
-          <Plus size={18} /> Thêm khách hàng
+          <Plus size={18} /> ThÃªm khÃ¡ch hÃ ng
         </button>
       </div>
 
@@ -145,7 +154,7 @@ const StaffCustomerManagement = () => {
             <CheckCircle2 size={18} />
             <span>{alertMsg.text}</span>
           </div>
-          <button onClick={() => setAlertMsg(null)} className="btn btn-secondary btn-sm">Đóng</button>
+          <button onClick={() => setAlertMsg(null)} className="btn btn-secondary btn-sm">ÄÃ³ng</button>
         </div>
       )}
 
@@ -157,13 +166,13 @@ const StaffCustomerManagement = () => {
             <input
               type="text"
               className="form-input"
-              placeholder="Tìm theo họ tên, email hoặc số điện thoại..."
+              placeholder="TÃ¬m theo há» tÃªn, email hoáº·c sá»‘ Ä‘iá»‡n thoáº¡i..."
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               style={{ paddingLeft: '2.4rem' }}
             />
           </div>
-          <button type="submit" className="btn btn-primary btn-sm">Tìm kiếm</button>
+          <button type="submit" className="btn btn-primary btn-sm">TÃ¬m kiáº¿m</button>
         </form>
       </div>
 
@@ -173,22 +182,22 @@ const StaffCustomerManagement = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Họ và tên</th>
+              <th>Há» vÃ  tÃªn</th>
               <th>Email</th>
-              <th>Số điện thoại</th>
-              <th>Ngày sinh</th>
-              <th>Trạng thái</th>
-              <th style={{ textAlign: 'center' }}>Hành động</th>
+              <th>Sá»‘ Ä‘iá»‡n thoáº¡i</th>
+              <th>NgÃ y sinh</th>
+              <th>Tráº¡ng thÃ¡i</th>
+              <th style={{ textAlign: 'center' }}>HÃ nh Ä‘á»™ng</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan="7" style={{ textAlign: 'center', padding: '2rem' }}>Đang tải danh sách...</td>
+                <td colSpan="7" style={{ textAlign: 'center', padding: '2rem' }}>Äang táº£i danh sÃ¡ch...</td>
               </tr>
             ) : customers.length === 0 ? (
               <tr>
-                <td colSpan="7" style={{ textAlign: 'center', padding: '2rem' }}>Không tìm thấy khách hàng nào.</td>
+                <td colSpan="7" style={{ textAlign: 'center', padding: '2rem' }}>KhÃ´ng tÃ¬m tháº¥y khÃ¡ch hÃ ng nÃ o.</td>
               </tr>
             ) : (
               customers.map((c) => (
@@ -196,13 +205,13 @@ const StaffCustomerManagement = () => {
                   <td style={{ fontWeight: 700 }}>#{c.customerId}</td>
                   <td style={{ fontWeight: 700, color: '#0f172a' }}>{c.customerFullName}</td>
                   <td>{c.emailAddress}</td>
-                  <td>{c.telephone || '—'}</td>
-                  <td>{c.customerBirthday || '—'}</td>
+                  <td>{c.telephone || 'â€”'}</td>
+                  <td>{c.customerBirthday || 'â€”'}</td>
                   <td>
                     {c.customerStatus === 1 ? (
-                      <span className="badge badge-success">Kích hoạt (1)</span>
+                      <span className="badge badge-success">KÃ­ch hoáº¡t (1)</span>
                     ) : (
-                      <span className="badge badge-danger">Đã khóa (0)</span>
+                      <span className="badge badge-danger">ÄÃ£ khÃ³a (0)</span>
                     )}
                   </td>
                   <td style={{ textAlign: 'center' }}>
@@ -210,17 +219,17 @@ const StaffCustomerManagement = () => {
                       <button
                         onClick={() => openEditModal(c)}
                         className="btn btn-secondary btn-sm"
-                        title="Chỉnh sửa"
+                        title="Chá»‰nh sá»­a"
                       >
-                        <Edit2 size={14} /> Sửa
+                        <Edit2 size={14} /> Sá»­a
                       </button>
                       {c.customerStatus === 1 && (
                         <button
                           onClick={() => confirmDeactivate(c)}
                           className="btn btn-danger btn-sm"
-                          title="Khóa tài khoản"
+                          title="KhÃ³a tÃ i khoáº£n"
                         >
-                          <UserX size={14} /> Khóa
+                          <UserX size={14} /> KhÃ³a
                         </button>
                       )}
                     </div>
@@ -236,11 +245,11 @@ const StaffCustomerManagement = () => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={editingCustomer ? `Chỉnh sửa thông tin [${editingCustomer.customerFullName}]` : 'Thêm khách hàng mới'}
+        title={editingCustomer ? `Chá»‰nh sá»­a thÃ´ng tin [${editingCustomer.customerFullName}]` : 'ThÃªm khÃ¡ch hÃ ng má»›i'}
       >
         <form onSubmit={handleSave}>
           <div className="form-group">
-            <label className="form-label">Họ và tên *</label>
+            <label className="form-label">Há» vÃ  tÃªn *</label>
             <input
               type="text"
               required
@@ -251,7 +260,7 @@ const StaffCustomerManagement = () => {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Email tài khoản *</label>
+            <label className="form-label">Email tÃ i khoáº£n *</label>
             <input
               type="email"
               required
@@ -263,7 +272,7 @@ const StaffCustomerManagement = () => {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div className="form-group">
-              <label className="form-label">Số điện thoại</label>
+              <label className="form-label">Sá»‘ Ä‘iá»‡n thoáº¡i</label>
               <input
                 type="tel"
                 className="form-input"
@@ -273,7 +282,7 @@ const StaffCustomerManagement = () => {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Ngày sinh</label>
+              <label className="form-label">NgÃ y sinh</label>
               <input
                 type="date"
                 className="form-input"
@@ -285,23 +294,23 @@ const StaffCustomerManagement = () => {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div className="form-group">
-              <label className="form-label">Trạng thái tài khoản</label>
+              <label className="form-label">Tráº¡ng thÃ¡i tÃ i khoáº£n</label>
               <select
                 className="form-select"
                 value={formData.customerStatus}
                 onChange={(e) => setFormData({ ...formData, customerStatus: Number(e.target.value) })}
               >
-                <option value={1}>1 - Kích hoạt (Active)</option>
-                <option value={0}>0 - Vô hiệu hóa (Inactive)</option>
+                <option value={1}>1 - KÃ­ch hoáº¡t (Active)</option>
+                <option value={0}>0 - VÃ´ hiá»‡u hÃ³a (Inactive)</option>
               </select>
             </div>
 
             <div className="form-group">
-              <label className="form-label">Mật khẩu</label>
+              <label className="form-label">Máº­t kháº©u</label>
               <input
                 type="text"
                 className="form-input"
-                placeholder="Nhập mật khẩu"
+                placeholder="Nháº­p máº­t kháº©u"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               />
@@ -314,10 +323,10 @@ const StaffCustomerManagement = () => {
               onClick={() => setIsModalOpen(false)}
               className="btn btn-secondary btn-sm"
             >
-              Hủy
+              Há»§y
             </button>
             <button type="submit" className="btn btn-primary btn-sm">
-              {editingCustomer ? 'Lưu thay đổi' : 'Tạo mới'}
+              {editingCustomer ? 'LÆ°u thay Ä‘á»•i' : 'Táº¡o má»›i'}
             </button>
           </div>
         </form>
@@ -328,9 +337,9 @@ const StaffCustomerManagement = () => {
         isOpen={!!customerToDeactivate}
         onClose={() => setCustomerToDeactivate(null)}
         onConfirm={executeDeactivate}
-        title="Xác nhận vô hiệu hóa tài khoản"
-        message={`Bạn có chắc muốn chuyển trạng thái tài khoản của khách hàng [${customerToDeactivate?.customerFullName}] sang ngưng hoạt động (Status = 0)?`}
-        confirmText="Vô hiệu hóa"
+        title="XÃ¡c nháº­n vÃ´ hiá»‡u hÃ³a tÃ i khoáº£n"
+        message={`Báº¡n cÃ³ cháº¯c muá»‘n chuyá»ƒn tráº¡ng thÃ¡i tÃ i khoáº£n cá»§a khÃ¡ch hÃ ng [${customerToDeactivate?.customerFullName}] sang ngÆ°ng hoáº¡t Ä‘á»™ng (Status = 0)?`}
+        confirmText="VÃ´ hiá»‡u hÃ³a"
         isDanger={true}
         loading={actionLoading}
       />

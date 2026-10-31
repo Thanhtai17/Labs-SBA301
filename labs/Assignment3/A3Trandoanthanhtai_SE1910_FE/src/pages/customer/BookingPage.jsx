@@ -1,3 +1,12 @@
+﻿/**
+ * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
+ * Course: SBA301 - Integrate Single Page Application with Spring Boot
+ * 
+ * Author: Tran Doan Thanh Tai (Student ID: CE190084)
+ * Class: SE1910
+ * GitHub: Thanhtai17 (nhantai0317@gmail.com)
+ * Date: October 31, 2026
+ */
 import React, { useState, useEffect } from 'react';
 import { roomApi } from '../../api/roomApi';
 import { bookingApi } from '../../api/bookingApi';
@@ -79,12 +88,12 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
     setSuccess('');
 
     if (selectedRoomIds.length === 0) {
-      setError('Vui lòng chọn ít nhất 1 phòng để đặt!');
+      setError('Vui lÃ²ng chá»n Ã­t nháº¥t 1 phÃ²ng Ä‘á»ƒ Ä‘áº·t!');
       return;
     }
 
     if (new Date(endDate) <= new Date(startDate)) {
-      setError('Ngày trả phòng (End Date) phải sau ngày nhận phòng (Start Date)!');
+      setError('NgÃ y tráº£ phÃ²ng (End Date) pháº£i sau ngÃ y nháº­n phÃ²ng (Start Date)!');
       return;
     }
 
@@ -101,12 +110,12 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
         roomDetails: roomDetails
       });
 
-      setSuccess('Đặt phòng thành công! Đang chuyển đến Lịch sử đặt phòng...');
+      setSuccess('Äáº·t phÃ²ng thÃ nh cÃ´ng! Äang chuyá»ƒn Ä‘áº¿n Lá»‹ch sá»­ Ä‘áº·t phÃ²ng...');
       setTimeout(() => {
         setActiveTab('customer-history');
       }, 1500);
     } catch (err) {
-      setError(err.response?.data?.message || 'Có lỗi xảy ra khi tạo đơn đặt phòng.');
+      setError(err.response?.data?.message || 'CÃ³ lá»—i xáº£y ra khi táº¡o Ä‘Æ¡n Ä‘áº·t phÃ²ng.');
     } finally {
       setSubmitting(false);
     }
@@ -116,10 +125,10 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
     <div>
       <div style={{ marginBottom: '2rem' }}>
         <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0f172a' }}>
-          Đặt phòng trực tuyến (Online Booking)
+          Äáº·t phÃ²ng trá»±c tuyáº¿n (Online Booking)
         </h1>
         <p style={{ color: '#64748b' }}>
-          Chọn một hoặc nhiều phòng, khoảng thời gian lưu trú và xác nhận đặt phòng
+          Chá»n má»™t hoáº·c nhiá»u phÃ²ng, khoáº£ng thá»i gian lÆ°u trÃº vÃ  xÃ¡c nháº­n Ä‘áº·t phÃ²ng
         </p>
       </div>
 
@@ -163,11 +172,11 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
           <div className="card" style={{ marginBottom: '1.5rem' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Calendar size={20} color="#2563eb" />
-              Chọn ngày lưu trú
+              Chá»n ngÃ y lÆ°u trÃº
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div className="form-group" style={{ marginBottom: 0 }}>
-                <label className="form-label">Ngày nhận phòng (Check-in)</label>
+                <label className="form-label">NgÃ y nháº­n phÃ²ng (Check-in)</label>
                 <input
                   type="date"
                   className="form-input"
@@ -178,7 +187,7 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
               </div>
 
               <div className="form-group" style={{ marginBottom: 0 }}>
-                <label className="form-label">Ngày trả phòng (Check-out)</label>
+                <label className="form-label">NgÃ y tráº£ phÃ²ng (Check-out)</label>
                 <input
                   type="date"
                   className="form-input"
@@ -189,16 +198,16 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
               </div>
             </div>
             <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: '#64748b' }}>
-              Tổng thời gian lưu trú: <strong>{nights} đêm</strong>
+              Tá»•ng thá»i gian lÆ°u trÃº: <strong>{nights} Ä‘Ãªm</strong>
             </div>
           </div>
 
           <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem' }}>
-            Chọn phòng ({selectedRoomIds.length} phòng đã chọn)
+            Chá»n phÃ²ng ({selectedRoomIds.length} phÃ²ng Ä‘Ã£ chá»n)
           </h3>
 
           {loading ? (
-            <p>Đang tải danh sách phòng...</p>
+            <p>Äang táº£i danh sÃ¡ch phÃ²ng...</p>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {rooms.map((room) => {
@@ -229,12 +238,12 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
                       <div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                           <span style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0f172a' }}>
-                            Phòng {room.roomNumber}
+                            PhÃ²ng {room.roomNumber}
                           </span>
                           <span className="badge badge-primary">{room.roomTypeName}</span>
                         </div>
                         <p style={{ fontSize: '0.85rem', color: '#64748b', marginTop: '0.25rem' }}>
-                          {room.roomDetailDescription} • Sức chứa: {room.roomMaxCapacity} người
+                          {room.roomDetailDescription} â€¢ Sá»©c chá»©a: {room.roomMaxCapacity} ngÆ°á»i
                         </p>
                       </div>
                     </div>
@@ -243,7 +252,7 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
                       <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#2563eb' }}>
                         {formatPrice(room.roomPricePerDay)}
                       </div>
-                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>/ đêm</div>
+                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>/ Ä‘Ãªm</div>
                     </div>
                   </div>
                 );
@@ -256,28 +265,28 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
         <div className="card" style={{ position: 'sticky', top: '5.5rem' }}>
           <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <ShoppingCart size={20} color="#2563eb" />
-            Chi tiết đơn đặt phòng
+            Chi tiáº¿t Ä‘Æ¡n Ä‘áº·t phÃ²ng
           </h3>
 
           <div style={{ paddingBottom: '1rem', borderBottom: '1px solid #f1f5f9', marginBottom: '1rem' }}>
-            <div style={{ fontSize: '0.85rem', color: '#64748b' }}>Khách hàng</div>
+            <div style={{ fontSize: '0.85rem', color: '#64748b' }}>KhÃ¡ch hÃ ng</div>
             <div style={{ fontWeight: 700, color: '#0f172a' }}>{user?.fullName}</div>
             <div style={{ fontSize: '0.85rem', color: '#64748b' }}>{user?.email}</div>
           </div>
 
           <div style={{ marginBottom: '1rem' }}>
             <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#475569', marginBottom: '0.5rem' }}>
-              Các phòng đã chọn ({selectedRooms.length}):
+              CÃ¡c phÃ²ng Ä‘Ã£ chá»n ({selectedRooms.length}):
             </div>
             {selectedRooms.length === 0 ? (
               <div style={{ fontSize: '0.85rem', color: '#94a3b8', fontStyle: 'italic' }}>
-                Chưa chọn phòng nào. Hãy tích chọn phòng bên trái.
+                ChÆ°a chá»n phÃ²ng nÃ o. HÃ£y tÃ­ch chá»n phÃ²ng bÃªn trÃ¡i.
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 {selectedRooms.map((r) => (
                   <div key={r.roomId} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.875rem' }}>
-                    <span>Phòng {r.roomNumber} ({nights} đêm)</span>
+                    <span>PhÃ²ng {r.roomNumber} ({nights} Ä‘Ãªm)</span>
                     <span style={{ fontWeight: 600 }}>{formatPrice(r.roomPricePerDay * nights)}</span>
                   </div>
                 ))}
@@ -293,7 +302,7 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
             justifyContent: 'space-between',
             alignItems: 'baseline'
           }}>
-            <span style={{ fontWeight: 700, fontSize: '1rem' }}>Tổng cộng:</span>
+            <span style={{ fontWeight: 700, fontSize: '1rem' }}>Tá»•ng cá»™ng:</span>
             <span style={{ fontWeight: 800, fontSize: '1.4rem', color: '#2563eb' }}>
               {formatPrice(totalPrice)}
             </span>
@@ -305,7 +314,7 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
             className="btn btn-primary"
             style={{ width: '100%', height: 46 }}
           >
-            {submitting ? 'Đang xử lý...' : 'Xác nhận Đặt phòng'}
+            {submitting ? 'Äang xá»­ lÃ½...' : 'XÃ¡c nháº­n Äáº·t phÃ²ng'}
           </button>
         </div>
       </div>

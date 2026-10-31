@@ -1,3 +1,12 @@
+﻿/**
+ * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
+ * Course: SBA301 - Integrate Single Page Application with Spring Boot
+ * 
+ * Author: Tran Doan Thanh Tai (Student ID: CE190084)
+ * Class: SE1910
+ * GitHub: Thanhtai17 (nhantai0317@gmail.com)
+ * Date: October 31, 2026
+ */
 import React from 'react';
 import Modal from './Modal';
 import { AlertTriangle } from 'lucide-react';
@@ -6,10 +15,10 @@ const ConfirmDialog = ({
   isOpen,
   onClose,
   onConfirm,
-  title = "Xác nhận hành động",
+  title = "XÃ¡c nháº­n hÃ nh Ä‘á»™ng",
   message,
-  confirmText = "Xác nhận",
-  cancelText = "Hủy bỏ",
+  confirmText = "XÃ¡c nháº­n",
+  cancelText = "Há»§y bá»",
   isDanger = false,
   loading = false,
 }) => {
@@ -52,7 +61,7 @@ const ConfirmDialog = ({
           className={`btn ${isDanger ? 'btn-danger' : 'btn-primary'} btn-sm`}
           disabled={loading}
         >
-          {loading ? 'Đang xử lý...' : confirmText}
+          {loading ? 'Äang xá»­ lÃ½...' : confirmText}
         </button>
       </div>
     </Modal>

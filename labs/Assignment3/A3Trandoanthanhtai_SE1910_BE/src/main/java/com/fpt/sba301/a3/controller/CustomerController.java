@@ -1,3 +1,12 @@
+﻿/**
+ * Project: FUMiniHotelSystem - Assignment 03 (Backend)
+ * Course: SBA301 - Integrate Single Page Application with Spring Boot
+ * 
+ * Author: Tran Doan Thanh Tai (Student ID: CE190084)
+ * Class: SE1910
+ * GitHub: Thanhtai17 (nhantai0317@gmail.com)
+ * Date: October 31, 2026
+ */
 package com.fpt.sba301.a3.controller;
 
 import com.fpt.sba301.a3.dto.CustomerDto;
@@ -87,7 +96,7 @@ public class CustomerController {
     public ResponseEntity<?> deleteCustomer(@PathVariable Integer id) {
         try {
             customerService.deleteCustomer(id);
-            return ResponseEntity.ok(Map.of("message", "Khách hàng đã được chuyển trạng thái ngưng hoạt động (Status = 0)."));
+            return ResponseEntity.ok(Map.of("message", "KhÃ¡ch hÃ ng Ä‘Ã£ Ä‘Æ°á»£c chuyá»ƒn tráº¡ng thÃ¡i ngÆ°ng hoáº¡t Ä‘á»™ng (Status = 0)."));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         }

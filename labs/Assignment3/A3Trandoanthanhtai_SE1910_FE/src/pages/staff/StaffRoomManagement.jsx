@@ -1,3 +1,12 @@
+﻿/**
+ * Project: FUMiniHotelSystem - Assignment 03 (Frontend)
+ * Course: SBA301 - Integrate Single Page Application with Spring Boot
+ * 
+ * Author: Tran Doan Thanh Tai (Student ID: CE190084)
+ * Class: SE1910
+ * GitHub: Thanhtai17 (nhantai0317@gmail.com)
+ * Date: October 31, 2026
+ */
 import React, { useState, useEffect } from 'react';
 import { roomApi } from '../../api/roomApi';
 import { Plus, Edit2, Trash2, Search, BedDouble, AlertCircle, CheckCircle2, Info } from 'lucide-react';
@@ -89,19 +98,19 @@ const StaffRoomManagement = () => {
         await roomApi.updateRoom(editingRoom.roomId, formData);
         setActionAlert({
           type: 'success',
-          message: `Cập nhật thông tin phòng [${formData.roomNumber}] thành công!`
+          message: `Cáº­p nháº­t thÃ´ng tin phÃ²ng [${formData.roomNumber}] thÃ nh cÃ´ng!`
         });
       } else {
         await roomApi.createRoom(formData);
         setActionAlert({
           type: 'success',
-          message: `Thêm mới phòng [${formData.roomNumber}] thành công!`
+          message: `ThÃªm má»›i phÃ²ng [${formData.roomNumber}] thÃ nh cÃ´ng!`
         });
       }
       setIsModalOpen(false);
       fetchData();
     } catch (err) {
-      alert(err.response?.data?.message || 'Có lỗi xảy ra khi lưu phòng.');
+      alert(err.response?.data?.message || 'CÃ³ lá»—i xáº£y ra khi lÆ°u phÃ²ng.');
     }
   };
 
@@ -124,7 +133,7 @@ const StaffRoomManagement = () => {
     } catch (err) {
       setActionAlert({
         type: 'error',
-        message: err.response?.data?.message || 'Lỗi khi thực hiện xóa phòng.'
+        message: err.response?.data?.message || 'Lá»—i khi thá»±c hiá»‡n xÃ³a phÃ²ng.'
       });
     } finally {
       setDeleteLoading(false);
@@ -140,15 +149,15 @@ const StaffRoomManagement = () => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0f172a' }}>
-            Quản lý thông tin Phòng (Staff - Room Management)
+            Quáº£n lÃ½ thÃ´ng tin PhÃ²ng (Staff - Room Management)
           </h1>
           <p style={{ color: '#64748b' }}>
-            Xem danh sách, thêm mới, sửa, và thực hiện nghiệp vụ xóa/chuyển trạng thái phòng theo quy tắc đề bài
+            Xem danh sÃ¡ch, thÃªm má»›i, sá»­a, vÃ  thá»±c hiá»‡n nghiá»‡p vá»¥ xÃ³a/chuyá»ƒn tráº¡ng thÃ¡i phÃ²ng theo quy táº¯c Ä‘á» bÃ i
           </p>
         </div>
 
         <button onClick={openAddModal} className="btn btn-primary">
-          <Plus size={18} /> Thêm phòng mới
+          <Plus size={18} /> ThÃªm phÃ²ng má»›i
         </button>
       </div>
 
@@ -167,7 +176,7 @@ const StaffRoomManagement = () => {
       }}>
         <Info size={20} style={{ flexShrink: 0 }} />
         <div>
-          <strong>Quy tắc nghiệp vụ của đề bài:</strong> Khi bấm xóa phòng, hệ thống kiểm tra nếu phòng <em>chưa từng có giao dịch</em> sẽ xóa vĩnh viễn khỏi CSDL (Hard Delete). Nếu phòng <em>đã có giao dịch trong BookingDetail</em> thì chỉ đổi trạng thái sang ngưng hoạt động (RoomStatus = 0 / Soft Delete).
+          <strong>Quy táº¯c nghiá»‡p vá»¥ cá»§a Ä‘á» bÃ i:</strong> Khi báº¥m xÃ³a phÃ²ng, há»‡ thá»‘ng kiá»ƒm tra náº¿u phÃ²ng <em>chÆ°a tá»«ng cÃ³ giao dá»‹ch</em> sáº½ xÃ³a vÄ©nh viá»…n khá»i CSDL (Hard Delete). Náº¿u phÃ²ng <em>Ä‘Ã£ cÃ³ giao dá»‹ch trong BookingDetail</em> thÃ¬ chá»‰ Ä‘á»•i tráº¡ng thÃ¡i sang ngÆ°ng hoáº¡t Ä‘á»™ng (RoomStatus = 0 / Soft Delete).
         </div>
       </div>
 
@@ -191,7 +200,7 @@ const StaffRoomManagement = () => {
             onClick={() => setActionAlert(null)}
             className="btn btn-secondary btn-sm"
           >
-            Đóng
+            ÄÃ³ng
           </button>
         </div>
       )}
@@ -204,7 +213,7 @@ const StaffRoomManagement = () => {
             <input
               type="text"
               className="form-input"
-              placeholder="Tìm theo số phòng, mô tả..."
+              placeholder="TÃ¬m theo sá»‘ phÃ²ng, mÃ´ táº£..."
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               style={{ paddingLeft: '2.4rem' }}
@@ -217,14 +226,14 @@ const StaffRoomManagement = () => {
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
             >
-              <option value="">Tất cả loại phòng</option>
+              <option value="">Táº¥t cáº£ loáº¡i phÃ²ng</option>
               {roomTypes.map((t) => (
                 <option key={t.roomTypeId} value={t.roomTypeId}>{t.roomTypeName}</option>
               ))}
             </select>
           </div>
 
-          <button type="submit" className="btn btn-primary btn-sm">Tìm kiếm</button>
+          <button type="submit" className="btn btn-primary btn-sm">TÃ¬m kiáº¿m</button>
         </form>
       </div>
 
@@ -234,23 +243,23 @@ const StaffRoomManagement = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Số phòng</th>
-              <th>Loại phòng</th>
-              <th>Sức chứa</th>
-              <th>Giá / ngày</th>
-              <th>Trạng thái</th>
-              <th>Mô tả chi tiết</th>
-              <th style={{ textAlign: 'center' }}>Hành động</th>
+              <th>Sá»‘ phÃ²ng</th>
+              <th>Loáº¡i phÃ²ng</th>
+              <th>Sá»©c chá»©a</th>
+              <th>GiÃ¡ / ngÃ y</th>
+              <th>Tráº¡ng thÃ¡i</th>
+              <th>MÃ´ táº£ chi tiáº¿t</th>
+              <th style={{ textAlign: 'center' }}>HÃ nh Ä‘á»™ng</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan="8" style={{ textAlign: 'center', padding: '2rem' }}>Đang tải danh sách phòng...</td>
+                <td colSpan="8" style={{ textAlign: 'center', padding: '2rem' }}>Äang táº£i danh sÃ¡ch phÃ²ng...</td>
               </tr>
             ) : rooms.length === 0 ? (
               <tr>
-                <td colSpan="8" style={{ textAlign: 'center', padding: '2rem' }}>Không tìm thấy phòng nào.</td>
+                <td colSpan="8" style={{ textAlign: 'center', padding: '2rem' }}>KhÃ´ng tÃ¬m tháº¥y phÃ²ng nÃ o.</td>
               </tr>
             ) : (
               rooms.map((r) => (
@@ -260,35 +269,35 @@ const StaffRoomManagement = () => {
                   <td>
                     <span className="badge badge-primary">{r.roomTypeName}</span>
                   </td>
-                  <td>{r.roomMaxCapacity} người</td>
+                  <td>{r.roomMaxCapacity} ngÆ°á»i</td>
                   <td style={{ fontWeight: 700, color: '#2563eb' }}>
                     {formatPrice(r.roomPricePerDay)}
                   </td>
                   <td>
                     {r.roomStatus === 1 ? (
-                      <span className="badge badge-success">Hoạt động (1)</span>
+                      <span className="badge badge-success">Hoáº¡t Ä‘á»™ng (1)</span>
                     ) : (
-                      <span className="badge badge-danger">Ngưng HĐ (0)</span>
+                      <span className="badge badge-danger">NgÆ°ng HÄ (0)</span>
                     )}
                   </td>
                   <td style={{ maxWidth: 220, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {r.roomDetailDescription || '—'}
+                    {r.roomDetailDescription || 'â€”'}
                   </td>
                   <td style={{ textAlign: 'center' }}>
                     <div style={{ display: 'inline-flex', gap: '0.4rem' }}>
                       <button
                         onClick={() => openEditModal(r)}
                         className="btn btn-secondary btn-sm"
-                        title="Chỉnh sửa"
+                        title="Chá»‰nh sá»­a"
                       >
-                        <Edit2 size={14} /> Sửa
+                        <Edit2 size={14} /> Sá»­a
                       </button>
                       <button
                         onClick={() => confirmDelete(r)}
                         className="btn btn-danger btn-sm"
-                        title="Xóa phòng (Kiểm tra nghiệp vụ)"
+                        title="XÃ³a phÃ²ng (Kiá»ƒm tra nghiá»‡p vá»¥)"
                       >
-                        <Trash2 size={14} /> Xóa
+                        <Trash2 size={14} /> XÃ³a
                       </button>
                     </div>
                   </td>
@@ -303,11 +312,11 @@ const StaffRoomManagement = () => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={editingRoom ? `Chỉnh sửa phòng [${editingRoom.roomNumber}]` : 'Thêm phòng mới'}
+        title={editingRoom ? `Chá»‰nh sá»­a phÃ²ng [${editingRoom.roomNumber}]` : 'ThÃªm phÃ²ng má»›i'}
       >
         <form onSubmit={handleSaveRoom}>
           <div className="form-group">
-            <label className="form-label">Số phòng (Room Number) *</label>
+            <label className="form-label">Sá»‘ phÃ²ng (Room Number) *</label>
             <input
               type="text"
               required
@@ -320,7 +329,7 @@ const StaffRoomManagement = () => {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div className="form-group">
-              <label className="form-label">Loại phòng (Room Type) *</label>
+              <label className="form-label">Loáº¡i phÃ²ng (Room Type) *</label>
               <select
                 className="form-select"
                 value={formData.roomTypeId}
@@ -333,7 +342,7 @@ const StaffRoomManagement = () => {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Sức chứa tối đa (Người)</label>
+              <label className="form-label">Sá»©c chá»©a tá»‘i Ä‘a (NgÆ°á»i)</label>
               <input
                 type="number"
                 min="1"
@@ -347,7 +356,7 @@ const StaffRoomManagement = () => {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div className="form-group">
-              <label className="form-label">Giá thuê mỗi ngày (VNĐ) *</label>
+              <label className="form-label">GiÃ¡ thuÃª má»—i ngÃ y (VNÄ) *</label>
               <input
                 type="number"
                 required
@@ -360,24 +369,24 @@ const StaffRoomManagement = () => {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Trạng thái phòng</label>
+              <label className="form-label">Tráº¡ng thÃ¡i phÃ²ng</label>
               <select
                 className="form-select"
                 value={formData.roomStatus}
                 onChange={(e) => setFormData({ ...formData, roomStatus: Number(e.target.value) })}
               >
-                <option value={1}>1 - Hoạt động (Active)</option>
-                <option value={0}>0 - Ngưng hoạt động (Inactive)</option>
+                <option value={1}>1 - Hoáº¡t Ä‘á»™ng (Active)</option>
+                <option value={0}>0 - NgÆ°ng hoáº¡t Ä‘á»™ng (Inactive)</option>
               </select>
             </div>
           </div>
 
           <div className="form-group">
-            <label className="form-label">Mô tả chi tiết phòng</label>
+            <label className="form-label">MÃ´ táº£ chi tiáº¿t phÃ²ng</label>
             <textarea
               className="form-textarea"
               rows={3}
-              placeholder="Tiện nghi phòng, hướng nhìn, ban công..."
+              placeholder="Tiá»‡n nghi phÃ²ng, hÆ°á»›ng nhÃ¬n, ban cÃ´ng..."
               value={formData.roomDetailDescription}
               onChange={(e) => setFormData({ ...formData, roomDetailDescription: e.target.value })}
             />
@@ -389,10 +398,10 @@ const StaffRoomManagement = () => {
               onClick={() => setIsModalOpen(false)}
               className="btn btn-secondary btn-sm"
             >
-              Hủy
+              Há»§y
             </button>
             <button type="submit" className="btn btn-primary btn-sm">
-              {editingRoom ? 'Lưu thay đổi' : 'Tạo phòng'}
+              {editingRoom ? 'LÆ°u thay Ä‘á»•i' : 'Táº¡o phÃ²ng'}
             </button>
           </div>
         </form>
@@ -403,9 +412,9 @@ const StaffRoomManagement = () => {
         isOpen={!!roomToDelete}
         onClose={() => setRoomToDelete(null)}
         onConfirm={executeDelete}
-        title={`Xác nhận xóa phòng [${roomToDelete?.roomNumber}]`}
-        message={`Bạn có chắc muốn xóa phòng ${roomToDelete?.roomNumber}? Hệ thống sẽ tự động kiểm tra lịch sử đặt phòng: nếu đã có giao dịch thì chuyển trạng thái sang ngưng hoạt động (Soft Delete), nếu chưa từng có giao dịch thì xóa vĩnh viễn (Hard Delete).`}
-        confirmText="Xóa phòng"
+        title={`XÃ¡c nháº­n xÃ³a phÃ²ng [${roomToDelete?.roomNumber}]`}
+        message={`Báº¡n cÃ³ cháº¯c muá»‘n xÃ³a phÃ²ng ${roomToDelete?.roomNumber}? Há»‡ thá»‘ng sáº½ tá»± Ä‘á»™ng kiá»ƒm tra lá»‹ch sá»­ Ä‘áº·t phÃ²ng: náº¿u Ä‘Ã£ cÃ³ giao dá»‹ch thÃ¬ chuyá»ƒn tráº¡ng thÃ¡i sang ngÆ°ng hoáº¡t Ä‘á»™ng (Soft Delete), náº¿u chÆ°a tá»«ng cÃ³ giao dá»‹ch thÃ¬ xÃ³a vÄ©nh viá»…n (Hard Delete).`}
+        confirmText="XÃ³a phÃ²ng"
         isDanger={true}
         loading={deleteLoading}
       />
