@@ -41,6 +41,16 @@ export default function App() {
   const [news, setNews] = useState(() => loadData('news', DEFAULT_NEWS));
   const [users, setUsers] = useState(() => loadData('users', DEFAULT_USERS));
 
+  // 4. Thông báo Toast khi thao tác CRUD thành công
+  const [toastMessage, setToastMessage] = useState('');
+
+  const showToast = (message) => {
+    setToastMessage(message);
+    setTimeout(() => {
+      setToastMessage('');
+    }, 3000);
+  };
+
   // Tự động đồng bộ vào LocalStorage mỗi khi state thay đổi
   useEffect(() => {
     saveData('categories', categories);
@@ -74,48 +84,60 @@ export default function App() {
     saveData('categories', DEFAULT_CATEGORIES);
     saveData('news', DEFAULT_NEWS);
     saveData('users', DEFAULT_USERS);
+    showToast('Đã khôi phục dữ liệu mẫu ban đầu thành công!');
   };
 
   // === CRUD CATEGORY ===
   const handleAddCategory = (newCat) => {
     const nextId = categories.length > 0 ? Math.max(...categories.map((c) => c.id)) + 1 : 1;
     setCategories([{ id: nextId, ...newCat }, ...categories]);
+    showToast(`Thêm chuyên mục "${newCat.name}" thành công!`);
   };
 
   const handleUpdateCategory = (id, updatedData) => {
     setCategories(categories.map((c) => (c.id === id ? { ...c, ...updatedData } : c)));
+    showToast(`Cập nhật chuyên mục "${updatedData.name}" thành công!`);
   };
 
   const handleDeleteCategory = (id) => {
+    const target = categories.find((c) => c.id === id);
     setCategories(categories.filter((c) => c.id !== id));
+    showToast(`Đã xóa chuyên mục "${target ? target.name : '#' + id}" thành công!`);
   };
 
   // === CRUD NEWS ===
   const handleAddNews = (newArticle) => {
     const nextId = news.length > 0 ? Math.max(...news.map((n) => n.id)) + 1 : 1;
     setNews([{ id: nextId, ...newArticle }, ...news]);
+    showToast('Tạo mới bài viết tin tức thành công!');
   };
 
   const handleUpdateNews = (id, updatedData) => {
     setNews(news.map((n) => (n.id === id ? { ...n, ...updatedData } : n)));
+    showToast('Cập nhật bài viết tin tức thành công!');
   };
 
   const handleDeleteNews = (id) => {
     setNews(news.filter((n) => n.id !== id));
+    showToast('Đã xóa bài viết tin tức thành công!');
   };
 
   // === CRUD USER ===
   const handleAddUser = (newUser) => {
     const nextId = users.length > 0 ? Math.max(...users.map((u) => u.id)) + 1 : 1;
     setUsers([{ id: nextId, ...newUser }, ...users]);
+    showToast(`Thêm người dùng "${newUser.username}" thành công!`);
   };
 
   const handleUpdateUser = (id, updatedData) => {
     setUsers(users.map((u) => (u.id === id ? { ...u, ...updatedData } : u)));
+    showToast(`Cập nhật người dùng "${updatedData.username}" thành công!`);
   };
 
   const handleDeleteUser = (id) => {
+    const target = users.find((u) => u.id === id);
     setUsers(users.filter((u) => u.id !== id));
+    showToast(`Đã xóa người dùng "${target ? target.username : '#' + id}" thành công!`);
   };
 
   // Nếu chưa đăng nhập -> Hiển thị trang Đăng nhập
@@ -187,6 +209,14 @@ export default function App() {
 
   return (
     <div className="app-root">
+      {/* Toast thông báo CRUD thành công */}
+      {toastMessage && (
+        <div className="toast-notification">
+          <span className="toast-icon">✓</span>
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
       <Header currentUser={currentUser} onLogout={handleLogout} />
       <div className="app-body">
         <Sidebar
