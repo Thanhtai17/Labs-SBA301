@@ -10,8 +10,8 @@
 ---
 
 ## 📌 TÓM TẮT VẤN ĐÁP & HƯỚNG DẪN TRACE CODE (INTERVIEW QUICK GUIDE)
-
-> *Dành riêng cho sinh viên thuyết trình mở đầu trong 1-2 phút và trace code trực tiếp khi giảng viên hỏi.*
+<!-- 
+> *Dành riêng cho sinh viên thuyết trình mở đầu trong 1-2 phút và trace code trực tiếp khi giảng viên hỏi.* -->
 
 ### 1. Bài toán nghiệp vụ (Problem Statement)
 Hệ thống **FUNewsManagementSystem** phục vụ quản lý nội dung và xuất bản tin bài của trường Đại học FPT với 3 nhóm người dùng:

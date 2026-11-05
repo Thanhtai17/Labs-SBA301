@@ -582,10 +582,16 @@ body {
 }
 
 .tag-checkbox-chip {
-  padding: 5px 10px;
+  font-family: inherit;
+  line-height: normal;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
   border: 1px solid var(--border-color);
   border-radius: 9999px;
   font-size: 0.78rem;
+  color: var(--text-main);
   background-color: white;
   cursor: pointer;
   user-select: none;
@@ -594,6 +600,7 @@ body {
 
 .tag-checkbox-chip:hover {
   background-color: #f1f5f9;
+  border-color: #cbd5e1;
 }
 
 .tag-checkbox-chip.selected {

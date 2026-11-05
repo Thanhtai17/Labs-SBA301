@@ -123,19 +123,25 @@ export default function NewsManagementPage({ currentUser }) {
       newsSource: article.newsSource || '',
       categoryId: article.categoryId,
       newsStatus: article.newsStatus ?? true,
-      tagIds: article.tags ? article.tags.map((t) => t.tagId) : []
+      tagIds: article.tags ? article.tags.map((t) => Number(t.tagId)) : []
     });
     setFormErrors({});
     setIsFormOpen(true);
   };
 
   const toggleTagSelection = (tagId) => {
-    const exists = formData.tagIds.includes(tagId);
-    if (exists) {
-      setFormData({ ...formData, tagIds: formData.tagIds.filter((id) => id !== tagId) });
-    } else {
-      setFormData({ ...formData, tagIds: [...formData.tagIds, tagId] });
-    }
+    const idNum = Number(tagId);
+    setFormData((prev) => {
+      const currentTagIds = (prev.tagIds || []).map((id) => Number(id));
+      const exists = currentTagIds.includes(idNum);
+      const nextTagIds = exists
+        ? currentTagIds.filter((id) => id !== idNum)
+        : [...currentTagIds, idNum];
+      return {
+        ...prev,
+        tagIds: nextTagIds
+      };
+    });
   };
 
   const validateForm = () => {
@@ -458,21 +464,18 @@ export default function NewsManagementPage({ currentUser }) {
             <label className="form-label">Chọn các Thẻ gắn kèm (Tags)</label>
             <div className="tag-checkbox-grid">
               {tags.map((t) => {
-                const isSelected = formData.tagIds.includes(t.tagId);
+                const isSelected = (formData.tagIds || []).some((id) => Number(id) === Number(t.tagId));
                 return (
-                  <label
+                  <button
                     key={t.tagId}
+                    type="button"
                     className={`tag-checkbox-chip ${isSelected ? 'selected' : ''}`}
                     onClick={() => toggleTagSelection(t.tagId)}
+                    title={t.note ? `${t.tagName}: ${t.note}` : t.tagName}
+                    aria-pressed={isSelected}
                   >
-                    <input
-                      type="checkbox"
-                      checked={isSelected}
-                      onChange={() => {}}
-                      style={{ display: 'none' }}
-                    />
                     #{t.tagName}
-                  </label>
+                  </button>
                 );
               })}
             </div>
