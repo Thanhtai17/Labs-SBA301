@@ -30,7 +30,7 @@ const LoginPage = ({ setActiveTab }) => {
         setActiveTab('customer-booking');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.');
+      setError(err.message || err.response?.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.');
     } finally {
       setLoading(false);
     }
@@ -177,4 +177,3 @@ const LoginPage = ({ setActiveTab }) => {
 };
 
 export default LoginPage;
-

@@ -41,7 +41,7 @@ const CustomerProfilePage = () => {
           password: ''
         });
       } catch (err) {
-        setError(err.response?.data?.message || 'Không thể tải thông tin hồ sơ.');
+        setError(err.message || err.response?.data?.message || 'Không thể tải thông tin hồ sơ.');
       } finally {
         setLoading(false);
       }
@@ -67,7 +67,7 @@ const CustomerProfilePage = () => {
       setMessage('Cập nhật hồ sơ cá nhân thành công!');
       setNewPassword('');
     } catch (err) {
-      setError(err.response?.data?.message || 'Cập nhật thất bại.');
+      setError(err.message || err.response?.data?.message || 'Cập nhật thất bại.');
     } finally {
       setSaving(false);
     }

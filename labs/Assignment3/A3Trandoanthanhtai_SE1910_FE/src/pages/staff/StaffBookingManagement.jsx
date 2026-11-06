@@ -46,7 +46,7 @@ const StaffBookingManagement = () => {
         setSelectedBooking((prev) => ({ ...prev, bookingStatus: newStatus }));
       }
     } catch (err) {
-      alert(err.response?.data?.message || 'Có lỗi xảy ra khi cập nhật trạng thái.');
+      alert(err.message || err.response?.data?.message || 'Có lỗi xảy ra khi cập nhật trạng thái.');
     }
   };
 

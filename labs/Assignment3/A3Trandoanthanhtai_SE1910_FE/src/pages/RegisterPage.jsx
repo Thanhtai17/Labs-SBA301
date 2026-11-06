@@ -48,7 +48,7 @@ const RegisterPage = ({ setActiveTab }) => {
       });
       setActiveTab('customer-booking');
     } catch (err) {
-      setError(err.response?.data?.message || 'Đăng ký thất bại. Email có thể đã tồn tại.');
+      setError(err.message || err.response?.data?.message || 'Đăng ký thất bại. Email có thể đã tồn tại.');
     } finally {
       setLoading(false);
     }

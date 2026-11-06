@@ -95,7 +95,7 @@ const StaffCustomerManagement = () => {
       setIsModalOpen(false);
       fetchCustomers();
     } catch (err) {
-      alert(err.response?.data?.message || 'Có lỗi xảy ra khi lưu khách hàng.');
+      alert(err.message || err.response?.data?.message || 'Có lỗi xảy ra khi lưu khách hàng.');
     }
   };
 
@@ -115,7 +115,7 @@ const StaffCustomerManagement = () => {
       setCustomerToDeactivate(null);
       fetchCustomers();
     } catch (err) {
-      alert(err.response?.data?.message || 'Lỗi khi ngưng kích hoạt tài khoản.');
+      alert(err.message || err.response?.data?.message || 'Lỗi khi ngưng kích hoạt tài khoản.');
     } finally {
       setActionLoading(false);
     }

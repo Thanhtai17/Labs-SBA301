@@ -110,7 +110,7 @@ const StaffRoomManagement = () => {
       setIsModalOpen(false);
       fetchData();
     } catch (err) {
-      alert(err.response?.data?.message || 'Có lỗi xảy ra khi lưu phòng.');
+      alert(err.message || err.response?.data?.message || 'Có lỗi xảy ra khi lưu phòng.');
     }
   };
 
@@ -133,7 +133,7 @@ const StaffRoomManagement = () => {
     } catch (err) {
       setActionAlert({
         type: 'error',
-        message: err.response?.data?.message || 'Lỗi khi thực hiện xóa phòng.'
+        message: err.message || err.response?.data?.message || 'Lỗi khi thực hiện xóa phòng.'
       });
     } finally {
       setDeleteLoading(false);
