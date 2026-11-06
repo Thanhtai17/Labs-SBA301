@@ -25,6 +25,7 @@ const StaffBookingManagement = () => {
       setBookings(res.data);
     } catch (err) {
       console.error(err);
+      setAlertMsg({ type: 'error', text: err.message || 'Không thể tải danh sách đặt phòng.' });
     } finally {
       setLoading(false);
     }
@@ -46,7 +47,7 @@ const StaffBookingManagement = () => {
         setSelectedBooking((prev) => ({ ...prev, bookingStatus: newStatus }));
       }
     } catch (err) {
-      alert(err.message || err.response?.data?.message || 'Có lỗi xảy ra khi cập nhật trạng thái.');
+      setAlertMsg({ type: 'error', text: err.message || 'Có lỗi xảy ra khi cập nhật trạng thái.' });
     }
   };
 
@@ -80,9 +81,9 @@ const StaffBookingManagement = () => {
 
       {alertMsg && (
         <div style={{
-          background: '#dcfce7',
-          border: '1px solid #bbf7d0',
-          color: '#15803d',
+          background: alertMsg.type === 'error' ? '#fee2e2' : '#dcfce7',
+          border: `1px solid ${alertMsg.type === 'error' ? '#fecaca' : '#bbf7d0'}`,
+          color: alertMsg.type === 'error' ? '#b91c1c' : '#15803d',
           padding: '0.85rem 1rem',
           borderRadius: 8,
           marginBottom: '1.5rem',
@@ -91,7 +92,7 @@ const StaffBookingManagement = () => {
           alignItems: 'center'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
-            <CheckCircle2 size={18} />
+            {alertMsg.type === 'error' ? <AlertCircle size={18} /> : <CheckCircle2 size={18} />}
             <span>{alertMsg.text}</span>
           </div>
           <button onClick={() => setAlertMsg(null)} className="btn btn-secondary btn-sm">Đóng</button>

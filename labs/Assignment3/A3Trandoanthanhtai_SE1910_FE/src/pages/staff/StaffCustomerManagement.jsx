@@ -42,6 +42,7 @@ const StaffCustomerManagement = () => {
       setCustomers(res.data);
     } catch (err) {
       console.error(err);
+      setAlertMsg({ type: 'error', text: err.message || 'Không thể tải danh sách khách hàng.' });
     } finally {
       setLoading(false);
     }
@@ -95,7 +96,7 @@ const StaffCustomerManagement = () => {
       setIsModalOpen(false);
       fetchCustomers();
     } catch (err) {
-      alert(err.message || err.response?.data?.message || 'Có lỗi xảy ra khi lưu khách hàng.');
+      setAlertMsg({ type: 'error', text: err.message || 'Có lỗi xảy ra khi lưu khách hàng.' });
     }
   };
 
@@ -115,7 +116,7 @@ const StaffCustomerManagement = () => {
       setCustomerToDeactivate(null);
       fetchCustomers();
     } catch (err) {
-      alert(err.message || err.response?.data?.message || 'Lỗi khi ngưng kích hoạt tài khoản.');
+      setAlertMsg({ type: 'error', text: err.message || 'Lỗi khi ngưng kích hoạt tài khoản.' });
     } finally {
       setActionLoading(false);
     }
@@ -140,9 +141,9 @@ const StaffCustomerManagement = () => {
 
       {alertMsg && (
         <div style={{
-          background: '#dcfce7',
-          border: '1px solid #bbf7d0',
-          color: '#15803d',
+          background: alertMsg.type === 'error' ? '#fee2e2' : '#dcfce7',
+          border: `1px solid ${alertMsg.type === 'error' ? '#fecaca' : '#bbf7d0'}`,
+          color: alertMsg.type === 'error' ? '#b91c1c' : '#15803d',
           padding: '0.85rem 1rem',
           borderRadius: 8,
           marginBottom: '1.5rem',
@@ -151,7 +152,7 @@ const StaffCustomerManagement = () => {
           alignItems: 'center'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
-            <CheckCircle2 size={18} />
+            {alertMsg.type === 'error' ? <AlertCircle size={18} /> : <CheckCircle2 size={18} />}
             <span>{alertMsg.text}</span>
           </div>
           <button onClick={() => setAlertMsg(null)} className="btn btn-secondary btn-sm">Đóng</button>

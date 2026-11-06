@@ -48,6 +48,7 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
         }
       } catch (err) {
         console.error(err);
+        setError(err.message || 'Không thể tải danh sách phòng.');
       } finally {
         setLoading(false);
       }
@@ -115,7 +116,7 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
         setActiveTab('customer-history');
       }, 1500);
     } catch (err) {
-      setError(err.message || err.response?.data?.message || 'Có lỗi xảy ra khi tạo đơn đặt phòng.');
+      setError(err.message || 'Có lỗi xảy ra khi tạo đơn đặt phòng.');
     } finally {
       setSubmitting(false);
     }

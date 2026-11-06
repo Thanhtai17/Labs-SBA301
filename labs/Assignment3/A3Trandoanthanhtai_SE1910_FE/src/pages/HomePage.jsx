@@ -10,7 +10,7 @@
 import React, { useState, useEffect } from 'react';
 import { roomApi } from '../api/roomApi';
 import { useAuth } from '../context/AuthContext';
-import { Search, Filter, BedDouble, Users, CheckCircle, Tag, Sparkles } from 'lucide-react';
+import { Search, Filter, BedDouble, Users, CheckCircle, Tag, Sparkles, AlertCircle } from 'lucide-react';
 
 const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
   const { isAuthenticated, isCustomer } = useAuth();
@@ -20,9 +20,11 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
   const [keyword, setKeyword] = useState('');
   const [selectedType, setSelectedType] = useState('');
   const [selectedRoomModal, setSelectedRoomModal] = useState(null);
+  const [error, setError] = useState('');
 
   const fetchRooms = async () => {
     setLoading(true);
+    setError('');
     try {
       const [roomsRes, typesRes] = await Promise.all([
         roomApi.getAllRooms({
@@ -36,6 +38,7 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
       setRoomTypes(typesRes.data);
     } catch (err) {
       console.error("Failed to load rooms:", err);
+      setError(err.message || 'Không thể kết nối đến máy chủ.');
     } finally {
       setLoading(false);
     }
@@ -153,6 +156,24 @@ const HomePage = ({ setActiveTab, setSelectedBookingRoom }) => {
           )}
         </form>
       </div>
+
+      {error && (
+        <div style={{
+          background: '#fee2e2',
+          border: '1px solid #fecaca',
+          color: '#b91c1c',
+          padding: '0.85rem 1rem',
+          borderRadius: 8,
+          marginBottom: '1.5rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          fontWeight: 600
+        }}>
+          <AlertCircle size={18} />
+          <span>{error}</span>
+        </div>
+      )}
 
       {/* Rooms Grid */}
       {loading ? (

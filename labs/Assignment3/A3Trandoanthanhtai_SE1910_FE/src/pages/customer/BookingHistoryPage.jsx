@@ -24,7 +24,7 @@ const BookingHistoryPage = () => {
       const res = await bookingApi.getMyBookingHistory();
       setBookings(res.data);
     } catch (err) {
-      setError(err.message || err.response?.data?.message || 'Không thể tải lịch sử đặt phòng.');
+      setError(err.message || 'Không thể tải lịch sử đặt phòng.');
     } finally {
       setLoading(false);
     }

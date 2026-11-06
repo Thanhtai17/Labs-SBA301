@@ -51,6 +51,10 @@ const StaffRoomManagement = () => {
       setRoomTypes(typesRes.data);
     } catch (err) {
       console.error(err);
+      setActionAlert({
+        type: 'error',
+        message: err.message || 'Không thể tải danh sách phòng.'
+      });
     } finally {
       setLoading(false);
     }
@@ -110,7 +114,10 @@ const StaffRoomManagement = () => {
       setIsModalOpen(false);
       fetchData();
     } catch (err) {
-      alert(err.message || err.response?.data?.message || 'Có lỗi xảy ra khi lưu phòng.');
+      setActionAlert({
+        type: 'error',
+        message: err.message || 'Có lỗi xảy ra khi lưu phòng.'
+      });
     }
   };
 
@@ -133,7 +140,7 @@ const StaffRoomManagement = () => {
     } catch (err) {
       setActionAlert({
         type: 'error',
-        message: err.message || err.response?.data?.message || 'Lỗi khi thực hiện xóa phòng.'
+        message: err.message || 'Lỗi khi thực hiện xóa phòng.'
       });
     } finally {
       setDeleteLoading(false);
