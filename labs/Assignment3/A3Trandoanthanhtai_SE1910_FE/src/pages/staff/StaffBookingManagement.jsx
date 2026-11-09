@@ -298,11 +298,11 @@ const StaffBookingManagement = () => {
                         </>
                       )}
 
-                      {/* Khi ở trạng thái 2 (Đã hoàn thành): Nút Hủy đơn bóng mờ vô hiệu hóa, chỉ có thể xem chi tiết */}
+                      {/* Khi ở trạng thái 2 (Đã hoàn thành): Nút Hủy đơn màu đỏ bóng mờ vô hiệu hóa, chỉ có thể xem chi tiết */}
                       {b.bookingStatus === 2 && (
                         <button
                           disabled
-                          className="btn btn-secondary btn-sm"
+                          className="btn btn-danger btn-sm"
                           style={{
                             padding: '0.28rem 0.55rem',
                             fontSize: '0.78rem',
@@ -310,11 +310,10 @@ const StaffBookingManagement = () => {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '0.25rem',
-                            opacity: 0.45,
+                            opacity: 0.5,
                             cursor: 'not-allowed',
-                            background: '#f1f5f9',
-                            color: '#94a3b8',
-                            border: '1px solid #e2e8f0'
+                            backgroundColor: '#ef4444',
+                            color: '#ffffff'
                           }}
                           title="Đơn đã hoàn tất, không thể hủy đơn"
                         >
@@ -322,11 +321,11 @@ const StaffBookingManagement = () => {
                         </button>
                       )}
 
-                      {/* Khi ở trạng thái 0 (Đã hủy): Nút Hủy đơn hiển thị vô hiệu hóa */}
+                      {/* Khi ở trạng thái 0 (Đã hủy): Nút Hủy đơn màu đỏ bóng mờ vô hiệu hóa */}
                       {b.bookingStatus === 0 && (
                         <button
                           disabled
-                          className="btn btn-secondary btn-sm"
+                          className="btn btn-danger btn-sm"
                           style={{
                             padding: '0.28rem 0.55rem',
                             fontSize: '0.78rem',
@@ -334,15 +333,14 @@ const StaffBookingManagement = () => {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '0.25rem',
-                            opacity: 0.45,
+                            opacity: 0.5,
                             cursor: 'not-allowed',
-                            background: '#fef2f2',
-                            color: '#f87171',
-                            border: '1px solid #fee2e2'
+                            backgroundColor: '#ef4444',
+                            color: '#ffffff'
                           }}
                           title="Đơn này đã bị hủy"
                         >
-                          <XCircle size={13} /> Đã hủy
+                          <XCircle size={13} /> Hủy đơn
                         </button>
                       )}
                     </div>
