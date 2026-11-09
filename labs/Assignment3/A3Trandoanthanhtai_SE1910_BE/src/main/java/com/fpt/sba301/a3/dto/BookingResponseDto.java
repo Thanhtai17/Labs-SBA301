@@ -21,7 +21,7 @@ public class BookingResponseDto {
     private Integer customerId;
     private String customerFullName;
     private String customerEmail;
-    private Byte bookingStatus; // 1 = Confirmed, 2 = Completed, 0 = Cancelled
+    private Byte bookingStatus; // 3 = Pending, 1 = Confirmed, 2 = Completed, 0 = Cancelled
     private List<BookingDetailResponseDto> details;
 
     public BookingResponseDto() {

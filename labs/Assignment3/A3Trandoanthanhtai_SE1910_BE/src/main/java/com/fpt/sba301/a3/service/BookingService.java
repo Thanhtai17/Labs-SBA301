@@ -92,7 +92,10 @@ public class BookingService {
         reservation.setBookingDate(LocalDate.now());
         reservation.setCustomerId(customer.getCustomerId());
         reservation.setCustomer(customer);
-        reservation.setBookingStatus((byte) 1); // 1 = Confirmed / Active
+        // Trạng thái ban đầu: Customer đặt phòng mặc định là 3 (Chờ duyệt / Pending).
+        // Khi Staff duyệt thì mới chuyển sang 1 (Đã xác nhận).
+        byte initialStatus = "STAFF".equalsIgnoreCase(userRole) ? (byte) 1 : (byte) 3;
+        reservation.setBookingStatus(initialStatus);
 
         BigDecimal calculatedTotalPrice = BigDecimal.ZERO;
         List<BookingDetail> details = new ArrayList<>();
@@ -139,6 +142,12 @@ public class BookingService {
     public BookingResponseDto updateBookingStatus(Integer id, Byte newStatus) {
         BookingReservation res = bookingReservationRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Booking reservation not found with id: " + id));
+
+        // Logic nghiệp vụ: Đơn đã hoàn tất (status = 2) thì không đổi trạng thái hủy đơn được nữa
+        if (Byte.valueOf((byte) 2).equals(res.getBookingStatus()) && Byte.valueOf((byte) 0).equals(newStatus)) {
+            throw new IllegalArgumentException("Đơn đặt phòng đã hoàn tất, không thể đổi trạng thái hủy đơn!");
+        }
+
         res.setBookingStatus(newStatus);
         BookingReservation saved = bookingReservationRepository.save(res);
         return toResponseDto(saved);

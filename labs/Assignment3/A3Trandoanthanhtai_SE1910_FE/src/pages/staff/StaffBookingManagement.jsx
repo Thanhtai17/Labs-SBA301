@@ -9,7 +9,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import { bookingApi } from '../../api/bookingApi';
-import { CalendarCheck, Eye, CheckCircle2, XCircle, Clock, AlertCircle } from 'lucide-react';
+import { CalendarCheck, Eye, CheckCircle, CheckCircle2, XCircle, Clock, AlertCircle } from 'lucide-react';
 import Modal from '../../components/Modal';
 
 const StaffBookingManagement = () => {
@@ -38,9 +38,11 @@ const StaffBookingManagement = () => {
   const handleUpdateStatus = async (id, newStatus) => {
     try {
       await bookingApi.updateBookingStatus(id, newStatus);
+      const actionName =
+        newStatus === 1 ? 'Duyệt và xác nhận' : newStatus === 2 ? 'Đánh dấu hoàn thành' : 'Hủy';
       setAlertMsg({
         type: 'success',
-        text: `Cập nhật trạng thái đơn #${id} thành công!`
+        text: `${actionName} đơn đặt phòng #${id} thành công!`
       });
       fetchBookings();
       if (selectedBooking && selectedBooking.bookingReservationId === id) {
@@ -57,14 +59,82 @@ const StaffBookingManagement = () => {
 
   const getStatusBadge = (status) => {
     switch (status) {
+      case 3:
+        return (
+          <span
+            className="badge badge-warning"
+            style={{
+              background: '#fef3c7',
+              color: '#b45309',
+              border: '1px solid #fde68a',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              fontWeight: 700
+            }}
+          >
+            <Clock size={12} /> 3 - Chờ duyệt
+          </span>
+        );
       case 1:
-        return <span className="badge badge-success">1 - Đã xác nhận</span>;
+        return (
+          <span
+            className="badge badge-success"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              fontWeight: 700
+            }}
+          >
+            <CheckCircle2 size={12} /> 1 - Đã xác nhận
+          </span>
+        );
       case 2:
-        return <span className="badge badge-primary">2 - Đã hoàn thành</span>;
+        return (
+          <span
+            className="badge badge-primary"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              fontWeight: 700
+            }}
+          >
+            <CheckCircle size={12} /> 2 - Đã hoàn thành
+          </span>
+        );
       case 0:
-        return <span className="badge badge-danger">0 - Đã hủy</span>;
+        return (
+          <span
+            className="badge badge-danger"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              fontWeight: 700
+            }}
+          >
+            <XCircle size={12} /> 0 - Đã hủy
+          </span>
+        );
       default:
-        return <span className="badge badge-neutral">Chờ duyệt</span>;
+        return (
+          <span
+            className="badge badge-warning"
+            style={{
+              background: '#fef3c7',
+              color: '#b45309',
+              border: '1px solid #fde68a',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              fontWeight: 700
+            }}
+          >
+            <Clock size={12} /> 3 - Chờ duyệt
+          </span>
+        );
     }
   };
 
@@ -111,7 +181,7 @@ const StaffBookingManagement = () => {
               <th>Số lượng phòng</th>
               <th>Tổng tiền</th>
               <th>Trạng thái</th>
-              <th style={{ textAlign: 'center' }}>Hành động</th>
+              <th style={{ textAlign: 'center', minWidth: '220px', whiteSpace: 'nowrap' }}>Hành động</th>
             </tr>
           </thead>
           <tbody>
@@ -137,33 +207,142 @@ const StaffBookingManagement = () => {
                     {formatPrice(b.totalPrice)}
                   </td>
                   <td>{getStatusBadge(b.bookingStatus)}</td>
-                  <td style={{ textAlign: 'center' }}>
-                    <div style={{ display: 'inline-flex', gap: '0.4rem' }}>
+                  <td style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', flexWrap: 'nowrap' }}>
+                      {/* Nút Xem chi tiết: Luôn khả dụng để xem thông tin đơn */}
                       <button
                         onClick={() => setSelectedBooking(b)}
                         className="btn btn-secondary btn-sm"
-                        title="Xem chi tiết"
+                        style={{
+                          padding: '0.28rem 0.55rem',
+                          fontSize: '0.78rem',
+                          whiteSpace: 'nowrap',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.25rem'
+                        }}
+                        title="Xem chi tiết đơn đặt phòng"
                       >
-                        <Eye size={14} /> Chi tiết
+                        <Eye size={13} /> Chi tiết
                       </button>
 
-                      {b.bookingStatus !== 2 && (
+                      {/* Khi ở trạng thái 3 (Chờ duyệt): Nút Duyệt đơn & Nút Hủy đơn */}
+                      {b.bookingStatus === 3 && (
+                        <>
+                          <button
+                            onClick={() => handleUpdateStatus(b.bookingReservationId, 1)}
+                            className="btn btn-success btn-sm"
+                            style={{
+                              padding: '0.28rem 0.55rem',
+                              fontSize: '0.78rem',
+                              whiteSpace: 'nowrap',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '0.25rem'
+                            }}
+                            title="Duyệt và xác nhận đơn đặt phòng"
+                          >
+                            <CheckCircle2 size={13} /> Duyệt đơn
+                          </button>
+                          <button
+                            onClick={() => handleUpdateStatus(b.bookingReservationId, 0)}
+                            className="btn btn-danger btn-sm"
+                            style={{
+                              padding: '0.28rem 0.55rem',
+                              fontSize: '0.78rem',
+                              whiteSpace: 'nowrap',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '0.25rem'
+                            }}
+                            title="Hủy đơn đặt phòng"
+                          >
+                            <XCircle size={13} /> Hủy đơn
+                          </button>
+                        </>
+                      )}
+
+                      {/* Khi ở trạng thái 1 (Đã xác nhận): Nút Hoàn tất & Nút Hủy đơn */}
+                      {b.bookingStatus === 1 && (
+                        <>
+                          <button
+                            onClick={() => handleUpdateStatus(b.bookingReservationId, 2)}
+                            className="btn btn-primary btn-sm"
+                            style={{
+                              padding: '0.28rem 0.55rem',
+                              fontSize: '0.78rem',
+                              whiteSpace: 'nowrap',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '0.25rem'
+                            }}
+                            title="Đánh dấu đã hoàn thành nhận phòng"
+                          >
+                            <CheckCircle size={13} /> Hoàn tất
+                          </button>
+                          <button
+                            onClick={() => handleUpdateStatus(b.bookingReservationId, 0)}
+                            className="btn btn-danger btn-sm"
+                            style={{
+                              padding: '0.28rem 0.55rem',
+                              fontSize: '0.78rem',
+                              whiteSpace: 'nowrap',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '0.25rem'
+                            }}
+                            title="Hủy đơn đặt phòng"
+                          >
+                            <XCircle size={13} /> Hủy đơn
+                          </button>
+                        </>
+                      )}
+
+                      {/* Khi ở trạng thái 2 (Đã hoàn thành): Nút Hủy đơn bóng mờ vô hiệu hóa, chỉ có thể xem chi tiết */}
+                      {b.bookingStatus === 2 && (
                         <button
-                          onClick={() => handleUpdateStatus(b.bookingReservationId, 2)}
-                          className="btn btn-success btn-sm"
-                          title="Đánh dấu hoàn thành"
+                          disabled
+                          className="btn btn-secondary btn-sm"
+                          style={{
+                            padding: '0.28rem 0.55rem',
+                            fontSize: '0.78rem',
+                            whiteSpace: 'nowrap',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.25rem',
+                            opacity: 0.45,
+                            cursor: 'not-allowed',
+                            background: '#f1f5f9',
+                            color: '#94a3b8',
+                            border: '1px solid #e2e8f0'
+                          }}
+                          title="Đơn đã hoàn tất, không thể hủy đơn"
                         >
-                          Hoàn tất
+                          <XCircle size={13} /> Hủy đơn
                         </button>
                       )}
 
-                      {b.bookingStatus !== 0 && (
+                      {/* Khi ở trạng thái 0 (Đã hủy): Nút Hủy đơn hiển thị vô hiệu hóa */}
+                      {b.bookingStatus === 0 && (
                         <button
-                          onClick={() => handleUpdateStatus(b.bookingReservationId, 0)}
-                          className="btn btn-danger btn-sm"
-                          title="Hủy đơn"
+                          disabled
+                          className="btn btn-secondary btn-sm"
+                          style={{
+                            padding: '0.28rem 0.55rem',
+                            fontSize: '0.78rem',
+                            whiteSpace: 'nowrap',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.25rem',
+                            opacity: 0.45,
+                            cursor: 'not-allowed',
+                            background: '#fef2f2',
+                            color: '#f87171',
+                            border: '1px solid #fee2e2'
+                          }}
+                          title="Đơn này đã bị hủy"
                         >
-                          Hủy đơn
+                          <XCircle size={13} /> Đã hủy
                         </button>
                       )}
                     </div>

@@ -111,7 +111,7 @@ const BookingPage = ({ setActiveTab, preSelectedRoom }) => {
         roomDetails: roomDetails
       });
 
-      setSuccess('Đặt phòng thành công! Đang chuyển đến Lịch sử đặt phòng...');
+      setSuccess('Đặt phòng thành công! Đơn đặt phòng của bạn đang ở trạng thái Chờ duyệt. Đang chuyển đến Lịch sử đặt phòng...');
       setTimeout(() => {
         setActiveTab('customer-history');
       }, 1500);

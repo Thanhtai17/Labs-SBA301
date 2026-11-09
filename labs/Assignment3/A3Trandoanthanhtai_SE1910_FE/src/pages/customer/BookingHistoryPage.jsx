@@ -9,7 +9,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import { bookingApi } from '../../api/bookingApi';
-import { History, Calendar, BedDouble, AlertCircle, Eye } from 'lucide-react';
+import { History, Calendar, BedDouble, AlertCircle, Eye, Clock, CheckCircle, CheckCircle2, XCircle } from 'lucide-react';
 import Modal from '../../components/Modal';
 
 const BookingHistoryPage = () => {
@@ -40,14 +40,82 @@ const BookingHistoryPage = () => {
 
   const getStatusBadge = (status) => {
     switch (status) {
+      case 3:
+        return (
+          <span
+            className="badge badge-warning"
+            style={{
+              background: '#fef3c7',
+              color: '#b45309',
+              border: '1px solid #fde68a',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              fontWeight: 700
+            }}
+          >
+            <Clock size={12} /> Chờ duyệt
+          </span>
+        );
       case 1:
-        return <span className="badge badge-success">Đã xác nhận</span>;
+        return (
+          <span
+            className="badge badge-success"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              fontWeight: 700
+            }}
+          >
+            <CheckCircle2 size={12} /> Đã xác nhận
+          </span>
+        );
       case 2:
-        return <span className="badge badge-primary">Đã hoàn thành</span>;
+        return (
+          <span
+            className="badge badge-primary"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              fontWeight: 700
+            }}
+          >
+            <CheckCircle size={12} /> Đã hoàn thành
+          </span>
+        );
       case 0:
-        return <span className="badge badge-danger">Đã hủy</span>;
+        return (
+          <span
+            className="badge badge-danger"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              fontWeight: 700
+            }}
+          >
+            <XCircle size={12} /> Đã hủy
+          </span>
+        );
       default:
-        return <span className="badge badge-neutral">Chờ duyệt</span>;
+        return (
+          <span
+            className="badge badge-warning"
+            style={{
+              background: '#fef3c7',
+              color: '#b45309',
+              border: '1px solid #fde68a',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              fontWeight: 700
+            }}
+          >
+            <Clock size={12} /> Chờ duyệt
+          </span>
+        );
     }
   };
 
